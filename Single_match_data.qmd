@@ -178,13 +178,13 @@ result <- POST(stratz_url,
 game1 <- content(result)
 ```
 
-## Structure of game1
+## Structure of `game1`
 ```{r}
-str(game1$data, max.level = 3, list.len = 10)
+str(game1, max.level = 3, list.len = 10)
 ```
 
 ## Converting to data frame
-#### This sort of works, but the 'players' column is still a nested list.
+##### This sort of works, but the `players` column is still a nested list.
 ```{r}
 df <- bind_rows(lapply(game1, 
                        bind_rows))  
@@ -193,12 +193,31 @@ df %>%
            .after = analysisOutcome)  ## Moved the players column so it is visible here.
 ```
 
+##### And `players` contains more lists.  
+```{r}
+df %>%
+  unnest_wider(players) %>%
+  relocate(stats, playbackData, .after = durationSeconds)
+```
+
 ## Nicer format
-#### As an alternative approach, I manually copied and pasted the output of the query from the website, and saved it as a .json file in notepad++.  Then I used the `fromJSON` function to get the following output.  This is nicer to work with because the 'players' element is in the form of a data frame.  Is there a way I can convert the above data to look similar to this?
+##### As an alternative approach, I manually copied and pasted the output of the query from the website, and saved it as a .json file in notepad++.  Then I used the `fromJSON` function to get the following output.  
+
+##### This is nicer to work with because the `players` element is in the form of a data frame. 
+
+##### However, I want the data pulled from graphql to be in this format.  
+
+##### Is there a way I can convert the lists in `game1` to data frames, so that it looks like this?  
+
 ```{r}
 alt_game1 <- fromJSON("D:/RFiles/Mikesdota2directory/Single_match.json")
 
-alt_game1$data$match
-
+str(alt_game1, max.level = 3)
 ```
 
+##### Notice within `players`: the columns `stats` and `playbackData` are also dataframes.  This is very nice to work with.
+```{r}
+alt_game1_players <- alt_game1$data$match$players
+str(alt_game1_players, max.level = 1)
+
+```
