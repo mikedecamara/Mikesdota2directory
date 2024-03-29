@@ -1,0 +1,204 @@
+---
+title: "Single_match_data"
+format: html
+editor: visual
+---
+
+## Packages Used
+```{r}
+library(tidyverse)
+library(httr)
+library(jsonlite)
+```
+
+## Define Query
+```{r}
+my_query <- 'query myMatchQuery {
+  match(id: 7594658036) {
+    id
+    didRadiantWin
+    durationSeconds
+    analysisOutcome
+    firstBloodTime
+    players {
+      matchId
+      kills
+      playerSlot
+      steamAccountId
+      isRadiant
+      isVictory
+      heroId
+      gameVersionId
+      kills
+      deaths
+      assists
+      leaverStatus
+      numLastHits
+      numDenies
+      goldPerMinute
+      networth
+      experiencePerMinute
+      level
+      gold
+      goldSpent
+      heroDamage
+      towerDamage
+      heroHealing
+      partyId
+      isRandom
+      lane
+      position
+      streakPrediction
+      intentionalFeeding
+      role
+      roleBasic
+      imp
+      award
+      item0Id
+      item1Id
+      item2Id
+      item3Id
+      item4Id
+      item5Id
+      backpack0Id
+      backpack1Id
+      backpack2Id
+      neutral0Id
+      stats {
+        matchId
+        steamAccountId
+        gameVersionId
+        level
+        networthPerMinute
+        experiencePerMinute
+        lastHitsPerMinute
+        deniesPerMinute
+        towerDamageReport {
+          npcId
+          damage
+          damageCreeps
+          damageFromAbility
+        }
+        goldPerMinute
+        impPerMinute
+        itemPurchases {
+          time
+          itemId
+        }
+        wards {
+          time
+          type
+          positionX
+          positionY
+        }
+        runes {
+          time
+          rune
+        }
+      }playbackData {
+        killEvents {
+        	time
+					attacker
+					isFromIllusion
+          target
+          byAbility
+          byItem
+          gold
+          xp
+          positionX
+          positionY
+          assist 
+          isSolo
+          isGank
+          isInvisible
+          isSmoke
+          isTpRecently
+          isRuneEffected
+        }
+        deathEvents {
+          time
+          attacker
+          isFromIllusion
+          target
+          byAbility
+          byItem
+          goldFed
+          xpFed
+          timeDead
+          reliableGold
+          unreliableGold
+          positionX
+          positionY
+          goldLost
+          assist
+          isWardWalkThrough
+          isAttemptTpOut
+          isDieBack
+          isBurst
+          isEngagedOnDeath
+          hasHealAvailable
+          isTracked
+          isFeed
+        }
+        assistEvents {
+          time
+          attacker
+          target
+          gold
+          xp
+          subTime
+          positionX
+          positionY
+        }
+      }
+    } 
+    bottomLaneOutcome
+    midLaneOutcome
+    topLaneOutcome
+    }
+}'
+```
+
+## POST Call
+```{r}
+stratz_url <- "https://api.stratz.com/graphql"
+
+token <- "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTdWJqZWN0IjoiMzBmYmIyNzMtNzQ0MC00ZGUyLTg3OGYtODJiNjY3NDkwYzlkIiwiU3RlYW1JZCI6IjkyOTM2Njc5IiwibmJmIjoxNzEwMjk4MTIyLCJleHAiOjE3NDE4MzQxMjIsImlhdCI6MTcxMDI5ODEyMiwiaXNzIjoiaHR0cHM6Ly9hcGkuc3RyYXR6LmNvbSJ9.MavtjFKjLm4T_KCicntXmxBhDdGUU_bc7zanFZG3xWU"
+
+header <- paste("Bearer", 
+                token, 
+                sep = " ")
+
+result <- POST(stratz_url, 
+               body = list(query = my_query), 
+               encode = "json", 
+               add_headers('Content-Type'='application/json', 
+                           Authorization = header))
+
+game1 <- content(result)
+```
+
+## Structure of game1
+```{r}
+str(game1$data, max.level = 3, list.len = 10)
+```
+
+## Converting to data frame
+#### This sort of works, but the 'players' column is still a nested list.
+```{r}
+df <- bind_rows(lapply(game1, 
+                       bind_rows))  
+df %>%
+  relocate(players,
+           .after = analysisOutcome)  ## Moved the players column so it is visible here.
+```
+
+## Nicer format
+#### As an alternative approach, I manually copied and pasted the output of the query from the website, and saved it as a .json file in notepad++.  Then I used the `fromJSON` function to get the following output.  This is nicer to work with because the 'players' element is in the form of a data frame.  Is there a way I can convert the above data to look similar to this?
+```{r}
+alt_game1 <- fromJSON("D:/RFiles/Mikesdota2directory/Single_match.json")
+
+alt_game1$data$match
+
+```
+
