@@ -342,3 +342,9 @@ game_data_df_10Min %>%
 game_data_df_10Min[["heroId"]] <- Hero_df[ match(game_data_df_10Min[['heroId']], Hero_df[['id']] ) , 'localized_name']
 game_data_df_10Min
 ```
+
+```{r}
+game_data_df_10Min %>%
+  filter(isRadiant == TRUE, position == "POSITION_1" | position == "POSITION_5")
+```
+

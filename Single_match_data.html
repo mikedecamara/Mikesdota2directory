@@ -833,6 +833,24 @@ The following object is masked from 'package:purrr':
 #   goldPerMinute &lt;int&gt;, networth &lt;int&gt;, experiencePerMinute &lt;int&gt;, …</code></pre>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>game_data_df_10Min <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(isRadiant <span class="sc">==</span> <span class="cn">TRUE</span>, position <span class="sc">==</span> <span class="st">"POSITION_1"</span> <span class="sc">|</span> position <span class="sc">==</span> <span class="st">"POSITION_5"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 64
+     matchId heroId     isRadiant position   top_lane_outcome mid_lane_outcome
+       &lt;dbl&gt; &lt;chr&gt;      &lt;lgl&gt;     &lt;chr&gt;      &lt;chr&gt;            &lt;chr&gt;           
+1 7594658036 Morphling  TRUE      POSITION_1 TIE              TIE             
+2 7594658036 Grimstroke TRUE      POSITION_5 TIE              TIE             
+# ℹ 58 more variables: bot_lane_outcome &lt;chr&gt;, netexp_10min &lt;int&gt;,
+#   kills_10_Minutes &lt;dbl&gt;, deaths_10_Minutes &lt;dbl&gt;, assists_10_Minutes &lt;dbl&gt;,
+#   networth_10min &lt;int&gt;, exp_10min &lt;int&gt;, last_hits_10min &lt;int&gt;,
+#   denies_10min &lt;int&gt;, time_lvl_6 &lt;int&gt;, kills &lt;int&gt;, playerSlot &lt;int&gt;,
+#   steamAccountId &lt;int&gt;, isVictory &lt;lgl&gt;, gameVersionId &lt;int&gt;, deaths &lt;int&gt;,
+#   assists &lt;int&gt;, leaverStatus &lt;chr&gt;, numLastHits &lt;int&gt;, numDenies &lt;int&gt;,
+#   goldPerMinute &lt;int&gt;, networth &lt;int&gt;, experiencePerMinute &lt;int&gt;, …</code></pre>
+</div>
+</div>
 </section>
 
 </main>

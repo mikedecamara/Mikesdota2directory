@@ -1,0 +1,629 @@
+---
+title: "Dota 2 Stats 1.5"
+output: html_document
+date: "2023-12-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r packages used}
+library(tidyverse)
+library(readxl)
+```
+
+
+## HEROES
+
+```{r Heroes, echo = TRUE}
+
+Abaddon <- "Abbadon"
+Alchemist <- "Alchemist"
+Ancient_Apparition <- "Ancient_Apparition"
+Anti_Mage <- "Anti_Mage"
+Arc_Wardern <- "Arc_Warden"
+Axe <- "Axe"
+Bane <- "Bane"
+Batrider <- "Batrider"
+Beastmaster <- "Beastmaster"
+Bloodseeker <- "Bloodseeker"
+Bounty_Hunter <- "Bounty_Hunter"
+Brewmaster <- "Brewmaster"
+Bristleback <- "Bristleback"
+Broodmother <- "Broodmother"
+Centaur_Warrunner <- "Centaur_Warruner"
+Chaos_Knight <- "Chaos_Knight"
+Chen <- "Chen"
+Clinkz <- "Clinkz"
+Clockwerk <- "Clockwerk"
+Crystal_Maiden <- "Crystal_Maiden"
+Dark_Seer <- "Dark_Seer"
+Dark_Willow <- "Dark_Willow"
+Dawnbreaker <- "Dawnbreaker"
+Dazzle <- "Dazzle"
+Death_Prophet <- "Death_Prophet"
+Disruptor <- "Disruptor"
+Doom <- "Doom"
+Dragon_Knight <- "Dragon_Knight"
+Drow_Ranger <- "Drow_Ranger"
+Earth_Spirit <- "Earth_Spirit"
+Earthshaker <- "Earthshaker"
+Elder_Titan <- "Elder_Titan"
+Ember_Spirit <- "Ember_Spirit"
+Enchantress <- "Enchantress"
+Enigma <- "Enigma"
+Faceless_Void <- "Faceless_Void"
+Grimstroke <- "Grimstroke"
+Gyrocopter <- "Gyrocopter"
+Hoodwink <- "Hoodwink"
+Huskar <- "Huskar"
+Invoker <- "Invoker"
+IO <- "IO"
+Jakiro <- "Jakiro"
+Juggernaut <- "Juggernaut"
+Keeper_of_the_Light <- "Keeper_of_the_Light"
+Kunkka <- "Kunkka"
+Legion_Commander <- "Legion_Commander"
+Leshrac <- "Leshrac"
+Lich <- "Lich"
+Lifestealer <- "Lifestealer"
+Lina <- "Lina"
+Lion <- "Lion"
+Lone_Druid <- "Lone_Druid"
+Luna <- "Luna"
+Lycan <- "Lycan"
+Magnus <- "Magnus"
+Marci <- "Marci"
+Mars <- "Mars"
+Medusa <- "Medusa"
+Meepo <- "Meepo"
+Mirana <- "Mirana"
+Monkey_King <- "Monkey_King"
+Morphling <- "Morphling"
+Muerta <- "Muerta"
+Naga_Siren <- "Naga_Siren"
+Natures_Prophet <- "Natures_Prophet"
+Necrophos <- "Necrophos"
+Night_Stalker <- "Night_Stalker"
+Nyx_Assassin <- "Nyx_Assassin"
+Ogre_Magi <- "Ogre_Magi"
+Omniknight <- "Omniknight"
+Oracle <- "Oracle"
+Outworld_Destroyer <- "Outworld_Destroyer"
+Pangolier <- "Pangolier"
+Phantom_Assassin <- "Phanton_Assassin"
+Phantom_Lancer <- "Phantom_Lancer"
+Phoenix <- "Phoenix"
+Primal_Beast <- "Primal_Beast"
+Puck <- "Puck"
+Pudge <- "Pudge"
+Pugna <- "Pugna"
+Queen_of_Pain <- "Queen_of_Pain"
+Razor <- "Razor"
+Riki <- "Riki"
+Rubick <- "Rubick"
+Sand_King <- "Sand_King"
+Shadow_Demon <- "Shadow_Demon"
+Shadow_Fiend <- "Shadow_Fiend"
+Shadow_Shaman <- "Shadow_Shaman"
+Silencer <- "Silencer"
+SKywrath_Mage <- "Skywrath_Mage"
+Slardar <- "Slardar"
+Slark <- "Slark"
+Snapfire <- "Snapfire"
+Sniper <- "Sniper"
+Spectre <- "Spectre"
+Spirit_Breaker <- "Spirit_Breaker"
+Storm_Spirit <- "Storm_Spirit"
+Sven <- "Sven"
+Techies <- "Techies"
+Templar_Assassin <- "Templar_Assassin"
+Terrorblade <- "Terrorblade"
+Tidehunter <- "Tidehunter"
+TimbersaW <- "Timbersaw"
+Tinker <- "Tinker"
+Tiny <- "Tiny"
+Treant_Protector <- "Treant_Protector"
+Troll_Warlord <- "Troll_Warlord"
+Tusk <- "Tusk"
+Underlord <- "Underlord"
+Undying <- "Undying"
+Ursa <- "Ursa"
+Vengeful_Spirit <- "Vengeful_Spirit"
+Venomancer <- "Venomancer"
+Viper <- "Viper"
+Visage <- "Visage"
+Void_Spirt <- "Void_Spirit"
+Warlock <- "Warlock"
+Weaver <- "Weaver"
+Windranger <- "Windranger"
+Winter_Wyvern <- "Winter_Wyvern"
+Witch_Doctor <- "Witch_Doctor"
+Wraith_King <- "Wraith_King"
+Zeus <- "Zeus"
+```
+
+
+
+## Games Data Frame
+
+```{r}
+Radiant_Safe_Lane <- c(Phantom_Lancer, Juggernaut, Weaver, Lycan, Phantom_Lancer, Faceless_Void, Phantom_Lancer, Luna, Naga_Siren, Bloodseeker, Phantom_Assassin, Juggernaut, Anti_Mage, Troll_Warlord, Riki, Bloodseeker, Lifestealer, Juggernaut, Slark, Phantom_Assassin, Juggernaut, Abaddon, Drow_Ranger, Drow_Ranger, Sniper, Juggernaut, Brewmaster, Sniper, Faceless_Void, Sven, Ember_Spirit, Terrorblade, Spectre, Sniper, Faceless_Void, Muerta, Juggernaut, Hoodwink, Sven, Outworld_Destroyer, Phantom_Assassin, Sniper, Slark, Natures_Prophet, Monkey_King, Drow_Ranger, Lifestealer, Lifestealer, Faceless_Void, Phantom_Lancer, Viper, Slark, Anti_Mage, Phantom_Assassin, Lifestealer, Drow_Ranger, Clinkz, Anti_Mage, Juggernaut, Sven, Monkey_King, Muerta, Juggernaut, Anti_Mage, Lifestealer, Wraith_King, Juggernaut, Chaos_Knight, Ursa, Wraith_King)
+
+length(Radiant_Safe_Lane)
+```
+
+```{r}
+Radiant_Mid_Lane <- c(Sniper, Sniper, Windranger, Queen_of_Pain, Shadow_Fiend, Sniper, Arc_Wardern, Earthshaker, Disruptor, Zeus, Lina, Mars, Centaur_Warrunner, Pudge, Omniknight, Huskar, Sniper, Puck, Templar_Assassin, Keeper_of_the_Light, Huskar, Invoker, Leshrac, Earthshaker, Hoodwink, Necrophos, Windranger, Shadow_Fiend, Natures_Prophet, Necrophos, Pudge, Bounty_Hunter, Puck, Outworld_Destroyer, Shadow_Fiend, Puck, Bounty_Hunter, Lina, Invoker, Medusa, Windranger, Puck, Viper, Ursa, Windranger, Natures_Prophet, Legion_Commander, Pangolier, Lone_Druid, Natures_Prophet, Bounty_Hunter, Shadow_Fiend, Storm_Spirit, Phoenix, Shadow_Shaman, Legion_Commander, Rubick, Sniper, Sniper, Pudge, Zeus, Void_Spirt, Dark_Willow, Outworld_Destroyer, Void_Spirt, TimbersaW, Viper, Shadow_Fiend, Silencer, Necrophos)
+
+length(Radiant_Mid_Lane)
+```
+
+```{r}
+Radiant_Off_Lane <- c(Chaos_Knight, Legion_Commander, Centaur_Warrunner, Night_Stalker, Legion_Commander, Centaur_Warrunner, Elder_Titan, Axe, Invoker, Abaddon, Lycan, Undying, Axe, Undying, Abaddon, Abaddon, Ogre_Magi, Slardar, Razor, Legion_Commander, Earthshaker, Legion_Commander, Slardar, Dragon_Knight, TimbersaW, Sand_King, Kunkka, Abaddon, Dragon_Knight, Death_Prophet, Tidehunter, Death_Prophet, Death_Prophet, Mars, Nyx_Assassin, TimbersaW, Mars, Pudge, Slardar, Slardar, Dragon_Knight, Brewmaster, Razor, Morphling, Abaddon, Razor, Razor, Beastmaster, Abaddon, Dragon_Knight, Night_Stalker, Spirit_Breaker, Centaur_Warrunner, Legion_Commander, Slardar, Pudge, Tidehunter, Legion_Commander, Slardar, Axe, Dragon_Knight, Axe, Legion_Commander, Brewmaster, Dragon_Knight, Viper, Necrophos, Axe, Kunkka, Bounty_Hunter)
+
+length(Radiant_Off_Lane)
+```
+
+```{r}
+Radiant_Support <- c(Treant_Protector, Silencer, Dazzle, Lion, Magnus, Ogre_Magi, Winter_Wyvern, Crystal_Maiden, Jakiro, Ogre_Magi, Witch_Doctor, Omniknight, Witch_Doctor, Vengeful_Spirit, SKywrath_Mage, Jakiro, Shadow_Shaman, Abaddon, Witch_Doctor, Silencer, Witch_Doctor, Pudge, Mirana, Venomancer, Jakiro, Jakiro, Bounty_Hunter,Witch_Doctor, Dazzle, Ancient_Apparition, Enigma, Ogre_Magi, Dazzle, Earthshaker, Witch_Doctor, Jakiro, Rubick, Natures_Prophet, Natures_Prophet, Jakiro, Ancient_Apparition, Sand_King, Spirit_Breaker, Dragon_Knight, Lion, Shadow_Shaman, Spirit_Breaker, Ancient_Apparition, Ogre_Magi, Jakiro, Earthshaker, Witch_Doctor, SKywrath_Mage, Shadow_Shaman, Venomancer,Pugna, Natures_Prophet, Tusk, Tusk, Dark_Willow, Grimstroke, Witch_Doctor, Vengeful_Spirit, Ogre_Magi, Rubick, Abaddon, Snapfire, Oracle, Dazzle, Ancient_Apparition)
+
+length(Radiant_Support)
+```
+
+```{r}
+Radiant_Hard_Support <- c(Disruptor, SKywrath_Mage, Witch_Doctor, Jakiro, Witch_Doctor, Windranger, Ancient_Apparition, SKywrath_Mage, Winter_Wyvern, Jakiro, Ancient_Apparition, Ogre_Magi, Disruptor, Witch_Doctor, Witch_Doctor, Lich, Witch_Doctor, Ancient_Apparition, Shadow_Demon, Spirit_Breaker, Dawnbreaker, Lich, Ancient_Apparition, Ancient_Apparition, Warlock, Lion, Ancient_Apparition, Ancient_Apparition, Pudge, Sand_King, Dazzle, Dazzle, Pudge, Rubick, Earth_Spirit, Shadow_Shaman, Lion, Treant_Protector, Pudge, Pudge, Jakiro, Jakiro, Pugna, Warlock, Jakiro, Dazzle, Crystal_Maiden, Jakiro, Shadow_Shaman, Keeper_of_the_Light, Shadow_Shaman, Disruptor, Natures_Prophet, Lion, Jakiro, Crystal_Maiden, Vengeful_Spirit, Witch_Doctor, Venomancer, Jakiro, Ogre_Magi, Vengeful_Spirit, Ancient_Apparition, Lion, Silencer, Jakiro, Ancient_Apparition, Venomancer, Shadow_Shaman, Shadow_Shaman)
+
+length(Radiant_Hard_Support)
+```
+
+
+
+
+
+
+```{r}
+
+Dire_Safe_Lane <- c(Faceless_Void, Natures_Prophet, Faceless_Void, Chaos_Knight, Juggernaut, Juggernaut, Ursa, Juggernaut, Phantom_Lancer, Faceless_Void, Riki, Faceless_Void, Sniper, Weaver, Lifestealer, Faceless_Void, Spectre, Weaver, Drow_Ranger, Monkey_King, Luna, Monkey_King, Juggernaut, Phantom_Assassin, Phantom_Lancer, Drow_Ranger, Ogre_Magi, Slardar, Phantom_Assassin, Zeus, Luna, Spectre, Slark, Phantom_Assassin, Spectre, Ursa, Faceless_Void, Lifestealer, Ursa, Weaver, Medusa, Riki, Spectre, Juggernaut, Anti_Mage, Juggernaut, Faceless_Void, Wraith_King, Wraith_King, Phantom_Assassin, Medusa, Anti_Mage, Clinkz, Sniper, Troll_Warlord, Phantom_Assassin, Anti_Mage, Spectre, Wraith_King, Weaver, Ursa, Sniper, Morphling, Phantom_Lancer, Troll_Warlord, Muerta, Anti_Mage, Drow_Ranger, Mirana, Sniper)
+
+length(Dire_Safe_Lane)
+```
+
+```{r}
+
+Dire_Mid_Lane <- c(Shadow_Fiend, Spirit_Breaker, Luna, Invoker, Lone_Druid, Vengeful_Spirit, Warlock, Necrophos, Outworld_Destroyer, Weaver, Dazzle, Drow_Ranger, Necrophos, Silencer, Sniper, Necrophos, Puck, Keeper_of_the_Light, Zeus, Dawnbreaker, Viper, Drow_Ranger, Invoker, Necrophos, Weaver, Naga_Siren, Outworld_Destroyer, Bristleback, Clinkz, Viper, Legion_Commander, Lion, Windranger, Puck, Spirit_Breaker, Windranger, Puck, Puck, Sniper, Chaos_Knight, Ogre_Magi, Arc_Wardern, Void_Spirt, Primal_Beast, Sniper, Death_Prophet, Necrophos, Shadow_Fiend, Outworld_Destroyer, Invoker, Silencer, Doom, Dragon_Knight, Muerta, Lina, Bounty_Hunter, Sniper, Lina, Arc_Wardern, Elder_Titan, Queen_of_Pain, Pugna, Lion, Sniper, Sniper, Riki, Silencer, Spectre, Storm_Spirit, Pudge)
+
+length(Dire_Mid_Lane)
+```
+
+```{r}
+
+Dire_Off_Lane <- c(Slardar, Dragon_Knight, Earthshaker, Dragon_Knight, Abaddon, Dragon_Knight, Tidehunter, Ogre_Magi, Chaos_Knight, Ursa, Beastmaster, Pudge, Slardar, Sand_King, Wraith_King, Tusk, Legion_Commander, Magnus, TimbersaW, Abaddon, Centaur_Warrunner, Undying, Axe, Mars, Slardar, Slardar, Queen_of_Pain, Pudge, Sand_King, Pudge, Bristleback, Underlord, Magnus, Death_Prophet, Death_Prophet, Doom, TimbersaW, Treant_Protector, Treant_Protector, Windranger, Pudge, Legion_Commander, Tusk, Centaur_Warrunner, Dragon_Knight, Underlord, Tidehunter, Primal_Beast, Slardar, Tusk, Bristleback, Gyrocopter, Night_Stalker, Axe, Wraith_King, Kunkka, Underlord, Clockwerk, Centaur_Warrunner, Wraith_King, Sand_King, Primal_Beast, Razor, Abaddon, Pudge, Spirit_Breaker, Doom, Abaddon, Zeus, Kunkka)
+
+length(Dire_Off_Lane)
+```
+
+```{r}
+Dire_Support <- c(Spirit_Breaker, Ancient_Apparition, Invoker, Earthshaker, Shadow_Shaman, Invoker, Omniknight, Grimstroke, Dark_Willow, Pudge, Treant_Protector, Silencer, Silencer, Jakiro, Shadow_Shaman, Spirit_Breaker, Treant_Protector, Gyrocopter, Vengeful_Spirit, Lich, Dazzle, Venomancer, Hoodwink, Shadow_Shaman, Earthshaker, Tusk, Witch_Doctor, Grimstroke, Earthshaker, Lich, Lion, Zeus, Witch_Doctor, Ogre_Magi, Ogre_Magi, Lion, Ancient_Apparition, Lich, Enigma, Lion, Undying, Treant_Protector, Jakiro, Ancient_Apparition, Witch_Doctor, Jakiro, Jakiro, Pudge, Crystal_Maiden, Ogre_Magi, Techies, Natures_Prophet, Ancient_Apparition, Ancient_Apparition, Crystal_Maiden, Mirana, Witch_Doctor, Ancient_Apparition, Lich, Nyx_Assassin, Spirit_Breaker, Ancient_Apparition, Bounty_Hunter, Ancient_Apparition, Shadow_Shaman, Grimstroke, Undying, Ancient_Apparition, Ogre_Magi, Lion)
+
+length(Dire_Support)
+```
+
+```{r}
+Dire_Hard_Support <- c(Jakiro, Zeus, Ancient_Apparition, Lich, Disruptor, Jakiro, Jakiro, Ancient_Apparition, Ogre_Magi, Crystal_Maiden, Jakiro, Hoodwink, Ancient_Apparition, Treant_Protector, Dazzle, Witch_Doctor, Ancient_Apparition, Tusk, Ancient_Apparition, Grimstroke, Warlock, Ancient_Apparition, Shadow_Shaman, Disruptor, Grimstroke, Witch_Doctor, Lion, Silencer, Ancient_Apparition, Spirit_Breaker, Ancient_Apparition, Pugna, Lich, Magnus, Lion, Phantom_Assassin, Warlock, Ancient_Apparition, Ancient_Apparition, Shadow_Shaman, Earthshaker, Shadow_Shaman, Witch_Doctor, Witch_Doctor, Shadow_Shaman, Grimstroke, Venomancer, Shadow_Shaman, Hoodwink, Crystal_Maiden, Ancient_Apparition, Ancient_Apparition, Techies, SKywrath_Mage, Pugna, Ancient_Apparition, Pudge, Phoenix, Shadow_Demon, Ancient_Apparition, Lion, Dazzle, Phoenix, Crystal_Maiden, Bristleback, Crystal_Maiden, Warlock, Spirit_Breaker, Ancient_Apparition, Dazzle)
+
+length(Dire_Hard_Support)
+```
+
+```{r}
+
+Game_Time <- hms(c("00:29:05", "00:52:12", "00:46:27", "00:44:11", "00:45:01", "00:43:51", "00:49:17", "00:45:52", "00:28:08", "00:43:30", "00:39:42", "00:54:48", "00:53:08", "00:34:28", "00:25:05", "00:34:06", "01:15:50", "00:43:15", "00:57:24", "00:33:05", "00:56:03", "00:48:00", "00:53:24", "01:04:46", "00:42:53", "00:43:08", "00:38:13", "00:38:19", "00:47:52", "00:59:20", "00:40:47", "00:39:01", "00:52:32", "00:37:10", "00:45:37", "00:35:16", "00:47:44", "00:46:30", "00:59:24", "00:44:51", "00:42:48", "00:42:08", "00:23:12", "00:34:19", "00:32:24", "00:31:36", "00:32:52", "00:28:48", "00:42:46", "00:43:13", "00:52:32", "00:33:50", "01:03:20", "00:53:00", "00:43:16", "00:34:40", "00:45:06", "00:41:38", "00:35:43", "00:30:08", "01:03:02", "00:47:55", "00:40:37", "00:40:38", "00:31:52", "00:26:07", "00:31:26", "00:43:27", "00:58:16", "00:52:57"))
+
+
+Radiant_Win_TF <- c(FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE)
+
+
+
+Match_ID <- c(7520462907, 7520488996, 7522003567, 7522030423, 7522055031, 7523745337, 7523790773, 7523842305, 7523879924, 7523952083, 7524883502, 7524965364, 7525034182, 7525116921, 7525184949, 7528824929, 7528850710, 7528911024, 7530202683, 7530255597, 7530293064, 7530317966, 7531696715, 7531772220, 7531809136, 7533224731)
+
+
+Dota_2_Stats_ALT <- data.frame(Radiant_Safe_Lane, Radiant_Mid_Lane, Radiant_Off_Lane, Radiant_Support, Radiant_Hard_Support, Dire_Safe_Lane, Dire_Mid_Lane, Dire_Off_Lane, Dire_Support, Dire_Hard_Support, Radiant_Win_TF) 
+
+
+glimpse(Dota_2_Stats_ALT)
+```
+
+
+
+## Unlisted Hero Counts
+
+
+```{r Unlisted Hero Counts, echo = TRUE}
+Unlisted_Dota_2_Data <- table(unlist(Dota_2_Stats_ALT))
+
+
+Sorted_Unlisted_Table <- Unlisted_Dota_2_Data[order(Unlisted_Dota_2_Data, decreasing = TRUE)]
+
+
+print(Sorted_Unlisted_Table)
+
+```
+
+
+##
+```{r}
+
+
+
+```
+
+## Safe Lane Carry Winners Combined and Counted
+
+
+```{r}
+Radiant_Safe_Lane_Winners <- Dota_2_Stats_ALT %>%
+  filter(Radiant_Win_TF == TRUE) %>%
+  select(Radiant_Safe_Lane)
+
+
+Renamed_Radiant_Safe_Lane_Winners <- rename(Radiant_Safe_Lane_Winners, Safe_Lane = "Radiant_Safe_Lane")
+
+
+Dire_Safe_Lane_Winners <- Dota_2_Stats_ALT %>%
+  filter(Radiant_Win_TF == FALSE) %>%
+  select(Dire_Safe_Lane)
+
+
+Renamed_Dire_Safe_Lane_Winners <- rename(Dire_Safe_Lane_Winners, Safe_Lane = "Dire_Safe_Lane")
+
+
+Safe_Lane_Winners_Combined <- rbind(Renamed_Radiant_Safe_Lane_Winners, Renamed_Dire_Safe_Lane_Winners)
+
+
+Safe_Lane_Winners_Combined_Counted <- Safe_Lane_Winners_Combined %>%
+  count(Safe_Lane, name = "Wins", sort = TRUE)
+
+
+Safe_Lane_Winners_Combined_Counted
+```
+
+
+## Safe Lane Carry Totals Combined and Counted
+
+
+```{r}
+Radiant_Safe_Lane_Hero_Totals <-Dota_2_Stats_ALT %>%
+  select(Radiant_Safe_Lane) 
+
+
+Renamed_Radiant_Safe_Lane_Hero_Totals <- Radiant_Safe_Lane_Hero_Totals %>%
+  rename(Safe_Lane = "Radiant_Safe_Lane")
+
+
+Dire_Safe_Lane_Hero_Totals <- Dota_2_Stats_ALT %>%
+  select(Dire_Safe_Lane) 
+  
+
+Renamed_Dire_Safe_Lane_Hero_Totals <- Dire_Safe_Lane_Hero_Totals %>%
+  rename(Safe_Lane = "Dire_Safe_Lane")
+
+
+Safe_Lane_Carry_Totals_Combined <- rbind(Renamed_Radiant_Safe_Lane_Hero_Totals, Renamed_Dire_Safe_Lane_Hero_Totals)
+
+
+Safe_Lane_Carry_Totals_Combined_Counted <- Safe_Lane_Carry_Totals_Combined %>%
+  count(Safe_Lane, name = "Total_Games", sort = TRUE)
+
+
+Safe_Lane_Carry_Totals_Combined_Counted
+
+```
+
+
+## Safe Lane Carry Percent Win
+
+
+```{r}
+Safe_Lane_Carry_Wins_And_Totals <- merge(x = Safe_Lane_Winners_Combined_Counted, y = Safe_Lane_Carry_Totals_Combined_Counted, by = "Safe_Lane", all.y = TRUE)
+
+
+Safe_Lane_Carry_Win_Percentages <- Safe_Lane_Carry_Wins_And_Totals %>%
+  mutate(Win_Percentage = Wins / Total_Games)
+
+
+Safe_Lane_Carry_Win_Percentages_Arranged <- arrange(Safe_Lane_Carry_Win_Percentages,desc(Win_Percentage), desc(Total_Games))
+
+
+Safe_Lane_Carry_Win_Percentages_Arranged
+
+Safe_Lane_Carry_Win_Percentages_Ranked <- Safe_Lane_Carry_Win_Percentages %>%
+  mutate(Ranking = Wins + 5 * Win_Percentage / Total_Games + 5) %>%
+  arrange(desc(Ranking))
+
+Safe_Lane_Carry_Win_Percentages_Ranked
+
+Safe_Lane_Carry_Win_Percentages_Ranked_2 <- Safe_Lane_Carry_Win_Percentages %>%
+  mutate(Ranking_2 = Wins * Wins / Total_Games) %>%
+  arrange(desc(Ranking_2))
+Safe_Lane_Carry_Win_Percentages_Ranked_2
+```
+
+
+## Radiant Safe Lane Combos
+
+
+```{r}
+
+Radiant_Safe_Lane_Winning_Combos <-  Dota_2_Stats_ALT %>%
+  filter(Radiant_Win_TF == TRUE) %>%
+  select(Radiant_Safe_Lane, Radiant_Hard_Support)
+
+Radiant_Safe_Lane_Winning_Combos
+
+  
+
+
+
+
+Renamed_Radiant_Safe_Lane_Combos <- Radiant_Safe_Lane_Winning_Combos %>%
+  rename(
+    Hard_Support = Radiant_Hard_Support, Safe_Lane = Radiant_Safe_Lane
+  )
+print(Renamed_Radiant_Safe_Lane_Combos)
+Radiant_Bot_Combos <-Dota_2_Stats_ALT %>%
+  select(Radiant_Safe_Lane, Radiant_Hard_Support)
+Radiant_Bot_Combos
+Renamed_Radiant_Bot_Combos <- rename(Radiant_Bot_Combos, Safe_Lane = Radiant_Safe_Lane, Hard_Support = Radiant_Hard_Support)
+Renamed_Radiant_Bot_Combos
+```
+
+## Dire
+
+
+```{r}
+Dire_Safe_Lane_Winning_Combos <-  Dota_2_Stats_ALT %>%
+  filter(Radiant_Win_TF == FALSE) %>%
+  select(Dire_Safe_Lane, Dire_Hard_Support)
+
+
+Renamed_Dire_Safe_Lane_Combos <- Dire_Safe_Lane_Winning_Combos %>%
+  rename(
+    Safe_Lane = Dire_Safe_Lane, Hard_Support = Dire_Hard_Support
+  )
+
+
+Dire_Top_Combos <-Dota_2_Stats_ALT %>%
+  select(Dire_Safe_Lane, Dire_Hard_Support)
+Dire_Top_Combos
+
+
+Renamed_Dire_Top_Combos <- rename(Dire_Top_Combos, Safe_Lane = Dire_Safe_Lane, Hard_Support = Dire_Hard_Support)
+
+
+Renamed_Dire_Top_Combos
+```
+
+
+## Safe Lane Combos Combined
+
+
+```{r}
+Safe_Lane_Combos_Combined <- rbind(Renamed_Radiant_Bot_Combos, Renamed_Dire_Top_Combos)
+
+
+Safe_Lane_Combos_Combined_Counted <- Safe_Lane_Combos_Combined %>%
+  count(Safe_Lane, Hard_Support, name = "Total_Games", sort = TRUE)
+
+
+print(Safe_Lane_Combos_Combined_Counted)
+```
+
+
+## Winning Safe Combos
+
+
+```{r}
+Safe_Lane_Winning_Combos_Combined <- rbind(Renamed_Radiant_Safe_Lane_Combos, Renamed_Dire_Safe_Lane_Combos)
+
+Safe_Lane_Winning_Combos_Combined_Counted <- Safe_Lane_Winning_Combos_Combined %>%
+  count(Safe_Lane, Hard_Support, name = "Wins", sort = TRUE) 
+
+print(Safe_Lane_Winning_Combos_Combined_Counted)
+
+```
+
+
+## Join Tinkering with Safe Winners and Safe Combos
+
+
+```{r}
+Safe_Lane_Combos <- merge(x = Safe_Lane_Winning_Combos_Combined_Counted, y = Safe_Lane_Combos_Combined_Counted, by = c("Safe_Lane","Hard_Support"), all.y = TRUE)
+
+
+Safe_Lane_Combos
+```
+
+
+## FINALLY MADE WHAT I WANTED: (a version at least) of Safe Lane Combos win percentage
+
+
+```{r}
+Safe_Lane_Combos_Win_Percentages <- Safe_Lane_Combos %>%
+  mutate(Win_Percentage = Wins / Total_Games)
+
+
+Safe_Lane_Combos_Win_Percentages_Arranged <- arrange(Safe_Lane_Combos_Win_Percentages,desc(Win_Percentage), desc(Total_Games))
+
+Safe_Lane_Combos_Win_Percentages_Ranked_2 <- Safe_Lane_Combos_Win_Percentages %>%
+  mutate(Ranking_2 = Wins * Wins / Total_Games) %>%
+  arrange(desc(Ranking_2))
+Safe_Lane_Combos_Win_Percentages_Ranked_2
+
+```
+
+
+
+
+
+## Off Lane Winning Combos
+
+
+```{r}
+Radiant_Off_Lane_Winning_Combos <- Dota_2_Stats_ALT %>%
+  filter(Radiant_Win_TF == TRUE) %>%
+  select(Radiant_Off_Lane, Radiant_Support)
+
+
+Renamed_Radiant_Off_Lane_Winning_Combos <- Radiant_Off_Lane_Winning_Combos %>%
+  rename(
+    Support = Radiant_Support, Off_Lane = Radiant_Off_Lane
+  )
+
+
+Dire_Off_Lane_Winning_Combos <- Dota_2_Stats_ALT %>%
+  filter(Radiant_Win_TF == FALSE) %>%
+  select(Dire_Off_Lane, Dire_Support)
+
+
+Renamed_Dire_Off_Lane_Winning_Combos <- Dire_Off_Lane_Winning_Combos %>%
+  rename(
+    Support = Dire_Support, Off_Lane = Dire_Off_Lane
+  )
+
+
+Off_Lane_Winning_Combos_Combined <- rbind(Renamed_Radiant_Off_Lane_Winning_Combos, Renamed_Dire_Off_Lane_Winning_Combos)
+
+
+Off_Lane_Winning_Combos_Combined_Counted <- Off_Lane_Winning_Combos_Combined %>%
+  count(Off_Lane, Support, name = "Wins", sort = TRUE)
+
+
+Dire_Bot_Combos <- Dota_2_Stats_ALT %>%
+  select(Dire_Off_Lane, Dire_Support)
+
+
+Renamed_Dire_Bot_Combos <- rename(Dire_Bot_Combos, Off_Lane = Dire_Off_Lane, Support = Dire_Support)
+
+
+Radiant_Top_Combos <- Dota_2_Stats_ALT %>%
+  select(Radiant_Off_Lane, Radiant_Support)
+
+
+Renamed_Radiant_Top_Combos <- rename(Radiant_Top_Combos, Off_Lane = Radiant_Off_Lane, Support = Radiant_Support)
+
+
+Off_Lane_Combos_Combined <- rbind(Renamed_Radiant_Top_Combos, Renamed_Dire_Bot_Combos)
+Off_Lane_Combos_Combined
+Off_Lane_Combos_Combined_Counted <- Off_Lane_Combos_Combined %>%
+  count(Off_Lane, Support, name = "Total_Games", sort = TRUE)
+
+
+Off_Lane_Combos <- merge(x = Off_Lane_Winning_Combos_Combined_Counted, y = Off_Lane_Combos_Combined_Counted, by = c("Off_Lane","Support"), all.y = TRUE)
+Off_Lane_Combos
+
+
+Off_Lane_Combos_Win_Percentages <- Off_Lane_Combos %>%
+  mutate(Win_Percentage = Wins / Total_Games)
+
+
+Off_Lane_Combos_Win_Percentages_Arranged <- arrange(Off_Lane_Combos_Win_Percentages,desc(Win_Percentage), desc(Total_Games))
+
+
+Off_Lane_Combos_Win_Percentages_Arranged
+
+Off_Lane_Combos_Win_Percentages_Ranked_2 <- Off_Lane_Combos_Win_Percentages %>%
+  mutate(Ranking_2 = Wins * Wins / Total_Games) %>%
+  arrange(desc(Ranking_2))
+Off_Lane_Combos_Win_Percentages_Ranked_2
+```
+
+## Mid Winners
+
+
+```{r}
+Radiant_Mid_Lane_Winners <- Dota_2_Stats_ALT %>%
+  filter(Radiant_Win_TF == TRUE) %>%
+  select(Radiant_Mid_Lane)
+
+
+Renamed_Radiant_Mid_Lane_Winners <- rename(Radiant_Mid_Lane_Winners, Mid_Lane = "Radiant_Mid_Lane")
+
+
+Dire_Mid_Lane_Winners <- Dota_2_Stats_ALT %>%
+  filter(Radiant_Win_TF == FALSE) %>%
+  select(Dire_Mid_Lane)
+
+
+Renamed_Dire_Mid_Lane_Winners <- rename(Dire_Mid_Lane_Winners, Mid_Lane = "Dire_Mid_Lane")
+
+
+Mid_Lane_Winners_Combined <- rbind(Renamed_Radiant_Mid_Lane_Winners, Renamed_Dire_Mid_Lane_Winners)
+Mid_Lane_Winners_Combined_Counted <- Mid_Lane_Winners_Combined %>%
+  count(Mid_Lane, name = "Wins", sort = TRUE)
+
+
+Radiant_Mid_Lane_Total <- Dota_2_Stats_ALT %>%
+  select(Radiant_Mid_Lane)
+Radiant_Mid_Lane_Total
+
+
+Renamed_Radiant_Mid_Lane_Total <- rename(Radiant_Mid_Lane_Total, Mid_Lane = "Radiant_Mid_Lane")
+
+
+Dire_Mid_Lane_Total <- Dota_2_Stats_ALT %>%
+  select(Dire_Mid_Lane)
+
+
+Renamed_Dire_Mid_Lane_Total <- rename(Dire_Mid_Lane_Total, Mid_Lane = "Dire_Mid_Lane")
+
+
+Mid_Lane_Total_Combined <- rbind(Renamed_Radiant_Mid_Lane_Total, Renamed_Dire_Mid_Lane_Total)
+
+
+Mid_Lane_Total_Combined_Counted <- Mid_Lane_Total_Combined %>%
+  count(Mid_Lane, name = "Total_Games", sort = TRUE)
+
+
+Mid_Lane_Merged <- merge(x = Mid_Lane_Winners_Combined_Counted, y = Mid_Lane_Total_Combined_Counted, all.y = TRUE)
+
+Mid_Lane_Win_Percentages <- Mid_Lane_Merged %>%
+  mutate(Win_Percentage = Wins / Total_Games)
+
+Mid_Lane_Win_Percentages_Arranged <- arrange(Mid_Lane_Win_Percentages,desc(Win_Percentage), desc(Total_Games))
+
+
+Mid_Lane_Win_Percentages_Arranged
+
+
+Mid_Lane_Win_Percentages_Ranked_2 <- Mid_Lane_Win_Percentages %>%
+  mutate(Ranking_2 = Wins * Wins / Total_Games) %>%
+  arrange(desc(Ranking_2))
+Mid_Lane_Win_Percentages_Ranked_2
+```
+
+
+## Faceless Void Tinkering
+
+
+```{r Faceless Void Stats, Echo = TRUE}
+Faceless_Void_Games <- 
+  
+  Dota_2_Stats_ALT %>%
+    filter_all(any_vars(. %in% c(Faceless_Void))) %>%
+    count()
+
+
+Faceless_Void_Wins <- 
+  
+  filter(Dota_2_Stats_ALT, Radiant_Safe_Lane == Faceless_Void & Radiant_Win_TF == TRUE | Dire_Safe_Lane == Faceless_Void & Radiant_Win_TF == FALSE) %>%
+  count()
+
+  
+Faceless_Void_Win_Percentage <- Faceless_Void_Wins / Faceless_Void_Games
+
+
+Faceless_Void_Win_Percentage
+
+```
