@@ -11,7 +11,14 @@ library(httr)
 library(jsonlite)
 ```
 
-## Define Query
+
+## HEROES LIST (will use later)
+```{r}
+Hero_df <- fromJSON("D:/RFiles/dota2matches/heroesList.json")
+Hero_df
+```
+
+## My Query
 ```{r}
 my_query <- 'query myMatchQuery {
   match(id: 7594658036) {
@@ -159,7 +166,7 @@ my_query <- 'query myMatchQuery {
 }'
 ```
 
-## POST Call
+## POST Call (fixed the empty "null" fields)
 ```{r}
 stratz_url <- "https://api.stratz.com/graphql"
 
@@ -193,14 +200,15 @@ new_game_1 <- fromJSON("D:/RFiles/Mikesdota2directory/test3.json")
 str(new_game_1, max.level = 3, list.len = 10)
 ```
 
+##### Unnested dataframe
 ```{r}
 game_data_df <- new_game_1$data$match$players %>%
   unnest_wider(stats, names_sep = "_") %>%
   select(-playbackData, -stats_itemPurchases, -stats_towerDamageReport, -stats_wards, -stats_runes)
 game_data_df
 ```
-
-```{r kda events}
+##### Kill/Death/Assist (KDA) events
+```{r}
 game1killEvents <- new_game_1$data$match$players$playbackData$killEvents
 game1sdeathEvents <- new_game_1$data$match$players$playbackData$deathEvents
 game1assistEvents <- new_game_1$data$match$players$playbackData$assistEvents
@@ -210,8 +218,8 @@ Top_lane_Result <- rep(new_game_1$data$match$topLaneOutcome, length = 10)
 Mid_lane_Result <- rep(new_game_1$data$match$midLaneOutcome, length = 10)
 ```
 
-
-```{r kills 10 min}
+##### Kills
+```{r}
 kills_10Minutes <- rep(0, length(game1killEvents))
 
 for (i in 1:length(game1killEvents)) {
@@ -224,8 +232,8 @@ for (j in 1:length(game1killEvents[[i]]$time)) {
 }
 kills_10Minutes
 ```
-
-```{r deaths 10 min}
+##### Deaths
+```{r}
 deaths_10Minutes <- rep(0, length(game1sdeathEvents))
 
 
@@ -239,8 +247,8 @@ for (j in 1:length(game1sdeathEvents[[i]]$time)) {
 }
 deaths_10Minutes
 ```
-
-```{r assists 10 min}
+##### Assists
+```{r}
 assists_10Minutes <- rep(0, length(game1assistEvents))
 
 
@@ -254,48 +262,48 @@ for (j in 1:length(game1assistEvents[[i]]$time)) {
 }
 assists_10Minutes
 ```
-
-```{r time to lvl 6}
+##### Time taken to reach lvl 6
+```{r}
 lvl6_Time <- c()
 for (i in 1:length(game_data_df$stats_level)) {
   lvl6_Time[i] <- game_data_df$stats_level[[i]][[1]][6]
 }
 lvl6_Time
 ```
-
-```{r networth 10 min}
+###### Networth 10 min
+```{r}
 networth_10Min <- c()
 for (i in 1:length(game_data_df$stats_networthPerMinute)) {
   networth_10Min[i] <- game_data_df$stats_networthPerMinute[[i]][[1]][11]
 }
 networth_10Min
 ```
-
-```{r exp 10 min}
+##### Exp 10 Min
+```{r}
 exp_10Min <- c()
 for (i in 1:length(game_data_df$stats_experiencePerMinute)) {
   exp_10Min[i] <- sum(game_data_df$stats_experiencePerMinute[[i]][[1]][1:10])
 }
 exp_10Min
 ```
-
-```{r last hits 10 min}
+##### Last Hits 10 Min
+```{r}
 last_hits_10Min <- c()
 for (i in 1:length(game_data_df$stats_lastHitsPerMinute)) {
   last_hits_10Min[i] <- sum(game_data_df$stats_lastHitsPerMinute[[i]][[1]][1:10])
 }
 last_hits_10Min
 ```
-
-```{r denies 10 min}
+##### Denies 10 Min
+```{r}
 denies_10Min <- c()
 for (i in 1:length(game_data_df$stats_deniesPerMinute)) {
   denies_10Min[i] <- sum(game_data_df$stats_deniesPerMinute[[i]][[1]][1:10])
 }
 denies_10Min
 ```
-
-```{r wrangled df}
+## Wrangled Df
+```{r}
 game_data_df$kills_10_Minutes <- kills_10Minutes
 game_data_df$deaths_10_Minutes <-deaths_10Minutes
 game_data_df$assists_10_Minutes <-assists_10Minutes
@@ -329,7 +337,8 @@ game_data_df_10Min <- game_data_df %>%
 game_data_df_10Min %>%
   select(-intentionalFeeding, -stats_matchId, -stats_gameVersionId, -stats_steamAccountId, -stats_level, -stats_networthPerMinute, -stats_experiencePerMinute, -stats_lastHitsPerMinute, -stats_deniesPerMinute, -stats_goldPerMinute, -stats_impPerMinute)
 ```
-
+## Attempting to replace heroId  with the hero names for my own sanity.
 ```{r}
-
+game_data_df_10Min[["heroId"]] <- Hero_df[ match(game_data_df_10Min[['heroId']], Hero_df[['id']] ) , 'localized_name']
+game_data_df_10Min
 ```
