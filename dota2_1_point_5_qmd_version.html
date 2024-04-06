@@ -1,0 +1,2791 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2023-12-23">
+
+<title>Dota 2 Stats 1.5</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="dota2_1_point_5_qmd_version_files/libs/clipboard/clipboard.min.js"></script>
+<script src="dota2_1_point_5_qmd_version_files/libs/quarto-html/quarto.js"></script>
+<script src="dota2_1_point_5_qmd_version_files/libs/quarto-html/popper.min.js"></script>
+<script src="dota2_1_point_5_qmd_version_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="dota2_1_point_5_qmd_version_files/libs/quarto-html/anchor.min.js"></script>
+<link href="dota2_1_point_5_qmd_version_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="dota2_1_point_5_qmd_version_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="dota2_1_point_5_qmd_version_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="dota2_1_point_5_qmd_version_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="dota2_1_point_5_qmd_version_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Dota 2 Stats 1.5</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2023-12-23</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="quarto" class="level2">
+<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
+<p>Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
+</section>
+<section id="running-code" class="level2">
+<h2 class="anchored" data-anchor-id="running-code">Running Code</h2>
+<p>When you click the <strong>Render</strong> button a document will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>You can add options to executable code like this</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>The <code>echo: false</code> option disables the printing of code (only output is displayed).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="heroes" class="level2">
+<h2 class="anchored" data-anchor-id="heroes">HEROES</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Abaddon <span class="ot">&lt;-</span> <span class="st">"Abbadon"</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Alchemist <span class="ot">&lt;-</span> <span class="st">"Alchemist"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Ancient_Apparition <span class="ot">&lt;-</span> <span class="st">"Ancient_Apparition"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Anti_Mage <span class="ot">&lt;-</span> <span class="st">"Anti_Mage"</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>Arc_Wardern <span class="ot">&lt;-</span> <span class="st">"Arc_Warden"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>Axe <span class="ot">&lt;-</span> <span class="st">"Axe"</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>Bane <span class="ot">&lt;-</span> <span class="st">"Bane"</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>Batrider <span class="ot">&lt;-</span> <span class="st">"Batrider"</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>Beastmaster <span class="ot">&lt;-</span> <span class="st">"Beastmaster"</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>Bloodseeker <span class="ot">&lt;-</span> <span class="st">"Bloodseeker"</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>Bounty_Hunter <span class="ot">&lt;-</span> <span class="st">"Bounty_Hunter"</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>Brewmaster <span class="ot">&lt;-</span> <span class="st">"Brewmaster"</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>Bristleback <span class="ot">&lt;-</span> <span class="st">"Bristleback"</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>Broodmother <span class="ot">&lt;-</span> <span class="st">"Broodmother"</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>Centaur_Warrunner <span class="ot">&lt;-</span> <span class="st">"Centaur_Warruner"</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>Chaos_Knight <span class="ot">&lt;-</span> <span class="st">"Chaos_Knight"</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>Chen <span class="ot">&lt;-</span> <span class="st">"Chen"</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>Clinkz <span class="ot">&lt;-</span> <span class="st">"Clinkz"</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>Clockwerk <span class="ot">&lt;-</span> <span class="st">"Clockwerk"</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>Crystal_Maiden <span class="ot">&lt;-</span> <span class="st">"Crystal_Maiden"</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>Dark_Seer <span class="ot">&lt;-</span> <span class="st">"Dark_Seer"</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>Dark_Willow <span class="ot">&lt;-</span> <span class="st">"Dark_Willow"</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>Dawnbreaker <span class="ot">&lt;-</span> <span class="st">"Dawnbreaker"</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>Dazzle <span class="ot">&lt;-</span> <span class="st">"Dazzle"</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>Death_Prophet <span class="ot">&lt;-</span> <span class="st">"Death_Prophet"</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>Disruptor <span class="ot">&lt;-</span> <span class="st">"Disruptor"</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>Doom <span class="ot">&lt;-</span> <span class="st">"Doom"</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>Dragon_Knight <span class="ot">&lt;-</span> <span class="st">"Dragon_Knight"</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>Drow_Ranger <span class="ot">&lt;-</span> <span class="st">"Drow_Ranger"</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>Earth_Spirit <span class="ot">&lt;-</span> <span class="st">"Earth_Spirit"</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>Earthshaker <span class="ot">&lt;-</span> <span class="st">"Earthshaker"</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>Elder_Titan <span class="ot">&lt;-</span> <span class="st">"Elder_Titan"</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>Ember_Spirit <span class="ot">&lt;-</span> <span class="st">"Ember_Spirit"</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>Enchantress <span class="ot">&lt;-</span> <span class="st">"Enchantress"</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>Enigma <span class="ot">&lt;-</span> <span class="st">"Enigma"</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>Faceless_Void <span class="ot">&lt;-</span> <span class="st">"Faceless_Void"</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>Grimstroke <span class="ot">&lt;-</span> <span class="st">"Grimstroke"</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>Gyrocopter <span class="ot">&lt;-</span> <span class="st">"Gyrocopter"</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>Hoodwink <span class="ot">&lt;-</span> <span class="st">"Hoodwink"</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>Huskar <span class="ot">&lt;-</span> <span class="st">"Huskar"</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>Invoker <span class="ot">&lt;-</span> <span class="st">"Invoker"</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>IO <span class="ot">&lt;-</span> <span class="st">"IO"</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>Jakiro <span class="ot">&lt;-</span> <span class="st">"Jakiro"</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>Juggernaut <span class="ot">&lt;-</span> <span class="st">"Juggernaut"</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>Keeper_of_the_Light <span class="ot">&lt;-</span> <span class="st">"Keeper_of_the_Light"</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>Kunkka <span class="ot">&lt;-</span> <span class="st">"Kunkka"</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>Legion_Commander <span class="ot">&lt;-</span> <span class="st">"Legion_Commander"</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>Leshrac <span class="ot">&lt;-</span> <span class="st">"Leshrac"</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>Lich <span class="ot">&lt;-</span> <span class="st">"Lich"</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>Lifestealer <span class="ot">&lt;-</span> <span class="st">"Lifestealer"</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>Lina <span class="ot">&lt;-</span> <span class="st">"Lina"</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>Lion <span class="ot">&lt;-</span> <span class="st">"Lion"</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>Lone_Druid <span class="ot">&lt;-</span> <span class="st">"Lone_Druid"</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>Luna <span class="ot">&lt;-</span> <span class="st">"Luna"</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>Lycan <span class="ot">&lt;-</span> <span class="st">"Lycan"</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>Magnus <span class="ot">&lt;-</span> <span class="st">"Magnus"</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>Marci <span class="ot">&lt;-</span> <span class="st">"Marci"</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>Mars <span class="ot">&lt;-</span> <span class="st">"Mars"</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>Medusa <span class="ot">&lt;-</span> <span class="st">"Medusa"</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>Meepo <span class="ot">&lt;-</span> <span class="st">"Meepo"</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>Mirana <span class="ot">&lt;-</span> <span class="st">"Mirana"</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>Monkey_King <span class="ot">&lt;-</span> <span class="st">"Monkey_King"</span></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>Morphling <span class="ot">&lt;-</span> <span class="st">"Morphling"</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>Muerta <span class="ot">&lt;-</span> <span class="st">"Muerta"</span></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>Naga_Siren <span class="ot">&lt;-</span> <span class="st">"Naga_Siren"</span></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>Natures_Prophet <span class="ot">&lt;-</span> <span class="st">"Natures_Prophet"</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>Necrophos <span class="ot">&lt;-</span> <span class="st">"Necrophos"</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>Night_Stalker <span class="ot">&lt;-</span> <span class="st">"Night_Stalker"</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>Nyx_Assassin <span class="ot">&lt;-</span> <span class="st">"Nyx_Assassin"</span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>Ogre_Magi <span class="ot">&lt;-</span> <span class="st">"Ogre_Magi"</span></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>Omniknight <span class="ot">&lt;-</span> <span class="st">"Omniknight"</span></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>Oracle <span class="ot">&lt;-</span> <span class="st">"Oracle"</span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>Outworld_Destroyer <span class="ot">&lt;-</span> <span class="st">"Outworld_Destroyer"</span></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>Pangolier <span class="ot">&lt;-</span> <span class="st">"Pangolier"</span></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>Phantom_Assassin <span class="ot">&lt;-</span> <span class="st">"Phanton_Assassin"</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>Phantom_Lancer <span class="ot">&lt;-</span> <span class="st">"Phantom_Lancer"</span></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>Phoenix <span class="ot">&lt;-</span> <span class="st">"Phoenix"</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>Primal_Beast <span class="ot">&lt;-</span> <span class="st">"Primal_Beast"</span></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>Puck <span class="ot">&lt;-</span> <span class="st">"Puck"</span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>Pudge <span class="ot">&lt;-</span> <span class="st">"Pudge"</span></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>Pugna <span class="ot">&lt;-</span> <span class="st">"Pugna"</span></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>Queen_of_Pain <span class="ot">&lt;-</span> <span class="st">"Queen_of_Pain"</span></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>Razor <span class="ot">&lt;-</span> <span class="st">"Razor"</span></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>Riki <span class="ot">&lt;-</span> <span class="st">"Riki"</span></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>Rubick <span class="ot">&lt;-</span> <span class="st">"Rubick"</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>Sand_King <span class="ot">&lt;-</span> <span class="st">"Sand_King"</span></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>Shadow_Demon <span class="ot">&lt;-</span> <span class="st">"Shadow_Demon"</span></span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>Shadow_Fiend <span class="ot">&lt;-</span> <span class="st">"Shadow_Fiend"</span></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>Shadow_Shaman <span class="ot">&lt;-</span> <span class="st">"Shadow_Shaman"</span></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>Silencer <span class="ot">&lt;-</span> <span class="st">"Silencer"</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>SKywrath_Mage <span class="ot">&lt;-</span> <span class="st">"Skywrath_Mage"</span></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>Slardar <span class="ot">&lt;-</span> <span class="st">"Slardar"</span></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>Slark <span class="ot">&lt;-</span> <span class="st">"Slark"</span></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>Snapfire <span class="ot">&lt;-</span> <span class="st">"Snapfire"</span></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>Sniper <span class="ot">&lt;-</span> <span class="st">"Sniper"</span></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>Spectre <span class="ot">&lt;-</span> <span class="st">"Spectre"</span></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>Spirit_Breaker <span class="ot">&lt;-</span> <span class="st">"Spirit_Breaker"</span></span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>Storm_Spirit <span class="ot">&lt;-</span> <span class="st">"Storm_Spirit"</span></span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>Sven <span class="ot">&lt;-</span> <span class="st">"Sven"</span></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>Techies <span class="ot">&lt;-</span> <span class="st">"Techies"</span></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>Templar_Assassin <span class="ot">&lt;-</span> <span class="st">"Templar_Assassin"</span></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>Terrorblade <span class="ot">&lt;-</span> <span class="st">"Terrorblade"</span></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>Tidehunter <span class="ot">&lt;-</span> <span class="st">"Tidehunter"</span></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>TimbersaW <span class="ot">&lt;-</span> <span class="st">"Timbersaw"</span></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>Tinker <span class="ot">&lt;-</span> <span class="st">"Tinker"</span></span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>Tiny <span class="ot">&lt;-</span> <span class="st">"Tiny"</span></span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>Treant_Protector <span class="ot">&lt;-</span> <span class="st">"Treant_Protector"</span></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>Troll_Warlord <span class="ot">&lt;-</span> <span class="st">"Troll_Warlord"</span></span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>Tusk <span class="ot">&lt;-</span> <span class="st">"Tusk"</span></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>Underlord <span class="ot">&lt;-</span> <span class="st">"Underlord"</span></span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>Undying <span class="ot">&lt;-</span> <span class="st">"Undying"</span></span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>Ursa <span class="ot">&lt;-</span> <span class="st">"Ursa"</span></span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>Vengeful_Spirit <span class="ot">&lt;-</span> <span class="st">"Vengeful_Spirit"</span></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>Venomancer <span class="ot">&lt;-</span> <span class="st">"Venomancer"</span></span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a>Viper <span class="ot">&lt;-</span> <span class="st">"Viper"</span></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>Visage <span class="ot">&lt;-</span> <span class="st">"Visage"</span></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a>Void_Spirt <span class="ot">&lt;-</span> <span class="st">"Void_Spirit"</span></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>Warlock <span class="ot">&lt;-</span> <span class="st">"Warlock"</span></span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>Weaver <span class="ot">&lt;-</span> <span class="st">"Weaver"</span></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>Windranger <span class="ot">&lt;-</span> <span class="st">"Windranger"</span></span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a>Winter_Wyvern <span class="ot">&lt;-</span> <span class="st">"Winter_Wyvern"</span></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>Witch_Doctor <span class="ot">&lt;-</span> <span class="st">"Witch_Doctor"</span></span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a>Wraith_King <span class="ot">&lt;-</span> <span class="st">"Wraith_King"</span></span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a>Zeus <span class="ot">&lt;-</span> <span class="st">"Zeus"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="games-data-frame" class="level2">
+<h2 class="anchored" data-anchor-id="games-data-frame">Games Data Frame</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Radiant_Safe_Lane <span class="ot">&lt;-</span> <span class="fu">c</span>(Phantom_Lancer, Juggernaut, Weaver, Lycan, Phantom_Lancer, Faceless_Void, Phantom_Lancer, Luna, Naga_Siren, Bloodseeker, Phantom_Assassin, Juggernaut, Anti_Mage, Troll_Warlord, Riki, Bloodseeker, Lifestealer, Juggernaut, Slark, Phantom_Assassin, Juggernaut, Abaddon, Drow_Ranger, Drow_Ranger, Sniper, Juggernaut, Brewmaster, Sniper, Faceless_Void, Sven, Ember_Spirit, Terrorblade, Spectre, Sniper, Faceless_Void, Muerta, Juggernaut, Hoodwink, Sven, Outworld_Destroyer, Phantom_Assassin, Sniper, Slark, Natures_Prophet, Monkey_King, Drow_Ranger, Lifestealer, Lifestealer, Faceless_Void, Phantom_Lancer, Viper, Slark, Anti_Mage, Phantom_Assassin, Lifestealer, Drow_Ranger, Clinkz, Anti_Mage, Juggernaut, Sven, Monkey_King, Muerta, Juggernaut, Anti_Mage, Lifestealer, Wraith_King, Juggernaut, Chaos_Knight, Ursa, Wraith_King)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Radiant_Safe_Lane)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 70</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Radiant_Mid_Lane <span class="ot">&lt;-</span> <span class="fu">c</span>(Sniper, Sniper, Windranger, Queen_of_Pain, Shadow_Fiend, Sniper, Arc_Wardern, Earthshaker, Disruptor, Zeus, Lina, Mars, Centaur_Warrunner, Pudge, Omniknight, Huskar, Sniper, Puck, Templar_Assassin, Keeper_of_the_Light, Huskar, Invoker, Leshrac, Earthshaker, Hoodwink, Necrophos, Windranger, Shadow_Fiend, Natures_Prophet, Necrophos, Pudge, Bounty_Hunter, Puck, Outworld_Destroyer, Shadow_Fiend, Puck, Bounty_Hunter, Lina, Invoker, Medusa, Windranger, Puck, Viper, Ursa, Windranger, Natures_Prophet, Legion_Commander, Pangolier, Lone_Druid, Natures_Prophet, Bounty_Hunter, Shadow_Fiend, Storm_Spirit, Phoenix, Shadow_Shaman, Legion_Commander, Rubick, Sniper, Sniper, Pudge, Zeus, Void_Spirt, Dark_Willow, Outworld_Destroyer, Void_Spirt, TimbersaW, Viper, Shadow_Fiend, Silencer, Necrophos)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Radiant_Mid_Lane)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 70</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Radiant_Off_Lane <span class="ot">&lt;-</span> <span class="fu">c</span>(Chaos_Knight, Legion_Commander, Centaur_Warrunner, Night_Stalker, Legion_Commander, Centaur_Warrunner, Elder_Titan, Axe, Invoker, Abaddon, Lycan, Undying, Axe, Undying, Abaddon, Abaddon, Ogre_Magi, Slardar, Razor, Legion_Commander, Earthshaker, Legion_Commander, Slardar, Dragon_Knight, TimbersaW, Sand_King, Kunkka, Abaddon, Dragon_Knight, Death_Prophet, Tidehunter, Death_Prophet, Death_Prophet, Mars, Nyx_Assassin, TimbersaW, Mars, Pudge, Slardar, Slardar, Dragon_Knight, Brewmaster, Razor, Morphling, Abaddon, Razor, Razor, Beastmaster, Abaddon, Dragon_Knight, Night_Stalker, Spirit_Breaker, Centaur_Warrunner, Legion_Commander, Slardar, Pudge, Tidehunter, Legion_Commander, Slardar, Axe, Dragon_Knight, Axe, Legion_Commander, Brewmaster, Dragon_Knight, Viper, Necrophos, Axe, Kunkka, Bounty_Hunter)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Radiant_Off_Lane)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 70</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Radiant_Support <span class="ot">&lt;-</span> <span class="fu">c</span>(Treant_Protector, Silencer, Dazzle, Lion, Magnus, Ogre_Magi, Winter_Wyvern, Crystal_Maiden, Jakiro, Ogre_Magi, Witch_Doctor, Omniknight, Witch_Doctor, Vengeful_Spirit, SKywrath_Mage, Jakiro, Shadow_Shaman, Abaddon, Witch_Doctor, Silencer, Witch_Doctor, Pudge, Mirana, Venomancer, Jakiro, Jakiro, Bounty_Hunter,Witch_Doctor, Dazzle, Ancient_Apparition, Enigma, Ogre_Magi, Dazzle, Earthshaker, Witch_Doctor, Jakiro, Rubick, Natures_Prophet, Natures_Prophet, Jakiro, Ancient_Apparition, Sand_King, Spirit_Breaker, Dragon_Knight, Lion, Shadow_Shaman, Spirit_Breaker, Ancient_Apparition, Ogre_Magi, Jakiro, Earthshaker, Witch_Doctor, SKywrath_Mage, Shadow_Shaman, Venomancer,Pugna, Natures_Prophet, Tusk, Tusk, Dark_Willow, Grimstroke, Witch_Doctor, Vengeful_Spirit, Ogre_Magi, Rubick, Abaddon, Snapfire, Oracle, Dazzle, Ancient_Apparition)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Radiant_Support)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 70</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Radiant_Hard_Support <span class="ot">&lt;-</span> <span class="fu">c</span>(Disruptor, SKywrath_Mage, Witch_Doctor, Jakiro, Witch_Doctor, Windranger, Ancient_Apparition, SKywrath_Mage, Winter_Wyvern, Jakiro, Ancient_Apparition, Ogre_Magi, Disruptor, Witch_Doctor, Witch_Doctor, Lich, Witch_Doctor, Ancient_Apparition, Shadow_Demon, Spirit_Breaker, Dawnbreaker, Lich, Ancient_Apparition, Ancient_Apparition, Warlock, Lion, Ancient_Apparition, Ancient_Apparition, Pudge, Sand_King, Dazzle, Dazzle, Pudge, Rubick, Earth_Spirit, Shadow_Shaman, Lion, Treant_Protector, Pudge, Pudge, Jakiro, Jakiro, Pugna, Warlock, Jakiro, Dazzle, Crystal_Maiden, Jakiro, Shadow_Shaman, Keeper_of_the_Light, Shadow_Shaman, Disruptor, Natures_Prophet, Lion, Jakiro, Crystal_Maiden, Vengeful_Spirit, Witch_Doctor, Venomancer, Jakiro, Ogre_Magi, Vengeful_Spirit, Ancient_Apparition, Lion, Silencer, Jakiro, Ancient_Apparition, Venomancer, Shadow_Shaman, Shadow_Shaman)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Radiant_Hard_Support)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 70</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Dire_Safe_Lane <span class="ot">&lt;-</span> <span class="fu">c</span>(Faceless_Void, Natures_Prophet, Faceless_Void, Chaos_Knight, Juggernaut, Juggernaut, Ursa, Juggernaut, Phantom_Lancer, Faceless_Void, Riki, Faceless_Void, Sniper, Weaver, Lifestealer, Faceless_Void, Spectre, Weaver, Drow_Ranger, Monkey_King, Luna, Monkey_King, Juggernaut, Phantom_Assassin, Phantom_Lancer, Drow_Ranger, Ogre_Magi, Slardar, Phantom_Assassin, Zeus, Luna, Spectre, Slark, Phantom_Assassin, Spectre, Ursa, Faceless_Void, Lifestealer, Ursa, Weaver, Medusa, Riki, Spectre, Juggernaut, Anti_Mage, Juggernaut, Faceless_Void, Wraith_King, Wraith_King, Phantom_Assassin, Medusa, Anti_Mage, Clinkz, Sniper, Troll_Warlord, Phantom_Assassin, Anti_Mage, Spectre, Wraith_King, Weaver, Ursa, Sniper, Morphling, Phantom_Lancer, Troll_Warlord, Muerta, Anti_Mage, Drow_Ranger, Mirana, Sniper)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Dire_Safe_Lane)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 70</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Dire_Mid_Lane <span class="ot">&lt;-</span> <span class="fu">c</span>(Shadow_Fiend, Spirit_Breaker, Luna, Invoker, Lone_Druid, Vengeful_Spirit, Warlock, Necrophos, Outworld_Destroyer, Weaver, Dazzle, Drow_Ranger, Necrophos, Silencer, Sniper, Necrophos, Puck, Keeper_of_the_Light, Zeus, Dawnbreaker, Viper, Drow_Ranger, Invoker, Necrophos, Weaver, Naga_Siren, Outworld_Destroyer, Bristleback, Clinkz, Viper, Legion_Commander, Lion, Windranger, Puck, Spirit_Breaker, Windranger, Puck, Puck, Sniper, Chaos_Knight, Ogre_Magi, Arc_Wardern, Void_Spirt, Primal_Beast, Sniper, Death_Prophet, Necrophos, Shadow_Fiend, Outworld_Destroyer, Invoker, Silencer, Doom, Dragon_Knight, Muerta, Lina, Bounty_Hunter, Sniper, Lina, Arc_Wardern, Elder_Titan, Queen_of_Pain, Pugna, Lion, Sniper, Sniper, Riki, Silencer, Spectre, Storm_Spirit, Pudge)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Dire_Mid_Lane)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 70</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Dire_Off_Lane <span class="ot">&lt;-</span> <span class="fu">c</span>(Slardar, Dragon_Knight, Earthshaker, Dragon_Knight, Abaddon, Dragon_Knight, Tidehunter, Ogre_Magi, Chaos_Knight, Ursa, Beastmaster, Pudge, Slardar, Sand_King, Wraith_King, Tusk, Legion_Commander, Magnus, TimbersaW, Abaddon, Centaur_Warrunner, Undying, Axe, Mars, Slardar, Slardar, Queen_of_Pain, Pudge, Sand_King, Pudge, Bristleback, Underlord, Magnus, Death_Prophet, Death_Prophet, Doom, TimbersaW, Treant_Protector, Treant_Protector, Windranger, Pudge, Legion_Commander, Tusk, Centaur_Warrunner, Dragon_Knight, Underlord, Tidehunter, Primal_Beast, Slardar, Tusk, Bristleback, Gyrocopter, Night_Stalker, Axe, Wraith_King, Kunkka, Underlord, Clockwerk, Centaur_Warrunner, Wraith_King, Sand_King, Primal_Beast, Razor, Abaddon, Pudge, Spirit_Breaker, Doom, Abaddon, Zeus, Kunkka)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Dire_Off_Lane)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 70</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Dire_Support <span class="ot">&lt;-</span> <span class="fu">c</span>(Spirit_Breaker, Ancient_Apparition, Invoker, Earthshaker, Shadow_Shaman, Invoker, Omniknight, Grimstroke, Dark_Willow, Pudge, Treant_Protector, Silencer, Silencer, Jakiro, Shadow_Shaman, Spirit_Breaker, Treant_Protector, Gyrocopter, Vengeful_Spirit, Lich, Dazzle, Venomancer, Hoodwink, Shadow_Shaman, Earthshaker, Tusk, Witch_Doctor, Grimstroke, Earthshaker, Lich, Lion, Zeus, Witch_Doctor, Ogre_Magi, Ogre_Magi, Lion, Ancient_Apparition, Lich, Enigma, Lion, Undying, Treant_Protector, Jakiro, Ancient_Apparition, Witch_Doctor, Jakiro, Jakiro, Pudge, Crystal_Maiden, Ogre_Magi, Techies, Natures_Prophet, Ancient_Apparition, Ancient_Apparition, Crystal_Maiden, Mirana, Witch_Doctor, Ancient_Apparition, Lich, Nyx_Assassin, Spirit_Breaker, Ancient_Apparition, Bounty_Hunter, Ancient_Apparition, Shadow_Shaman, Grimstroke, Undying, Ancient_Apparition, Ogre_Magi, Lion)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Dire_Support)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 70</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>Dire_Hard_Support <span class="ot">&lt;-</span> <span class="fu">c</span>(Jakiro, Zeus, Ancient_Apparition, Lich, Disruptor, Jakiro, Jakiro, Ancient_Apparition, Ogre_Magi, Crystal_Maiden, Jakiro, Hoodwink, Ancient_Apparition, Treant_Protector, Dazzle, Witch_Doctor, Ancient_Apparition, Tusk, Ancient_Apparition, Grimstroke, Warlock, Ancient_Apparition, Shadow_Shaman, Disruptor, Grimstroke, Witch_Doctor, Lion, Silencer, Ancient_Apparition, Spirit_Breaker, Ancient_Apparition, Pugna, Lich, Magnus, Lion, Phantom_Assassin, Warlock, Ancient_Apparition, Ancient_Apparition, Shadow_Shaman, Earthshaker, Shadow_Shaman, Witch_Doctor, Witch_Doctor, Shadow_Shaman, Grimstroke, Venomancer, Shadow_Shaman, Hoodwink, Crystal_Maiden, Ancient_Apparition, Ancient_Apparition, Techies, SKywrath_Mage, Pugna, Ancient_Apparition, Pudge, Phoenix, Shadow_Demon, Ancient_Apparition, Lion, Dazzle, Phoenix, Crystal_Maiden, Bristleback, Crystal_Maiden, Warlock, Spirit_Breaker, Ancient_Apparition, Dazzle)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Dire_Hard_Support)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 70</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>Game_Time <span class="ot">&lt;-</span> <span class="fu">hms</span>(<span class="fu">c</span>(<span class="st">"00:29:05"</span>, <span class="st">"00:52:12"</span>, <span class="st">"00:46:27"</span>, <span class="st">"00:44:11"</span>, <span class="st">"00:45:01"</span>, <span class="st">"00:43:51"</span>, <span class="st">"00:49:17"</span>, <span class="st">"00:45:52"</span>, <span class="st">"00:28:08"</span>, <span class="st">"00:43:30"</span>, <span class="st">"00:39:42"</span>, <span class="st">"00:54:48"</span>, <span class="st">"00:53:08"</span>, <span class="st">"00:34:28"</span>, <span class="st">"00:25:05"</span>, <span class="st">"00:34:06"</span>, <span class="st">"01:15:50"</span>, <span class="st">"00:43:15"</span>, <span class="st">"00:57:24"</span>, <span class="st">"00:33:05"</span>, <span class="st">"00:56:03"</span>, <span class="st">"00:48:00"</span>, <span class="st">"00:53:24"</span>, <span class="st">"01:04:46"</span>, <span class="st">"00:42:53"</span>, <span class="st">"00:43:08"</span>, <span class="st">"00:38:13"</span>, <span class="st">"00:38:19"</span>, <span class="st">"00:47:52"</span>, <span class="st">"00:59:20"</span>, <span class="st">"00:40:47"</span>, <span class="st">"00:39:01"</span>, <span class="st">"00:52:32"</span>, <span class="st">"00:37:10"</span>, <span class="st">"00:45:37"</span>, <span class="st">"00:35:16"</span>, <span class="st">"00:47:44"</span>, <span class="st">"00:46:30"</span>, <span class="st">"00:59:24"</span>, <span class="st">"00:44:51"</span>, <span class="st">"00:42:48"</span>, <span class="st">"00:42:08"</span>, <span class="st">"00:23:12"</span>, <span class="st">"00:34:19"</span>, <span class="st">"00:32:24"</span>, <span class="st">"00:31:36"</span>, <span class="st">"00:32:52"</span>, <span class="st">"00:28:48"</span>, <span class="st">"00:42:46"</span>, <span class="st">"00:43:13"</span>, <span class="st">"00:52:32"</span>, <span class="st">"00:33:50"</span>, <span class="st">"01:03:20"</span>, <span class="st">"00:53:00"</span>, <span class="st">"00:43:16"</span>, <span class="st">"00:34:40"</span>, <span class="st">"00:45:06"</span>, <span class="st">"00:41:38"</span>, <span class="st">"00:35:43"</span>, <span class="st">"00:30:08"</span>, <span class="st">"01:03:02"</span>, <span class="st">"00:47:55"</span>, <span class="st">"00:40:37"</span>, <span class="st">"00:40:38"</span>, <span class="st">"00:31:52"</span>, <span class="st">"00:26:07"</span>, <span class="st">"00:31:26"</span>, <span class="st">"00:43:27"</span>, <span class="st">"00:58:16"</span>, <span class="st">"00:52:57"</span>))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>Radiant_Win_TF <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>Match_ID <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7520462907</span>, <span class="dv">7520488996</span>, <span class="dv">7522003567</span>, <span class="dv">7522030423</span>, <span class="dv">7522055031</span>, <span class="dv">7523745337</span>, <span class="dv">7523790773</span>, <span class="dv">7523842305</span>, <span class="dv">7523879924</span>, <span class="dv">7523952083</span>, <span class="dv">7524883502</span>, <span class="dv">7524965364</span>, <span class="dv">7525034182</span>, <span class="dv">7525116921</span>, <span class="dv">7525184949</span>, <span class="dv">7528824929</span>, <span class="dv">7528850710</span>, <span class="dv">7528911024</span>, <span class="dv">7530202683</span>, <span class="dv">7530255597</span>, <span class="dv">7530293064</span>, <span class="dv">7530317966</span>, <span class="dv">7531696715</span>, <span class="dv">7531772220</span>, <span class="dv">7531809136</span>, <span class="dv">7533224731</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>Dota_2_Stats_ALT <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Radiant_Safe_Lane, Radiant_Mid_Lane, Radiant_Off_Lane, Radiant_Support, Radiant_Hard_Support, Dire_Safe_Lane, Dire_Mid_Lane, Dire_Off_Lane, Dire_Support, Dire_Hard_Support, Radiant_Win_TF) </span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(Dota_2_Stats_ALT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 70
+Columns: 11
+$ Radiant_Safe_Lane    &lt;chr&gt; "Phantom_Lancer", "Juggernaut", "Weaver", "Lycan"…
+$ Radiant_Mid_Lane     &lt;chr&gt; "Sniper", "Sniper", "Windranger", "Queen_of_Pain"…
+$ Radiant_Off_Lane     &lt;chr&gt; "Chaos_Knight", "Legion_Commander", "Centaur_Warr…
+$ Radiant_Support      &lt;chr&gt; "Treant_Protector", "Silencer", "Dazzle", "Lion",…
+$ Radiant_Hard_Support &lt;chr&gt; "Disruptor", "Skywrath_Mage", "Witch_Doctor", "Ja…
+$ Dire_Safe_Lane       &lt;chr&gt; "Faceless_Void", "Natures_Prophet", "Faceless_Voi…
+$ Dire_Mid_Lane        &lt;chr&gt; "Shadow_Fiend", "Spirit_Breaker", "Luna", "Invoke…
+$ Dire_Off_Lane        &lt;chr&gt; "Slardar", "Dragon_Knight", "Earthshaker", "Drago…
+$ Dire_Support         &lt;chr&gt; "Spirit_Breaker", "Ancient_Apparition", "Invoker"…
+$ Dire_Hard_Support    &lt;chr&gt; "Jakiro", "Zeus", "Ancient_Apparition", "Lich", "…
+$ Radiant_Win_TF       &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALS…</code></pre>
+</div>
+</div>
+</section>
+<section id="unlisted-hero-counts" class="level2">
+<h2 class="anchored" data-anchor-id="unlisted-hero-counts">Unlisted Hero Counts</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Unlisted_Dota_2_Data <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="fu">unlist</span>(Dota_2_Stats_ALT))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>Sorted_Unlisted_Table <span class="ot">&lt;-</span> Unlisted_Dota_2_Data[<span class="fu">order</span>(Unlisted_Dota_2_Data, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)]</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Sorted_Unlisted_Table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+               TRUE  Ancient_Apparition               FALSE              Jakiro 
+                 45                  37                  25                  24 
+       Witch_Doctor              Sniper               Pudge       Shadow_Shaman 
+                 22                  20                  19                  18 
+          Ogre_Magi          Juggernaut                Lion             Abbadon 
+                 16                  15                  15                  13 
+             Dazzle       Dragon_Knight    Legion_Commander             Slardar 
+                 12                  12                  12                  12 
+     Spirit_Breaker       Faceless_Void         Earthshaker     Natures_Prophet 
+                 12                  11                  10                  10 
+   Phanton_Assassin            Silencer      Crystal_Maiden         Drow_Ranger 
+                 10                  10                   9                   9 
+          Necrophos           Anti_Mage             Invoker                Lich 
+                  9                   8                   8                   8 
+               Puck    Treant_Protector          Windranger         Wraith_King 
+                  8                   8                   8                   8 
+                Axe       Bounty_Hunter    Centaur_Warruner          Grimstroke 
+                  7                   7                   7                   7 
+        Lifestealer      Phantom_Lancer        Shadow_Fiend             Spectre 
+                  7                   7                   7                   7 
+               Tusk                Ursa              Weaver                Zeus 
+                  7                   7                   7                   7 
+      Death_Prophet           Disruptor  Outworld_Destroyer           Sand_King 
+                  6                   6                   6                   6 
+    Vengeful_Spirit          Venomancer               Viper             Warlock 
+                  6                   6                   6                   6 
+       Chaos_Knight            Hoodwink               Pugna               Razor 
+                  5                   5                   5                   5 
+      Skywrath_Mage           Timbersaw             Undying         Bristleback 
+                  5                   5                   5                   4 
+             Kunkka                Lina                Luna              Magnus 
+                  4                   4                   4                   4 
+               Mars         Monkey_King              Muerta                Riki 
+                  4                   4                   4                   4 
+             Rubick               Slark          Tidehunter          Arc_Warden 
+                  4                   4                   4                   3 
+         Brewmaster              Clinkz         Dark_Willow                Doom 
+                  3                   3                   3                   3 
+Keeper_of_the_Light              Medusa              Mirana       Night_Stalker 
+                  3                   3                   3                   3 
+         Omniknight             Phoenix        Primal_Beast       Queen_of_Pain 
+                  3                   3                   3                   3 
+               Sven       Troll_Warlord           Underlord         Void_Spirit 
+                  3                   3                   3                   3 
+        Beastmaster         Bloodseeker         Dawnbreaker         Elder_Titan 
+                  2                   2                   2                   2 
+             Enigma          Gyrocopter              Huskar          Lone_Druid 
+                  2                   2                   2                   2 
+              Lycan           Morphling          Naga_Siren        Nyx_Assassin 
+                  2                   2                   2                   2 
+       Shadow_Demon        Storm_Spirit             Techies       Winter_Wyvern 
+                  2                   2                   2                   2 
+          Clockwerk        Earth_Spirit        Ember_Spirit             Leshrac 
+                  1                   1                   1                   1 
+             Oracle           Pangolier            Snapfire    Templar_Assassin 
+                  1                   1                   1                   1 
+        Terrorblade 
+                  1 </code></pre>
+</div>
+</div>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+</section>
+<section id="safe-lane-carry-winners-combined-and-counted" class="level2">
+<h2 class="anchored" data-anchor-id="safe-lane-carry-winners-combined-and-counted">Safe Lane Carry Winners Combined and Counted</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>Radiant_Safe_Lane_Winners <span class="ot">&lt;-</span> Dota_2_Stats_ALT <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Radiant_Win_TF <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Radiant_Safe_Lane)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>Renamed_Radiant_Safe_Lane_Winners <span class="ot">&lt;-</span> <span class="fu">rename</span>(Radiant_Safe_Lane_Winners, <span class="at">Safe_Lane =</span> <span class="st">"Radiant_Safe_Lane"</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>Dire_Safe_Lane_Winners <span class="ot">&lt;-</span> Dota_2_Stats_ALT <span class="sc">%&gt;%</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Radiant_Win_TF <span class="sc">==</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Dire_Safe_Lane)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>Renamed_Dire_Safe_Lane_Winners <span class="ot">&lt;-</span> <span class="fu">rename</span>(Dire_Safe_Lane_Winners, <span class="at">Safe_Lane =</span> <span class="st">"Dire_Safe_Lane"</span>)</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Winners_Combined <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Renamed_Radiant_Safe_Lane_Winners, Renamed_Dire_Safe_Lane_Winners)</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Winners_Combined_Counted <span class="ot">&lt;-</span> Safe_Lane_Winners_Combined <span class="sc">%&gt;%</span></span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Safe_Lane, <span class="at">name =</span> <span class="st">"Wins"</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Winners_Combined_Counted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Safe_Lane Wins
+1        Juggernaut    8
+2       Drow_Ranger    6
+3       Lifestealer    6
+4     Faceless_Void    5
+5  Phanton_Assassin    5
+6         Anti_Mage    4
+7    Phantom_Lancer    4
+8            Sniper    4
+9              Sven    3
+10      Bloodseeker    2
+11             Luna    2
+12           Medusa    2
+13      Monkey_King    2
+14           Muerta    2
+15            Slark    2
+16           Weaver    2
+17      Wraith_King    2
+18          Abbadon    1
+19     Chaos_Knight    1
+20       Naga_Siren    1
+21  Natures_Prophet    1
+22        Ogre_Magi    1
+23             Riki    1
+24      Terrorblade    1
+25    Troll_Warlord    1
+26             Ursa    1</code></pre>
+</div>
+</div>
+</section>
+<section id="safe-lane-carry-totals-combined-and-counted" class="level2">
+<h2 class="anchored" data-anchor-id="safe-lane-carry-totals-combined-and-counted">Safe Lane Carry Totals Combined and Counted</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>Radiant_Safe_Lane_Hero_Totals <span class="ot">&lt;-</span>Dota_2_Stats_ALT <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Radiant_Safe_Lane) </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>Renamed_Radiant_Safe_Lane_Hero_Totals <span class="ot">&lt;-</span> Radiant_Safe_Lane_Hero_Totals <span class="sc">%&gt;%</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Safe_Lane =</span> <span class="st">"Radiant_Safe_Lane"</span>)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>Dire_Safe_Lane_Hero_Totals <span class="ot">&lt;-</span> Dota_2_Stats_ALT <span class="sc">%&gt;%</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Dire_Safe_Lane) </span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>Renamed_Dire_Safe_Lane_Hero_Totals <span class="ot">&lt;-</span> Dire_Safe_Lane_Hero_Totals <span class="sc">%&gt;%</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Safe_Lane =</span> <span class="st">"Dire_Safe_Lane"</span>)</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Carry_Totals_Combined <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Renamed_Radiant_Safe_Lane_Hero_Totals, Renamed_Dire_Safe_Lane_Hero_Totals)</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Carry_Totals_Combined_Counted <span class="ot">&lt;-</span> Safe_Lane_Carry_Totals_Combined <span class="sc">%&gt;%</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Safe_Lane, <span class="at">name =</span> <span class="st">"Total_Games"</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Carry_Totals_Combined_Counted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Safe_Lane Total_Games
+1          Juggernaut          15
+2       Faceless_Void          11
+3    Phanton_Assassin           9
+4           Anti_Mage           8
+5              Sniper           8
+6         Drow_Ranger           7
+7         Lifestealer           7
+8      Phantom_Lancer           7
+9             Spectre           6
+10               Ursa           5
+11             Weaver           5
+12        Wraith_King           5
+13        Monkey_King           4
+14              Slark           4
+15               Luna           3
+16             Muerta           3
+17               Riki           3
+18               Sven           3
+19      Troll_Warlord           3
+20        Bloodseeker           2
+21       Chaos_Knight           2
+22             Clinkz           2
+23             Medusa           2
+24    Natures_Prophet           2
+25            Abbadon           1
+26         Brewmaster           1
+27       Ember_Spirit           1
+28           Hoodwink           1
+29              Lycan           1
+30             Mirana           1
+31          Morphling           1
+32         Naga_Siren           1
+33          Ogre_Magi           1
+34 Outworld_Destroyer           1
+35            Slardar           1
+36        Terrorblade           1
+37              Viper           1
+38               Zeus           1</code></pre>
+</div>
+</div>
+</section>
+<section id="safe-lane-carry-percent-win" class="level2">
+<h2 class="anchored" data-anchor-id="safe-lane-carry-percent-win">Safe Lane Carry Percent Win</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Carry_Wins_And_Totals <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="at">x =</span> Safe_Lane_Winners_Combined_Counted, <span class="at">y =</span> Safe_Lane_Carry_Totals_Combined_Counted, <span class="at">by =</span> <span class="st">"Safe_Lane"</span>, <span class="at">all.y =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Carry_Win_Percentages <span class="ot">&lt;-</span> Safe_Lane_Carry_Wins_And_Totals <span class="sc">%&gt;%</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Win_Percentage =</span> Wins <span class="sc">/</span> Total_Games)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Carry_Win_Percentages_Arranged <span class="ot">&lt;-</span> <span class="fu">arrange</span>(Safe_Lane_Carry_Win_Percentages,<span class="fu">desc</span>(Win_Percentage), <span class="fu">desc</span>(Total_Games))</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Carry_Win_Percentages_Arranged</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Safe_Lane Wins Total_Games Win_Percentage
+1                Sven    3           3      1.0000000
+2         Bloodseeker    2           2      1.0000000
+3              Medusa    2           2      1.0000000
+4             Abbadon    1           1      1.0000000
+5          Naga_Siren    1           1      1.0000000
+6           Ogre_Magi    1           1      1.0000000
+7         Terrorblade    1           1      1.0000000
+8         Drow_Ranger    6           7      0.8571429
+9         Lifestealer    6           7      0.8571429
+10               Luna    2           3      0.6666667
+11             Muerta    2           3      0.6666667
+12     Phantom_Lancer    4           7      0.5714286
+13   Phanton_Assassin    5           9      0.5555556
+14         Juggernaut    8          15      0.5333333
+15          Anti_Mage    4           8      0.5000000
+16             Sniper    4           8      0.5000000
+17        Monkey_King    2           4      0.5000000
+18              Slark    2           4      0.5000000
+19       Chaos_Knight    1           2      0.5000000
+20    Natures_Prophet    1           2      0.5000000
+21      Faceless_Void    5          11      0.4545455
+22             Weaver    2           5      0.4000000
+23        Wraith_King    2           5      0.4000000
+24               Riki    1           3      0.3333333
+25      Troll_Warlord    1           3      0.3333333
+26               Ursa    1           5      0.2000000
+27            Spectre   NA           6             NA
+28             Clinkz   NA           2             NA
+29         Brewmaster   NA           1             NA
+30       Ember_Spirit   NA           1             NA
+31           Hoodwink   NA           1             NA
+32              Lycan   NA           1             NA
+33             Mirana   NA           1             NA
+34          Morphling   NA           1             NA
+35 Outworld_Destroyer   NA           1             NA
+36            Slardar   NA           1             NA
+37              Viper   NA           1             NA
+38               Zeus   NA           1             NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Carry_Win_Percentages_Ranked <span class="ot">&lt;-</span> Safe_Lane_Carry_Win_Percentages <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ranking =</span> Wins <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> Win_Percentage <span class="sc">/</span> Total_Games <span class="sc">+</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Ranking))</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Carry_Win_Percentages_Ranked</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Safe_Lane Wins Total_Games Win_Percentage   Ranking
+1          Juggernaut    8          15      0.5333333 13.177778
+2         Drow_Ranger    6           7      0.8571429 11.612245
+3         Lifestealer    6           7      0.8571429 11.612245
+4             Abbadon    1           1      1.0000000 11.000000
+5          Naga_Siren    1           1      1.0000000 11.000000
+6           Ogre_Magi    1           1      1.0000000 11.000000
+7         Terrorblade    1           1      1.0000000 11.000000
+8    Phanton_Assassin    5           9      0.5555556 10.308642
+9       Faceless_Void    5          11      0.4545455 10.206612
+10               Sven    3           3      1.0000000  9.666667
+11        Bloodseeker    2           2      1.0000000  9.500000
+12             Medusa    2           2      1.0000000  9.500000
+13     Phantom_Lancer    4           7      0.5714286  9.408163
+14          Anti_Mage    4           8      0.5000000  9.312500
+15             Sniper    4           8      0.5000000  9.312500
+16               Luna    2           3      0.6666667  8.111111
+17             Muerta    2           3      0.6666667  8.111111
+18        Monkey_King    2           4      0.5000000  7.625000
+19              Slark    2           4      0.5000000  7.625000
+20             Weaver    2           5      0.4000000  7.400000
+21        Wraith_King    2           5      0.4000000  7.400000
+22       Chaos_Knight    1           2      0.5000000  7.250000
+23    Natures_Prophet    1           2      0.5000000  7.250000
+24               Riki    1           3      0.3333333  6.555556
+25      Troll_Warlord    1           3      0.3333333  6.555556
+26               Ursa    1           5      0.2000000  6.200000
+27         Brewmaster   NA           1             NA        NA
+28             Clinkz   NA           2             NA        NA
+29       Ember_Spirit   NA           1             NA        NA
+30           Hoodwink   NA           1             NA        NA
+31              Lycan   NA           1             NA        NA
+32             Mirana   NA           1             NA        NA
+33          Morphling   NA           1             NA        NA
+34 Outworld_Destroyer   NA           1             NA        NA
+35            Slardar   NA           1             NA        NA
+36            Spectre   NA           6             NA        NA
+37              Viper   NA           1             NA        NA
+38               Zeus   NA           1             NA        NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Carry_Win_Percentages_Ranked_2 <span class="ot">&lt;-</span> Safe_Lane_Carry_Win_Percentages <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ranking_2 =</span> Wins <span class="sc">*</span> Wins <span class="sc">/</span> Total_Games) <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Ranking_2))</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Carry_Win_Percentages_Ranked_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Safe_Lane Wins Total_Games Win_Percentage Ranking_2
+1         Drow_Ranger    6           7      0.8571429 5.1428571
+2         Lifestealer    6           7      0.8571429 5.1428571
+3          Juggernaut    8          15      0.5333333 4.2666667
+4                Sven    3           3      1.0000000 3.0000000
+5    Phanton_Assassin    5           9      0.5555556 2.7777778
+6      Phantom_Lancer    4           7      0.5714286 2.2857143
+7       Faceless_Void    5          11      0.4545455 2.2727273
+8           Anti_Mage    4           8      0.5000000 2.0000000
+9         Bloodseeker    2           2      1.0000000 2.0000000
+10             Medusa    2           2      1.0000000 2.0000000
+11             Sniper    4           8      0.5000000 2.0000000
+12               Luna    2           3      0.6666667 1.3333333
+13             Muerta    2           3      0.6666667 1.3333333
+14            Abbadon    1           1      1.0000000 1.0000000
+15        Monkey_King    2           4      0.5000000 1.0000000
+16         Naga_Siren    1           1      1.0000000 1.0000000
+17          Ogre_Magi    1           1      1.0000000 1.0000000
+18              Slark    2           4      0.5000000 1.0000000
+19        Terrorblade    1           1      1.0000000 1.0000000
+20             Weaver    2           5      0.4000000 0.8000000
+21        Wraith_King    2           5      0.4000000 0.8000000
+22       Chaos_Knight    1           2      0.5000000 0.5000000
+23    Natures_Prophet    1           2      0.5000000 0.5000000
+24               Riki    1           3      0.3333333 0.3333333
+25      Troll_Warlord    1           3      0.3333333 0.3333333
+26               Ursa    1           5      0.2000000 0.2000000
+27         Brewmaster   NA           1             NA        NA
+28             Clinkz   NA           2             NA        NA
+29       Ember_Spirit   NA           1             NA        NA
+30           Hoodwink   NA           1             NA        NA
+31              Lycan   NA           1             NA        NA
+32             Mirana   NA           1             NA        NA
+33          Morphling   NA           1             NA        NA
+34 Outworld_Destroyer   NA           1             NA        NA
+35            Slardar   NA           1             NA        NA
+36            Spectre   NA           6             NA        NA
+37              Viper   NA           1             NA        NA
+38               Zeus   NA           1             NA        NA</code></pre>
+</div>
+</div>
+</section>
+<section id="radiant-safe-lane-combos" class="level2">
+<h2 class="anchored" data-anchor-id="radiant-safe-lane-combos">Radiant Safe Lane Combos</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>Radiant_Safe_Lane_Winning_Combos <span class="ot">&lt;-</span>  Dota_2_Stats_ALT <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Radiant_Win_TF <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Radiant_Safe_Lane, Radiant_Hard_Support)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>Radiant_Safe_Lane_Winning_Combos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Radiant_Safe_Lane Radiant_Hard_Support
+1             Weaver         Witch_Doctor
+2     Phantom_Lancer         Witch_Doctor
+3      Faceless_Void           Windranger
+4     Phantom_Lancer   Ancient_Apparition
+5         Naga_Siren        Winter_Wyvern
+6        Bloodseeker               Jakiro
+7   Phanton_Assassin   Ancient_Apparition
+8         Juggernaut            Ogre_Magi
+9      Troll_Warlord         Witch_Doctor
+10              Riki         Witch_Doctor
+11       Bloodseeker                 Lich
+12       Lifestealer         Witch_Doctor
+13        Juggernaut   Ancient_Apparition
+14  Phanton_Assassin       Spirit_Breaker
+15           Abbadon                 Lich
+16       Drow_Ranger   Ancient_Apparition
+17       Drow_Ranger   Ancient_Apparition
+18        Juggernaut                 Lion
+19            Sniper   Ancient_Apparition
+20     Faceless_Void                Pudge
+21              Sven            Sand_King
+22       Terrorblade               Dazzle
+23     Faceless_Void         Earth_Spirit
+24            Muerta        Shadow_Shaman
+25              Sven                Pudge
+26            Sniper               Jakiro
+27             Slark                Pugna
+28       Monkey_King               Jakiro
+29       Drow_Ranger               Dazzle
+30       Lifestealer       Crystal_Maiden
+31       Lifestealer               Jakiro
+32         Anti_Mage      Natures_Prophet
+33  Phanton_Assassin                 Lion
+34       Lifestealer               Jakiro
+35       Drow_Ranger       Crystal_Maiden
+36         Anti_Mage         Witch_Doctor
+37        Juggernaut           Venomancer
+38              Sven               Jakiro
+39       Monkey_King            Ogre_Magi
+40            Muerta      Vengeful_Spirit
+41        Juggernaut   Ancient_Apparition
+42       Lifestealer             Silencer
+43       Wraith_King               Jakiro
+44        Juggernaut   Ancient_Apparition
+45              Ursa        Shadow_Shaman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>Renamed_Radiant_Safe_Lane_Combos <span class="ot">&lt;-</span> Radiant_Safe_Lane_Winning_Combos <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Hard_Support =</span> Radiant_Hard_Support, <span class="at">Safe_Lane =</span> Radiant_Safe_Lane</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Renamed_Radiant_Safe_Lane_Combos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Safe_Lane       Hard_Support
+1            Weaver       Witch_Doctor
+2    Phantom_Lancer       Witch_Doctor
+3     Faceless_Void         Windranger
+4    Phantom_Lancer Ancient_Apparition
+5        Naga_Siren      Winter_Wyvern
+6       Bloodseeker             Jakiro
+7  Phanton_Assassin Ancient_Apparition
+8        Juggernaut          Ogre_Magi
+9     Troll_Warlord       Witch_Doctor
+10             Riki       Witch_Doctor
+11      Bloodseeker               Lich
+12      Lifestealer       Witch_Doctor
+13       Juggernaut Ancient_Apparition
+14 Phanton_Assassin     Spirit_Breaker
+15          Abbadon               Lich
+16      Drow_Ranger Ancient_Apparition
+17      Drow_Ranger Ancient_Apparition
+18       Juggernaut               Lion
+19           Sniper Ancient_Apparition
+20    Faceless_Void              Pudge
+21             Sven          Sand_King
+22      Terrorblade             Dazzle
+23    Faceless_Void       Earth_Spirit
+24           Muerta      Shadow_Shaman
+25             Sven              Pudge
+26           Sniper             Jakiro
+27            Slark              Pugna
+28      Monkey_King             Jakiro
+29      Drow_Ranger             Dazzle
+30      Lifestealer     Crystal_Maiden
+31      Lifestealer             Jakiro
+32        Anti_Mage    Natures_Prophet
+33 Phanton_Assassin               Lion
+34      Lifestealer             Jakiro
+35      Drow_Ranger     Crystal_Maiden
+36        Anti_Mage       Witch_Doctor
+37       Juggernaut         Venomancer
+38             Sven             Jakiro
+39      Monkey_King          Ogre_Magi
+40           Muerta    Vengeful_Spirit
+41       Juggernaut Ancient_Apparition
+42      Lifestealer           Silencer
+43      Wraith_King             Jakiro
+44       Juggernaut Ancient_Apparition
+45             Ursa      Shadow_Shaman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>Radiant_Bot_Combos <span class="ot">&lt;-</span>Dota_2_Stats_ALT <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Radiant_Safe_Lane, Radiant_Hard_Support)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>Radiant_Bot_Combos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Radiant_Safe_Lane Radiant_Hard_Support
+1      Phantom_Lancer            Disruptor
+2          Juggernaut        Skywrath_Mage
+3              Weaver         Witch_Doctor
+4               Lycan               Jakiro
+5      Phantom_Lancer         Witch_Doctor
+6       Faceless_Void           Windranger
+7      Phantom_Lancer   Ancient_Apparition
+8                Luna        Skywrath_Mage
+9          Naga_Siren        Winter_Wyvern
+10        Bloodseeker               Jakiro
+11   Phanton_Assassin   Ancient_Apparition
+12         Juggernaut            Ogre_Magi
+13          Anti_Mage            Disruptor
+14      Troll_Warlord         Witch_Doctor
+15               Riki         Witch_Doctor
+16        Bloodseeker                 Lich
+17        Lifestealer         Witch_Doctor
+18         Juggernaut   Ancient_Apparition
+19              Slark         Shadow_Demon
+20   Phanton_Assassin       Spirit_Breaker
+21         Juggernaut          Dawnbreaker
+22            Abbadon                 Lich
+23        Drow_Ranger   Ancient_Apparition
+24        Drow_Ranger   Ancient_Apparition
+25             Sniper              Warlock
+26         Juggernaut                 Lion
+27         Brewmaster   Ancient_Apparition
+28             Sniper   Ancient_Apparition
+29      Faceless_Void                Pudge
+30               Sven            Sand_King
+31       Ember_Spirit               Dazzle
+32        Terrorblade               Dazzle
+33            Spectre                Pudge
+34             Sniper               Rubick
+35      Faceless_Void         Earth_Spirit
+36             Muerta        Shadow_Shaman
+37         Juggernaut                 Lion
+38           Hoodwink     Treant_Protector
+39               Sven                Pudge
+40 Outworld_Destroyer                Pudge
+41   Phanton_Assassin               Jakiro
+42             Sniper               Jakiro
+43              Slark                Pugna
+44    Natures_Prophet              Warlock
+45        Monkey_King               Jakiro
+46        Drow_Ranger               Dazzle
+47        Lifestealer       Crystal_Maiden
+48        Lifestealer               Jakiro
+49      Faceless_Void        Shadow_Shaman
+50     Phantom_Lancer  Keeper_of_the_Light
+51              Viper        Shadow_Shaman
+52              Slark            Disruptor
+53          Anti_Mage      Natures_Prophet
+54   Phanton_Assassin                 Lion
+55        Lifestealer               Jakiro
+56        Drow_Ranger       Crystal_Maiden
+57             Clinkz      Vengeful_Spirit
+58          Anti_Mage         Witch_Doctor
+59         Juggernaut           Venomancer
+60               Sven               Jakiro
+61        Monkey_King            Ogre_Magi
+62             Muerta      Vengeful_Spirit
+63         Juggernaut   Ancient_Apparition
+64          Anti_Mage                 Lion
+65        Lifestealer             Silencer
+66        Wraith_King               Jakiro
+67         Juggernaut   Ancient_Apparition
+68       Chaos_Knight           Venomancer
+69               Ursa        Shadow_Shaman
+70        Wraith_King        Shadow_Shaman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>Renamed_Radiant_Bot_Combos <span class="ot">&lt;-</span> <span class="fu">rename</span>(Radiant_Bot_Combos, <span class="at">Safe_Lane =</span> Radiant_Safe_Lane, <span class="at">Hard_Support =</span> Radiant_Hard_Support)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>Renamed_Radiant_Bot_Combos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Safe_Lane        Hard_Support
+1      Phantom_Lancer           Disruptor
+2          Juggernaut       Skywrath_Mage
+3              Weaver        Witch_Doctor
+4               Lycan              Jakiro
+5      Phantom_Lancer        Witch_Doctor
+6       Faceless_Void          Windranger
+7      Phantom_Lancer  Ancient_Apparition
+8                Luna       Skywrath_Mage
+9          Naga_Siren       Winter_Wyvern
+10        Bloodseeker              Jakiro
+11   Phanton_Assassin  Ancient_Apparition
+12         Juggernaut           Ogre_Magi
+13          Anti_Mage           Disruptor
+14      Troll_Warlord        Witch_Doctor
+15               Riki        Witch_Doctor
+16        Bloodseeker                Lich
+17        Lifestealer        Witch_Doctor
+18         Juggernaut  Ancient_Apparition
+19              Slark        Shadow_Demon
+20   Phanton_Assassin      Spirit_Breaker
+21         Juggernaut         Dawnbreaker
+22            Abbadon                Lich
+23        Drow_Ranger  Ancient_Apparition
+24        Drow_Ranger  Ancient_Apparition
+25             Sniper             Warlock
+26         Juggernaut                Lion
+27         Brewmaster  Ancient_Apparition
+28             Sniper  Ancient_Apparition
+29      Faceless_Void               Pudge
+30               Sven           Sand_King
+31       Ember_Spirit              Dazzle
+32        Terrorblade              Dazzle
+33            Spectre               Pudge
+34             Sniper              Rubick
+35      Faceless_Void        Earth_Spirit
+36             Muerta       Shadow_Shaman
+37         Juggernaut                Lion
+38           Hoodwink    Treant_Protector
+39               Sven               Pudge
+40 Outworld_Destroyer               Pudge
+41   Phanton_Assassin              Jakiro
+42             Sniper              Jakiro
+43              Slark               Pugna
+44    Natures_Prophet             Warlock
+45        Monkey_King              Jakiro
+46        Drow_Ranger              Dazzle
+47        Lifestealer      Crystal_Maiden
+48        Lifestealer              Jakiro
+49      Faceless_Void       Shadow_Shaman
+50     Phantom_Lancer Keeper_of_the_Light
+51              Viper       Shadow_Shaman
+52              Slark           Disruptor
+53          Anti_Mage     Natures_Prophet
+54   Phanton_Assassin                Lion
+55        Lifestealer              Jakiro
+56        Drow_Ranger      Crystal_Maiden
+57             Clinkz     Vengeful_Spirit
+58          Anti_Mage        Witch_Doctor
+59         Juggernaut          Venomancer
+60               Sven              Jakiro
+61        Monkey_King           Ogre_Magi
+62             Muerta     Vengeful_Spirit
+63         Juggernaut  Ancient_Apparition
+64          Anti_Mage                Lion
+65        Lifestealer            Silencer
+66        Wraith_King              Jakiro
+67         Juggernaut  Ancient_Apparition
+68       Chaos_Knight          Venomancer
+69               Ursa       Shadow_Shaman
+70        Wraith_King       Shadow_Shaman</code></pre>
+</div>
+</div>
+</section>
+<section id="dire" class="level2">
+<h2 class="anchored" data-anchor-id="dire">Dire</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>Dire_Safe_Lane_Winning_Combos <span class="ot">&lt;-</span>  Dota_2_Stats_ALT <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Radiant_Win_TF <span class="sc">==</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Dire_Safe_Lane, Dire_Hard_Support)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>Renamed_Dire_Safe_Lane_Combos <span class="ot">&lt;-</span> Dire_Safe_Lane_Winning_Combos <span class="sc">%&gt;%</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Safe_Lane =</span> Dire_Safe_Lane, <span class="at">Hard_Support =</span> Dire_Hard_Support</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>Dire_Top_Combos <span class="ot">&lt;-</span>Dota_2_Stats_ALT <span class="sc">%&gt;%</span></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Dire_Safe_Lane, Dire_Hard_Support)</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>Dire_Top_Combos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Dire_Safe_Lane  Dire_Hard_Support
+1     Faceless_Void             Jakiro
+2   Natures_Prophet               Zeus
+3     Faceless_Void Ancient_Apparition
+4      Chaos_Knight               Lich
+5        Juggernaut          Disruptor
+6        Juggernaut             Jakiro
+7              Ursa             Jakiro
+8        Juggernaut Ancient_Apparition
+9    Phantom_Lancer          Ogre_Magi
+10    Faceless_Void     Crystal_Maiden
+11             Riki             Jakiro
+12    Faceless_Void           Hoodwink
+13           Sniper Ancient_Apparition
+14           Weaver   Treant_Protector
+15      Lifestealer             Dazzle
+16    Faceless_Void       Witch_Doctor
+17          Spectre Ancient_Apparition
+18           Weaver               Tusk
+19      Drow_Ranger Ancient_Apparition
+20      Monkey_King         Grimstroke
+21             Luna            Warlock
+22      Monkey_King Ancient_Apparition
+23       Juggernaut      Shadow_Shaman
+24 Phanton_Assassin          Disruptor
+25   Phantom_Lancer         Grimstroke
+26      Drow_Ranger       Witch_Doctor
+27        Ogre_Magi               Lion
+28          Slardar           Silencer
+29 Phanton_Assassin Ancient_Apparition
+30             Zeus     Spirit_Breaker
+31             Luna Ancient_Apparition
+32          Spectre              Pugna
+33            Slark               Lich
+34 Phanton_Assassin             Magnus
+35          Spectre               Lion
+36             Ursa   Phanton_Assassin
+37    Faceless_Void            Warlock
+38      Lifestealer Ancient_Apparition
+39             Ursa Ancient_Apparition
+40           Weaver      Shadow_Shaman
+41           Medusa        Earthshaker
+42             Riki      Shadow_Shaman
+43          Spectre       Witch_Doctor
+44       Juggernaut       Witch_Doctor
+45        Anti_Mage      Shadow_Shaman
+46       Juggernaut         Grimstroke
+47    Faceless_Void         Venomancer
+48      Wraith_King      Shadow_Shaman
+49      Wraith_King           Hoodwink
+50 Phanton_Assassin     Crystal_Maiden
+51           Medusa Ancient_Apparition
+52        Anti_Mage Ancient_Apparition
+53           Clinkz            Techies
+54           Sniper      Skywrath_Mage
+55    Troll_Warlord              Pugna
+56 Phanton_Assassin Ancient_Apparition
+57        Anti_Mage              Pudge
+58          Spectre            Phoenix
+59      Wraith_King       Shadow_Demon
+60           Weaver Ancient_Apparition
+61             Ursa               Lion
+62           Sniper             Dazzle
+63        Morphling            Phoenix
+64   Phantom_Lancer     Crystal_Maiden
+65    Troll_Warlord        Bristleback
+66           Muerta     Crystal_Maiden
+67        Anti_Mage            Warlock
+68      Drow_Ranger     Spirit_Breaker
+69           Mirana Ancient_Apparition
+70           Sniper             Dazzle</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>Renamed_Dire_Top_Combos <span class="ot">&lt;-</span> <span class="fu">rename</span>(Dire_Top_Combos, <span class="at">Safe_Lane =</span> Dire_Safe_Lane, <span class="at">Hard_Support =</span> Dire_Hard_Support)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>Renamed_Dire_Top_Combos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Safe_Lane       Hard_Support
+1     Faceless_Void             Jakiro
+2   Natures_Prophet               Zeus
+3     Faceless_Void Ancient_Apparition
+4      Chaos_Knight               Lich
+5        Juggernaut          Disruptor
+6        Juggernaut             Jakiro
+7              Ursa             Jakiro
+8        Juggernaut Ancient_Apparition
+9    Phantom_Lancer          Ogre_Magi
+10    Faceless_Void     Crystal_Maiden
+11             Riki             Jakiro
+12    Faceless_Void           Hoodwink
+13           Sniper Ancient_Apparition
+14           Weaver   Treant_Protector
+15      Lifestealer             Dazzle
+16    Faceless_Void       Witch_Doctor
+17          Spectre Ancient_Apparition
+18           Weaver               Tusk
+19      Drow_Ranger Ancient_Apparition
+20      Monkey_King         Grimstroke
+21             Luna            Warlock
+22      Monkey_King Ancient_Apparition
+23       Juggernaut      Shadow_Shaman
+24 Phanton_Assassin          Disruptor
+25   Phantom_Lancer         Grimstroke
+26      Drow_Ranger       Witch_Doctor
+27        Ogre_Magi               Lion
+28          Slardar           Silencer
+29 Phanton_Assassin Ancient_Apparition
+30             Zeus     Spirit_Breaker
+31             Luna Ancient_Apparition
+32          Spectre              Pugna
+33            Slark               Lich
+34 Phanton_Assassin             Magnus
+35          Spectre               Lion
+36             Ursa   Phanton_Assassin
+37    Faceless_Void            Warlock
+38      Lifestealer Ancient_Apparition
+39             Ursa Ancient_Apparition
+40           Weaver      Shadow_Shaman
+41           Medusa        Earthshaker
+42             Riki      Shadow_Shaman
+43          Spectre       Witch_Doctor
+44       Juggernaut       Witch_Doctor
+45        Anti_Mage      Shadow_Shaman
+46       Juggernaut         Grimstroke
+47    Faceless_Void         Venomancer
+48      Wraith_King      Shadow_Shaman
+49      Wraith_King           Hoodwink
+50 Phanton_Assassin     Crystal_Maiden
+51           Medusa Ancient_Apparition
+52        Anti_Mage Ancient_Apparition
+53           Clinkz            Techies
+54           Sniper      Skywrath_Mage
+55    Troll_Warlord              Pugna
+56 Phanton_Assassin Ancient_Apparition
+57        Anti_Mage              Pudge
+58          Spectre            Phoenix
+59      Wraith_King       Shadow_Demon
+60           Weaver Ancient_Apparition
+61             Ursa               Lion
+62           Sniper             Dazzle
+63        Morphling            Phoenix
+64   Phantom_Lancer     Crystal_Maiden
+65    Troll_Warlord        Bristleback
+66           Muerta     Crystal_Maiden
+67        Anti_Mage            Warlock
+68      Drow_Ranger     Spirit_Breaker
+69           Mirana Ancient_Apparition
+70           Sniper             Dazzle</code></pre>
+</div>
+</div>
+</section>
+<section id="safe-lane-combos-combined" class="level2">
+<h2 class="anchored" data-anchor-id="safe-lane-combos-combined">Safe Lane Combos Combined</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Combos_Combined <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Renamed_Radiant_Bot_Combos, Renamed_Dire_Top_Combos)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Combos_Combined_Counted <span class="ot">&lt;-</span> Safe_Lane_Combos_Combined <span class="sc">%&gt;%</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Safe_Lane, Hard_Support, <span class="at">name =</span> <span class="st">"Total_Games"</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Safe_Lane_Combos_Combined_Counted)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Safe_Lane        Hard_Support Total_Games
+1           Juggernaut  Ancient_Apparition           4
+2          Drow_Ranger  Ancient_Apparition           3
+3     Phanton_Assassin  Ancient_Apparition           3
+4           Juggernaut                Lion           2
+5          Lifestealer              Jakiro           2
+6               Sniper  Ancient_Apparition           2
+7               Sniper              Dazzle           2
+8          Wraith_King       Shadow_Shaman           2
+9              Abbadon                Lich           1
+10           Anti_Mage  Ancient_Apparition           1
+11           Anti_Mage           Disruptor           1
+12           Anti_Mage                Lion           1
+13           Anti_Mage     Natures_Prophet           1
+14           Anti_Mage               Pudge           1
+15           Anti_Mage       Shadow_Shaman           1
+16           Anti_Mage             Warlock           1
+17           Anti_Mage        Witch_Doctor           1
+18         Bloodseeker              Jakiro           1
+19         Bloodseeker                Lich           1
+20          Brewmaster  Ancient_Apparition           1
+21        Chaos_Knight                Lich           1
+22        Chaos_Knight          Venomancer           1
+23              Clinkz             Techies           1
+24              Clinkz     Vengeful_Spirit           1
+25         Drow_Ranger      Crystal_Maiden           1
+26         Drow_Ranger              Dazzle           1
+27         Drow_Ranger      Spirit_Breaker           1
+28         Drow_Ranger        Witch_Doctor           1
+29        Ember_Spirit              Dazzle           1
+30       Faceless_Void  Ancient_Apparition           1
+31       Faceless_Void      Crystal_Maiden           1
+32       Faceless_Void        Earth_Spirit           1
+33       Faceless_Void            Hoodwink           1
+34       Faceless_Void              Jakiro           1
+35       Faceless_Void               Pudge           1
+36       Faceless_Void       Shadow_Shaman           1
+37       Faceless_Void          Venomancer           1
+38       Faceless_Void             Warlock           1
+39       Faceless_Void          Windranger           1
+40       Faceless_Void        Witch_Doctor           1
+41            Hoodwink    Treant_Protector           1
+42          Juggernaut         Dawnbreaker           1
+43          Juggernaut           Disruptor           1
+44          Juggernaut          Grimstroke           1
+45          Juggernaut              Jakiro           1
+46          Juggernaut           Ogre_Magi           1
+47          Juggernaut       Shadow_Shaman           1
+48          Juggernaut       Skywrath_Mage           1
+49          Juggernaut          Venomancer           1
+50          Juggernaut        Witch_Doctor           1
+51         Lifestealer  Ancient_Apparition           1
+52         Lifestealer      Crystal_Maiden           1
+53         Lifestealer              Dazzle           1
+54         Lifestealer            Silencer           1
+55         Lifestealer        Witch_Doctor           1
+56                Luna  Ancient_Apparition           1
+57                Luna       Skywrath_Mage           1
+58                Luna             Warlock           1
+59               Lycan              Jakiro           1
+60              Medusa  Ancient_Apparition           1
+61              Medusa         Earthshaker           1
+62              Mirana  Ancient_Apparition           1
+63         Monkey_King  Ancient_Apparition           1
+64         Monkey_King          Grimstroke           1
+65         Monkey_King              Jakiro           1
+66         Monkey_King           Ogre_Magi           1
+67           Morphling             Phoenix           1
+68              Muerta      Crystal_Maiden           1
+69              Muerta       Shadow_Shaman           1
+70              Muerta     Vengeful_Spirit           1
+71          Naga_Siren       Winter_Wyvern           1
+72     Natures_Prophet             Warlock           1
+73     Natures_Prophet                Zeus           1
+74           Ogre_Magi                Lion           1
+75  Outworld_Destroyer               Pudge           1
+76      Phantom_Lancer  Ancient_Apparition           1
+77      Phantom_Lancer      Crystal_Maiden           1
+78      Phantom_Lancer           Disruptor           1
+79      Phantom_Lancer          Grimstroke           1
+80      Phantom_Lancer Keeper_of_the_Light           1
+81      Phantom_Lancer           Ogre_Magi           1
+82      Phantom_Lancer        Witch_Doctor           1
+83    Phanton_Assassin      Crystal_Maiden           1
+84    Phanton_Assassin           Disruptor           1
+85    Phanton_Assassin              Jakiro           1
+86    Phanton_Assassin                Lion           1
+87    Phanton_Assassin              Magnus           1
+88    Phanton_Assassin      Spirit_Breaker           1
+89                Riki              Jakiro           1
+90                Riki       Shadow_Shaman           1
+91                Riki        Witch_Doctor           1
+92             Slardar            Silencer           1
+93               Slark           Disruptor           1
+94               Slark                Lich           1
+95               Slark               Pugna           1
+96               Slark        Shadow_Demon           1
+97              Sniper              Jakiro           1
+98              Sniper              Rubick           1
+99              Sniper       Skywrath_Mage           1
+100             Sniper             Warlock           1
+101            Spectre  Ancient_Apparition           1
+102            Spectre                Lion           1
+103            Spectre             Phoenix           1
+104            Spectre               Pudge           1
+105            Spectre               Pugna           1
+106            Spectre        Witch_Doctor           1
+107               Sven              Jakiro           1
+108               Sven               Pudge           1
+109               Sven           Sand_King           1
+110        Terrorblade              Dazzle           1
+111      Troll_Warlord         Bristleback           1
+112      Troll_Warlord               Pugna           1
+113      Troll_Warlord        Witch_Doctor           1
+114               Ursa  Ancient_Apparition           1
+115               Ursa              Jakiro           1
+116               Ursa                Lion           1
+117               Ursa    Phanton_Assassin           1
+118               Ursa       Shadow_Shaman           1
+119              Viper       Shadow_Shaman           1
+120             Weaver  Ancient_Apparition           1
+121             Weaver       Shadow_Shaman           1
+122             Weaver    Treant_Protector           1
+123             Weaver                Tusk           1
+124             Weaver        Witch_Doctor           1
+125        Wraith_King            Hoodwink           1
+126        Wraith_King              Jakiro           1
+127        Wraith_King        Shadow_Demon           1
+128               Zeus      Spirit_Breaker           1</code></pre>
+</div>
+</div>
+</section>
+<section id="winning-safe-combos" class="level2">
+<h2 class="anchored" data-anchor-id="winning-safe-combos">Winning Safe Combos</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Winning_Combos_Combined <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Renamed_Radiant_Safe_Lane_Combos, Renamed_Dire_Safe_Lane_Combos)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Winning_Combos_Combined_Counted <span class="ot">&lt;-</span> Safe_Lane_Winning_Combos_Combined <span class="sc">%&gt;%</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Safe_Lane, Hard_Support, <span class="at">name =</span> <span class="st">"Wins"</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Safe_Lane_Winning_Combos_Combined_Counted)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Safe_Lane       Hard_Support Wins
+1        Juggernaut Ancient_Apparition    4
+2       Drow_Ranger Ancient_Apparition    3
+3       Lifestealer             Jakiro    2
+4            Sniper Ancient_Apparition    2
+5           Abbadon               Lich    1
+6         Anti_Mage Ancient_Apparition    1
+7         Anti_Mage    Natures_Prophet    1
+8         Anti_Mage              Pudge    1
+9         Anti_Mage       Witch_Doctor    1
+10      Bloodseeker             Jakiro    1
+11      Bloodseeker               Lich    1
+12     Chaos_Knight               Lich    1
+13      Drow_Ranger     Crystal_Maiden    1
+14      Drow_Ranger             Dazzle    1
+15      Drow_Ranger     Spirit_Breaker    1
+16    Faceless_Void       Earth_Spirit    1
+17    Faceless_Void             Jakiro    1
+18    Faceless_Void              Pudge    1
+19    Faceless_Void            Warlock    1
+20    Faceless_Void         Windranger    1
+21       Juggernaut               Lion    1
+22       Juggernaut          Ogre_Magi    1
+23       Juggernaut         Venomancer    1
+24       Juggernaut       Witch_Doctor    1
+25      Lifestealer Ancient_Apparition    1
+26      Lifestealer     Crystal_Maiden    1
+27      Lifestealer           Silencer    1
+28      Lifestealer       Witch_Doctor    1
+29             Luna Ancient_Apparition    1
+30             Luna            Warlock    1
+31           Medusa Ancient_Apparition    1
+32           Medusa        Earthshaker    1
+33      Monkey_King             Jakiro    1
+34      Monkey_King          Ogre_Magi    1
+35           Muerta      Shadow_Shaman    1
+36           Muerta    Vengeful_Spirit    1
+37       Naga_Siren      Winter_Wyvern    1
+38  Natures_Prophet               Zeus    1
+39        Ogre_Magi               Lion    1
+40   Phantom_Lancer Ancient_Apparition    1
+41   Phantom_Lancer     Crystal_Maiden    1
+42   Phantom_Lancer         Grimstroke    1
+43   Phantom_Lancer       Witch_Doctor    1
+44 Phanton_Assassin Ancient_Apparition    1
+45 Phanton_Assassin     Crystal_Maiden    1
+46 Phanton_Assassin               Lion    1
+47 Phanton_Assassin             Magnus    1
+48 Phanton_Assassin     Spirit_Breaker    1
+49             Riki       Witch_Doctor    1
+50            Slark               Lich    1
+51            Slark              Pugna    1
+52           Sniper             Dazzle    1
+53           Sniper             Jakiro    1
+54             Sven             Jakiro    1
+55             Sven              Pudge    1
+56             Sven          Sand_King    1
+57      Terrorblade             Dazzle    1
+58    Troll_Warlord       Witch_Doctor    1
+59             Ursa      Shadow_Shaman    1
+60           Weaver      Shadow_Shaman    1
+61           Weaver       Witch_Doctor    1
+62      Wraith_King           Hoodwink    1
+63      Wraith_King             Jakiro    1</code></pre>
+</div>
+</div>
+</section>
+<section id="join-tinkering-with-safe-winners-and-safe-combos" class="level2">
+<h2 class="anchored" data-anchor-id="join-tinkering-with-safe-winners-and-safe-combos">Join Tinkering with Safe Winners and Safe Combos</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Combos <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="at">x =</span> Safe_Lane_Winning_Combos_Combined_Counted, <span class="at">y =</span> Safe_Lane_Combos_Combined_Counted, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Safe_Lane"</span>,<span class="st">"Hard_Support"</span>), <span class="at">all.y =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Combos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Safe_Lane        Hard_Support Wins Total_Games
+1              Abbadon                Lich    1           1
+2            Anti_Mage  Ancient_Apparition    1           1
+3            Anti_Mage           Disruptor   NA           1
+4            Anti_Mage                Lion   NA           1
+5            Anti_Mage     Natures_Prophet    1           1
+6            Anti_Mage               Pudge    1           1
+7            Anti_Mage       Shadow_Shaman   NA           1
+8            Anti_Mage             Warlock   NA           1
+9            Anti_Mage        Witch_Doctor    1           1
+10         Bloodseeker              Jakiro    1           1
+11         Bloodseeker                Lich    1           1
+12          Brewmaster  Ancient_Apparition   NA           1
+13        Chaos_Knight                Lich    1           1
+14        Chaos_Knight          Venomancer   NA           1
+15              Clinkz             Techies   NA           1
+16              Clinkz     Vengeful_Spirit   NA           1
+17         Drow_Ranger  Ancient_Apparition    3           3
+18         Drow_Ranger      Crystal_Maiden    1           1
+19         Drow_Ranger              Dazzle    1           1
+20         Drow_Ranger      Spirit_Breaker    1           1
+21         Drow_Ranger        Witch_Doctor   NA           1
+22        Ember_Spirit              Dazzle   NA           1
+23       Faceless_Void  Ancient_Apparition   NA           1
+24       Faceless_Void      Crystal_Maiden   NA           1
+25       Faceless_Void        Earth_Spirit    1           1
+26       Faceless_Void            Hoodwink   NA           1
+27       Faceless_Void              Jakiro    1           1
+28       Faceless_Void               Pudge    1           1
+29       Faceless_Void       Shadow_Shaman   NA           1
+30       Faceless_Void          Venomancer   NA           1
+31       Faceless_Void             Warlock    1           1
+32       Faceless_Void          Windranger    1           1
+33       Faceless_Void        Witch_Doctor   NA           1
+34            Hoodwink    Treant_Protector   NA           1
+35          Juggernaut  Ancient_Apparition    4           4
+36          Juggernaut         Dawnbreaker   NA           1
+37          Juggernaut           Disruptor   NA           1
+38          Juggernaut          Grimstroke   NA           1
+39          Juggernaut              Jakiro   NA           1
+40          Juggernaut                Lion    1           2
+41          Juggernaut           Ogre_Magi    1           1
+42          Juggernaut       Shadow_Shaman   NA           1
+43          Juggernaut       Skywrath_Mage   NA           1
+44          Juggernaut          Venomancer    1           1
+45          Juggernaut        Witch_Doctor    1           1
+46         Lifestealer  Ancient_Apparition    1           1
+47         Lifestealer      Crystal_Maiden    1           1
+48         Lifestealer              Dazzle   NA           1
+49         Lifestealer              Jakiro    2           2
+50         Lifestealer            Silencer    1           1
+51         Lifestealer        Witch_Doctor    1           1
+52                Luna  Ancient_Apparition    1           1
+53                Luna       Skywrath_Mage   NA           1
+54                Luna             Warlock    1           1
+55               Lycan              Jakiro   NA           1
+56              Medusa  Ancient_Apparition    1           1
+57              Medusa         Earthshaker    1           1
+58              Mirana  Ancient_Apparition   NA           1
+59         Monkey_King  Ancient_Apparition   NA           1
+60         Monkey_King          Grimstroke   NA           1
+61         Monkey_King              Jakiro    1           1
+62         Monkey_King           Ogre_Magi    1           1
+63           Morphling             Phoenix   NA           1
+64              Muerta      Crystal_Maiden   NA           1
+65              Muerta       Shadow_Shaman    1           1
+66              Muerta     Vengeful_Spirit    1           1
+67          Naga_Siren       Winter_Wyvern    1           1
+68     Natures_Prophet             Warlock   NA           1
+69     Natures_Prophet                Zeus    1           1
+70           Ogre_Magi                Lion    1           1
+71  Outworld_Destroyer               Pudge   NA           1
+72      Phantom_Lancer  Ancient_Apparition    1           1
+73      Phantom_Lancer      Crystal_Maiden    1           1
+74      Phantom_Lancer           Disruptor   NA           1
+75      Phantom_Lancer          Grimstroke    1           1
+76      Phantom_Lancer Keeper_of_the_Light   NA           1
+77      Phantom_Lancer           Ogre_Magi   NA           1
+78      Phantom_Lancer        Witch_Doctor    1           1
+79    Phanton_Assassin  Ancient_Apparition    1           3
+80    Phanton_Assassin      Crystal_Maiden    1           1
+81    Phanton_Assassin           Disruptor   NA           1
+82    Phanton_Assassin              Jakiro   NA           1
+83    Phanton_Assassin                Lion    1           1
+84    Phanton_Assassin              Magnus    1           1
+85    Phanton_Assassin      Spirit_Breaker    1           1
+86                Riki              Jakiro   NA           1
+87                Riki       Shadow_Shaman   NA           1
+88                Riki        Witch_Doctor    1           1
+89             Slardar            Silencer   NA           1
+90               Slark           Disruptor   NA           1
+91               Slark                Lich    1           1
+92               Slark               Pugna    1           1
+93               Slark        Shadow_Demon   NA           1
+94              Sniper  Ancient_Apparition    2           2
+95              Sniper              Dazzle    1           2
+96              Sniper              Jakiro    1           1
+97              Sniper              Rubick   NA           1
+98              Sniper       Skywrath_Mage   NA           1
+99              Sniper             Warlock   NA           1
+100            Spectre  Ancient_Apparition   NA           1
+101            Spectre                Lion   NA           1
+102            Spectre             Phoenix   NA           1
+103            Spectre               Pudge   NA           1
+104            Spectre               Pugna   NA           1
+105            Spectre        Witch_Doctor   NA           1
+106               Sven              Jakiro    1           1
+107               Sven               Pudge    1           1
+108               Sven           Sand_King    1           1
+109        Terrorblade              Dazzle    1           1
+110      Troll_Warlord         Bristleback   NA           1
+111      Troll_Warlord               Pugna   NA           1
+112      Troll_Warlord        Witch_Doctor    1           1
+113               Ursa  Ancient_Apparition   NA           1
+114               Ursa              Jakiro   NA           1
+115               Ursa                Lion   NA           1
+116               Ursa    Phanton_Assassin   NA           1
+117               Ursa       Shadow_Shaman    1           1
+118              Viper       Shadow_Shaman   NA           1
+119             Weaver  Ancient_Apparition   NA           1
+120             Weaver       Shadow_Shaman    1           1
+121             Weaver    Treant_Protector   NA           1
+122             Weaver                Tusk   NA           1
+123             Weaver        Witch_Doctor    1           1
+124        Wraith_King            Hoodwink    1           1
+125        Wraith_King              Jakiro    1           1
+126        Wraith_King        Shadow_Demon   NA           1
+127        Wraith_King       Shadow_Shaman   NA           2
+128               Zeus      Spirit_Breaker   NA           1</code></pre>
+</div>
+</div>
+</section>
+<section id="finally-made-what-i-wanted-a-version-at-least-of-safe-lane-combos-win-percentage" class="level2">
+<h2 class="anchored" data-anchor-id="finally-made-what-i-wanted-a-version-at-least-of-safe-lane-combos-win-percentage">FINALLY MADE WHAT I WANTED: (a version at least) of Safe Lane Combos win percentage</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Combos_Win_Percentages <span class="ot">&lt;-</span> Safe_Lane_Combos <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Win_Percentage =</span> Wins <span class="sc">/</span> Total_Games)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Combos_Win_Percentages_Arranged <span class="ot">&lt;-</span> <span class="fu">arrange</span>(Safe_Lane_Combos_Win_Percentages,<span class="fu">desc</span>(Win_Percentage), <span class="fu">desc</span>(Total_Games))</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Combos_Win_Percentages_Ranked_2 <span class="ot">&lt;-</span> Safe_Lane_Combos_Win_Percentages <span class="sc">%&gt;%</span></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ranking_2 =</span> Wins <span class="sc">*</span> Wins <span class="sc">/</span> Total_Games) <span class="sc">%&gt;%</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Ranking_2))</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>Safe_Lane_Combos_Win_Percentages_Ranked_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Safe_Lane        Hard_Support Wins Total_Games Win_Percentage
+1           Juggernaut  Ancient_Apparition    4           4      1.0000000
+2          Drow_Ranger  Ancient_Apparition    3           3      1.0000000
+3          Lifestealer              Jakiro    2           2      1.0000000
+4               Sniper  Ancient_Apparition    2           2      1.0000000
+5              Abbadon                Lich    1           1      1.0000000
+6            Anti_Mage  Ancient_Apparition    1           1      1.0000000
+7            Anti_Mage     Natures_Prophet    1           1      1.0000000
+8            Anti_Mage               Pudge    1           1      1.0000000
+9            Anti_Mage        Witch_Doctor    1           1      1.0000000
+10         Bloodseeker              Jakiro    1           1      1.0000000
+11         Bloodseeker                Lich    1           1      1.0000000
+12        Chaos_Knight                Lich    1           1      1.0000000
+13         Drow_Ranger      Crystal_Maiden    1           1      1.0000000
+14         Drow_Ranger              Dazzle    1           1      1.0000000
+15         Drow_Ranger      Spirit_Breaker    1           1      1.0000000
+16       Faceless_Void        Earth_Spirit    1           1      1.0000000
+17       Faceless_Void              Jakiro    1           1      1.0000000
+18       Faceless_Void               Pudge    1           1      1.0000000
+19       Faceless_Void             Warlock    1           1      1.0000000
+20       Faceless_Void          Windranger    1           1      1.0000000
+21          Juggernaut           Ogre_Magi    1           1      1.0000000
+22          Juggernaut          Venomancer    1           1      1.0000000
+23          Juggernaut        Witch_Doctor    1           1      1.0000000
+24         Lifestealer  Ancient_Apparition    1           1      1.0000000
+25         Lifestealer      Crystal_Maiden    1           1      1.0000000
+26         Lifestealer            Silencer    1           1      1.0000000
+27         Lifestealer        Witch_Doctor    1           1      1.0000000
+28                Luna  Ancient_Apparition    1           1      1.0000000
+29                Luna             Warlock    1           1      1.0000000
+30              Medusa  Ancient_Apparition    1           1      1.0000000
+31              Medusa         Earthshaker    1           1      1.0000000
+32         Monkey_King              Jakiro    1           1      1.0000000
+33         Monkey_King           Ogre_Magi    1           1      1.0000000
+34              Muerta       Shadow_Shaman    1           1      1.0000000
+35              Muerta     Vengeful_Spirit    1           1      1.0000000
+36          Naga_Siren       Winter_Wyvern    1           1      1.0000000
+37     Natures_Prophet                Zeus    1           1      1.0000000
+38           Ogre_Magi                Lion    1           1      1.0000000
+39      Phantom_Lancer  Ancient_Apparition    1           1      1.0000000
+40      Phantom_Lancer      Crystal_Maiden    1           1      1.0000000
+41      Phantom_Lancer          Grimstroke    1           1      1.0000000
+42      Phantom_Lancer        Witch_Doctor    1           1      1.0000000
+43    Phanton_Assassin      Crystal_Maiden    1           1      1.0000000
+44    Phanton_Assassin                Lion    1           1      1.0000000
+45    Phanton_Assassin              Magnus    1           1      1.0000000
+46    Phanton_Assassin      Spirit_Breaker    1           1      1.0000000
+47                Riki        Witch_Doctor    1           1      1.0000000
+48               Slark                Lich    1           1      1.0000000
+49               Slark               Pugna    1           1      1.0000000
+50              Sniper              Jakiro    1           1      1.0000000
+51                Sven              Jakiro    1           1      1.0000000
+52                Sven               Pudge    1           1      1.0000000
+53                Sven           Sand_King    1           1      1.0000000
+54         Terrorblade              Dazzle    1           1      1.0000000
+55       Troll_Warlord        Witch_Doctor    1           1      1.0000000
+56                Ursa       Shadow_Shaman    1           1      1.0000000
+57              Weaver       Shadow_Shaman    1           1      1.0000000
+58              Weaver        Witch_Doctor    1           1      1.0000000
+59         Wraith_King            Hoodwink    1           1      1.0000000
+60         Wraith_King              Jakiro    1           1      1.0000000
+61          Juggernaut                Lion    1           2      0.5000000
+62              Sniper              Dazzle    1           2      0.5000000
+63    Phanton_Assassin  Ancient_Apparition    1           3      0.3333333
+64           Anti_Mage           Disruptor   NA           1             NA
+65           Anti_Mage                Lion   NA           1             NA
+66           Anti_Mage       Shadow_Shaman   NA           1             NA
+67           Anti_Mage             Warlock   NA           1             NA
+68          Brewmaster  Ancient_Apparition   NA           1             NA
+69        Chaos_Knight          Venomancer   NA           1             NA
+70              Clinkz             Techies   NA           1             NA
+71              Clinkz     Vengeful_Spirit   NA           1             NA
+72         Drow_Ranger        Witch_Doctor   NA           1             NA
+73        Ember_Spirit              Dazzle   NA           1             NA
+74       Faceless_Void  Ancient_Apparition   NA           1             NA
+75       Faceless_Void      Crystal_Maiden   NA           1             NA
+76       Faceless_Void            Hoodwink   NA           1             NA
+77       Faceless_Void       Shadow_Shaman   NA           1             NA
+78       Faceless_Void          Venomancer   NA           1             NA
+79       Faceless_Void        Witch_Doctor   NA           1             NA
+80            Hoodwink    Treant_Protector   NA           1             NA
+81          Juggernaut         Dawnbreaker   NA           1             NA
+82          Juggernaut           Disruptor   NA           1             NA
+83          Juggernaut          Grimstroke   NA           1             NA
+84          Juggernaut              Jakiro   NA           1             NA
+85          Juggernaut       Shadow_Shaman   NA           1             NA
+86          Juggernaut       Skywrath_Mage   NA           1             NA
+87         Lifestealer              Dazzle   NA           1             NA
+88                Luna       Skywrath_Mage   NA           1             NA
+89               Lycan              Jakiro   NA           1             NA
+90              Mirana  Ancient_Apparition   NA           1             NA
+91         Monkey_King  Ancient_Apparition   NA           1             NA
+92         Monkey_King          Grimstroke   NA           1             NA
+93           Morphling             Phoenix   NA           1             NA
+94              Muerta      Crystal_Maiden   NA           1             NA
+95     Natures_Prophet             Warlock   NA           1             NA
+96  Outworld_Destroyer               Pudge   NA           1             NA
+97      Phantom_Lancer           Disruptor   NA           1             NA
+98      Phantom_Lancer Keeper_of_the_Light   NA           1             NA
+99      Phantom_Lancer           Ogre_Magi   NA           1             NA
+100   Phanton_Assassin           Disruptor   NA           1             NA
+101   Phanton_Assassin              Jakiro   NA           1             NA
+102               Riki              Jakiro   NA           1             NA
+103               Riki       Shadow_Shaman   NA           1             NA
+104            Slardar            Silencer   NA           1             NA
+105              Slark           Disruptor   NA           1             NA
+106              Slark        Shadow_Demon   NA           1             NA
+107             Sniper              Rubick   NA           1             NA
+108             Sniper       Skywrath_Mage   NA           1             NA
+109             Sniper             Warlock   NA           1             NA
+110            Spectre  Ancient_Apparition   NA           1             NA
+111            Spectre                Lion   NA           1             NA
+112            Spectre             Phoenix   NA           1             NA
+113            Spectre               Pudge   NA           1             NA
+114            Spectre               Pugna   NA           1             NA
+115            Spectre        Witch_Doctor   NA           1             NA
+116      Troll_Warlord         Bristleback   NA           1             NA
+117      Troll_Warlord               Pugna   NA           1             NA
+118               Ursa  Ancient_Apparition   NA           1             NA
+119               Ursa              Jakiro   NA           1             NA
+120               Ursa                Lion   NA           1             NA
+121               Ursa    Phanton_Assassin   NA           1             NA
+122              Viper       Shadow_Shaman   NA           1             NA
+123             Weaver  Ancient_Apparition   NA           1             NA
+124             Weaver    Treant_Protector   NA           1             NA
+125             Weaver                Tusk   NA           1             NA
+126        Wraith_King        Shadow_Demon   NA           1             NA
+127        Wraith_King       Shadow_Shaman   NA           2             NA
+128               Zeus      Spirit_Breaker   NA           1             NA
+    Ranking_2
+1   4.0000000
+2   3.0000000
+3   2.0000000
+4   2.0000000
+5   1.0000000
+6   1.0000000
+7   1.0000000
+8   1.0000000
+9   1.0000000
+10  1.0000000
+11  1.0000000
+12  1.0000000
+13  1.0000000
+14  1.0000000
+15  1.0000000
+16  1.0000000
+17  1.0000000
+18  1.0000000
+19  1.0000000
+20  1.0000000
+21  1.0000000
+22  1.0000000
+23  1.0000000
+24  1.0000000
+25  1.0000000
+26  1.0000000
+27  1.0000000
+28  1.0000000
+29  1.0000000
+30  1.0000000
+31  1.0000000
+32  1.0000000
+33  1.0000000
+34  1.0000000
+35  1.0000000
+36  1.0000000
+37  1.0000000
+38  1.0000000
+39  1.0000000
+40  1.0000000
+41  1.0000000
+42  1.0000000
+43  1.0000000
+44  1.0000000
+45  1.0000000
+46  1.0000000
+47  1.0000000
+48  1.0000000
+49  1.0000000
+50  1.0000000
+51  1.0000000
+52  1.0000000
+53  1.0000000
+54  1.0000000
+55  1.0000000
+56  1.0000000
+57  1.0000000
+58  1.0000000
+59  1.0000000
+60  1.0000000
+61  0.5000000
+62  0.5000000
+63  0.3333333
+64         NA
+65         NA
+66         NA
+67         NA
+68         NA
+69         NA
+70         NA
+71         NA
+72         NA
+73         NA
+74         NA
+75         NA
+76         NA
+77         NA
+78         NA
+79         NA
+80         NA
+81         NA
+82         NA
+83         NA
+84         NA
+85         NA
+86         NA
+87         NA
+88         NA
+89         NA
+90         NA
+91         NA
+92         NA
+93         NA
+94         NA
+95         NA
+96         NA
+97         NA
+98         NA
+99         NA
+100        NA
+101        NA
+102        NA
+103        NA
+104        NA
+105        NA
+106        NA
+107        NA
+108        NA
+109        NA
+110        NA
+111        NA
+112        NA
+113        NA
+114        NA
+115        NA
+116        NA
+117        NA
+118        NA
+119        NA
+120        NA
+121        NA
+122        NA
+123        NA
+124        NA
+125        NA
+126        NA
+127        NA
+128        NA</code></pre>
+</div>
+</div>
+</section>
+<section id="off-lane-winning-combos" class="level2">
+<h2 class="anchored" data-anchor-id="off-lane-winning-combos">Off Lane Winning Combos</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>Radiant_Off_Lane_Winning_Combos <span class="ot">&lt;-</span> Dota_2_Stats_ALT <span class="sc">%&gt;%</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Radiant_Win_TF <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Radiant_Off_Lane, Radiant_Support)</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>Renamed_Radiant_Off_Lane_Winning_Combos <span class="ot">&lt;-</span> Radiant_Off_Lane_Winning_Combos <span class="sc">%&gt;%</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Support =</span> Radiant_Support, <span class="at">Off_Lane =</span> Radiant_Off_Lane</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>Dire_Off_Lane_Winning_Combos <span class="ot">&lt;-</span> Dota_2_Stats_ALT <span class="sc">%&gt;%</span></span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Radiant_Win_TF <span class="sc">==</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Dire_Off_Lane, Dire_Support)</span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>Renamed_Dire_Off_Lane_Winning_Combos <span class="ot">&lt;-</span> Dire_Off_Lane_Winning_Combos <span class="sc">%&gt;%</span></span>
+<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb62-19"><a href="#cb62-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Support =</span> Dire_Support, <span class="at">Off_Lane =</span> Dire_Off_Lane</span>
+<span id="cb62-20"><a href="#cb62-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb62-21"><a href="#cb62-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-22"><a href="#cb62-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-23"><a href="#cb62-23" aria-hidden="true" tabindex="-1"></a>Off_Lane_Winning_Combos_Combined <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Renamed_Radiant_Off_Lane_Winning_Combos, Renamed_Dire_Off_Lane_Winning_Combos)</span>
+<span id="cb62-24"><a href="#cb62-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-25"><a href="#cb62-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-26"><a href="#cb62-26" aria-hidden="true" tabindex="-1"></a>Off_Lane_Winning_Combos_Combined_Counted <span class="ot">&lt;-</span> Off_Lane_Winning_Combos_Combined <span class="sc">%&gt;%</span></span>
+<span id="cb62-27"><a href="#cb62-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Off_Lane, Support, <span class="at">name =</span> <span class="st">"Wins"</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb62-28"><a href="#cb62-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-29"><a href="#cb62-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-30"><a href="#cb62-30" aria-hidden="true" tabindex="-1"></a>Dire_Bot_Combos <span class="ot">&lt;-</span> Dota_2_Stats_ALT <span class="sc">%&gt;%</span></span>
+<span id="cb62-31"><a href="#cb62-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Dire_Off_Lane, Dire_Support)</span>
+<span id="cb62-32"><a href="#cb62-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-33"><a href="#cb62-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-34"><a href="#cb62-34" aria-hidden="true" tabindex="-1"></a>Renamed_Dire_Bot_Combos <span class="ot">&lt;-</span> <span class="fu">rename</span>(Dire_Bot_Combos, <span class="at">Off_Lane =</span> Dire_Off_Lane, <span class="at">Support =</span> Dire_Support)</span>
+<span id="cb62-35"><a href="#cb62-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-36"><a href="#cb62-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-37"><a href="#cb62-37" aria-hidden="true" tabindex="-1"></a>Radiant_Top_Combos <span class="ot">&lt;-</span> Dota_2_Stats_ALT <span class="sc">%&gt;%</span></span>
+<span id="cb62-38"><a href="#cb62-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Radiant_Off_Lane, Radiant_Support)</span>
+<span id="cb62-39"><a href="#cb62-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-40"><a href="#cb62-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-41"><a href="#cb62-41" aria-hidden="true" tabindex="-1"></a>Renamed_Radiant_Top_Combos <span class="ot">&lt;-</span> <span class="fu">rename</span>(Radiant_Top_Combos, <span class="at">Off_Lane =</span> Radiant_Off_Lane, <span class="at">Support =</span> Radiant_Support)</span>
+<span id="cb62-42"><a href="#cb62-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-43"><a href="#cb62-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-44"><a href="#cb62-44" aria-hidden="true" tabindex="-1"></a>Off_Lane_Combos_Combined <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Renamed_Radiant_Top_Combos, Renamed_Dire_Bot_Combos)</span>
+<span id="cb62-45"><a href="#cb62-45" aria-hidden="true" tabindex="-1"></a>Off_Lane_Combos_Combined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Off_Lane            Support
+1       Chaos_Knight   Treant_Protector
+2   Legion_Commander           Silencer
+3   Centaur_Warruner             Dazzle
+4      Night_Stalker               Lion
+5   Legion_Commander             Magnus
+6   Centaur_Warruner          Ogre_Magi
+7        Elder_Titan      Winter_Wyvern
+8                Axe     Crystal_Maiden
+9            Invoker             Jakiro
+10           Abbadon          Ogre_Magi
+11             Lycan       Witch_Doctor
+12           Undying         Omniknight
+13               Axe       Witch_Doctor
+14           Undying    Vengeful_Spirit
+15           Abbadon      Skywrath_Mage
+16           Abbadon             Jakiro
+17         Ogre_Magi      Shadow_Shaman
+18           Slardar            Abbadon
+19             Razor       Witch_Doctor
+20  Legion_Commander           Silencer
+21       Earthshaker       Witch_Doctor
+22  Legion_Commander              Pudge
+23           Slardar             Mirana
+24     Dragon_Knight         Venomancer
+25         Timbersaw             Jakiro
+26         Sand_King             Jakiro
+27            Kunkka      Bounty_Hunter
+28           Abbadon       Witch_Doctor
+29     Dragon_Knight             Dazzle
+30     Death_Prophet Ancient_Apparition
+31        Tidehunter             Enigma
+32     Death_Prophet          Ogre_Magi
+33     Death_Prophet             Dazzle
+34              Mars        Earthshaker
+35      Nyx_Assassin       Witch_Doctor
+36         Timbersaw             Jakiro
+37              Mars             Rubick
+38             Pudge    Natures_Prophet
+39           Slardar    Natures_Prophet
+40           Slardar             Jakiro
+41     Dragon_Knight Ancient_Apparition
+42        Brewmaster          Sand_King
+43             Razor     Spirit_Breaker
+44         Morphling      Dragon_Knight
+45           Abbadon               Lion
+46             Razor      Shadow_Shaman
+47             Razor     Spirit_Breaker
+48       Beastmaster Ancient_Apparition
+49           Abbadon          Ogre_Magi
+50     Dragon_Knight             Jakiro
+51     Night_Stalker        Earthshaker
+52    Spirit_Breaker       Witch_Doctor
+53  Centaur_Warruner      Skywrath_Mage
+54  Legion_Commander      Shadow_Shaman
+55           Slardar         Venomancer
+56             Pudge              Pugna
+57        Tidehunter    Natures_Prophet
+58  Legion_Commander               Tusk
+59           Slardar               Tusk
+60               Axe        Dark_Willow
+61     Dragon_Knight         Grimstroke
+62               Axe       Witch_Doctor
+63  Legion_Commander    Vengeful_Spirit
+64        Brewmaster          Ogre_Magi
+65     Dragon_Knight             Rubick
+66             Viper            Abbadon
+67         Necrophos           Snapfire
+68               Axe             Oracle
+69            Kunkka             Dazzle
+70     Bounty_Hunter Ancient_Apparition
+71           Slardar     Spirit_Breaker
+72     Dragon_Knight Ancient_Apparition
+73       Earthshaker            Invoker
+74     Dragon_Knight        Earthshaker
+75           Abbadon      Shadow_Shaman
+76     Dragon_Knight            Invoker
+77        Tidehunter         Omniknight
+78         Ogre_Magi         Grimstroke
+79      Chaos_Knight        Dark_Willow
+80              Ursa              Pudge
+81       Beastmaster   Treant_Protector
+82             Pudge           Silencer
+83           Slardar           Silencer
+84         Sand_King             Jakiro
+85       Wraith_King      Shadow_Shaman
+86              Tusk     Spirit_Breaker
+87  Legion_Commander   Treant_Protector
+88            Magnus         Gyrocopter
+89         Timbersaw    Vengeful_Spirit
+90           Abbadon               Lich
+91  Centaur_Warruner             Dazzle
+92           Undying         Venomancer
+93               Axe           Hoodwink
+94              Mars      Shadow_Shaman
+95           Slardar        Earthshaker
+96           Slardar               Tusk
+97     Queen_of_Pain       Witch_Doctor
+98             Pudge         Grimstroke
+99         Sand_King        Earthshaker
+100            Pudge               Lich
+101      Bristleback               Lion
+102        Underlord               Zeus
+103           Magnus       Witch_Doctor
+104    Death_Prophet          Ogre_Magi
+105    Death_Prophet          Ogre_Magi
+106             Doom               Lion
+107        Timbersaw Ancient_Apparition
+108 Treant_Protector               Lich
+109 Treant_Protector             Enigma
+110       Windranger               Lion
+111            Pudge            Undying
+112 Legion_Commander   Treant_Protector
+113             Tusk             Jakiro
+114 Centaur_Warruner Ancient_Apparition
+115    Dragon_Knight       Witch_Doctor
+116        Underlord             Jakiro
+117       Tidehunter             Jakiro
+118     Primal_Beast              Pudge
+119          Slardar     Crystal_Maiden
+120             Tusk          Ogre_Magi
+121      Bristleback            Techies
+122       Gyrocopter    Natures_Prophet
+123    Night_Stalker Ancient_Apparition
+124              Axe Ancient_Apparition
+125      Wraith_King     Crystal_Maiden
+126           Kunkka             Mirana
+127        Underlord       Witch_Doctor
+128        Clockwerk Ancient_Apparition
+129 Centaur_Warruner               Lich
+130      Wraith_King       Nyx_Assassin
+131        Sand_King     Spirit_Breaker
+132     Primal_Beast Ancient_Apparition
+133            Razor      Bounty_Hunter
+134          Abbadon Ancient_Apparition
+135            Pudge      Shadow_Shaman
+136   Spirit_Breaker         Grimstroke
+137             Doom            Undying
+138          Abbadon Ancient_Apparition
+139             Zeus          Ogre_Magi
+140           Kunkka               Lion</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>Off_Lane_Combos_Combined_Counted <span class="ot">&lt;-</span> Off_Lane_Combos_Combined <span class="sc">%&gt;%</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Off_Lane, Support, <span class="at">name =</span> <span class="st">"Total_Games"</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>Off_Lane_Combos <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="at">x =</span> Off_Lane_Winning_Combos_Combined_Counted, <span class="at">y =</span> Off_Lane_Combos_Combined_Counted, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Off_Lane"</span>,<span class="st">"Support"</span>), <span class="at">all.y =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>Off_Lane_Combos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Off_Lane            Support Wins Total_Games
+1            Abbadon Ancient_Apparition    2           2
+2            Abbadon             Jakiro    1           1
+3            Abbadon               Lich   NA           1
+4            Abbadon               Lion    1           1
+5            Abbadon          Ogre_Magi    1           2
+6            Abbadon      Shadow_Shaman   NA           1
+7            Abbadon      Skywrath_Mage    1           1
+8            Abbadon       Witch_Doctor    1           1
+9                Axe Ancient_Apparition   NA           1
+10               Axe     Crystal_Maiden   NA           1
+11               Axe        Dark_Willow    1           1
+12               Axe           Hoodwink   NA           1
+13               Axe             Oracle   NA           1
+14               Axe       Witch_Doctor    1           2
+15       Beastmaster Ancient_Apparition    1           1
+16       Beastmaster   Treant_Protector   NA           1
+17     Bounty_Hunter Ancient_Apparition   NA           1
+18        Brewmaster          Ogre_Magi   NA           1
+19        Brewmaster          Sand_King    1           1
+20       Bristleback               Lion    1           1
+21       Bristleback            Techies    1           1
+22  Centaur_Warruner Ancient_Apparition    1           1
+23  Centaur_Warruner             Dazzle    2           2
+24  Centaur_Warruner               Lich   NA           1
+25  Centaur_Warruner          Ogre_Magi    1           1
+26  Centaur_Warruner      Skywrath_Mage    1           1
+27      Chaos_Knight        Dark_Willow   NA           1
+28      Chaos_Knight   Treant_Protector   NA           1
+29         Clockwerk Ancient_Apparition   NA           1
+30     Death_Prophet Ancient_Apparition    1           1
+31     Death_Prophet             Dazzle   NA           1
+32     Death_Prophet          Ogre_Magi    2           3
+33              Doom               Lion   NA           1
+34              Doom            Undying   NA           1
+35     Dragon_Knight Ancient_Apparition    1           2
+36     Dragon_Knight             Dazzle    1           1
+37     Dragon_Knight        Earthshaker    1           1
+38     Dragon_Knight         Grimstroke    1           1
+39     Dragon_Knight            Invoker   NA           1
+40     Dragon_Knight             Jakiro   NA           1
+41     Dragon_Knight             Rubick    1           1
+42     Dragon_Knight         Venomancer    1           1
+43     Dragon_Knight       Witch_Doctor   NA           1
+44       Earthshaker            Invoker   NA           1
+45       Earthshaker       Witch_Doctor   NA           1
+46       Elder_Titan      Winter_Wyvern    1           1
+47        Gyrocopter    Natures_Prophet    1           1
+48           Invoker             Jakiro    1           1
+49            Kunkka      Bounty_Hunter   NA           1
+50            Kunkka             Dazzle    1           1
+51            Kunkka               Lion    1           1
+52            Kunkka             Mirana   NA           1
+53  Legion_Commander             Magnus    1           1
+54  Legion_Commander              Pudge    1           1
+55  Legion_Commander      Shadow_Shaman    1           1
+56  Legion_Commander           Silencer    1           2
+57  Legion_Commander   Treant_Protector   NA           2
+58  Legion_Commander               Tusk    1           1
+59  Legion_Commander    Vengeful_Spirit    1           1
+60             Lycan       Witch_Doctor    1           1
+61            Magnus         Gyrocopter   NA           1
+62            Magnus       Witch_Doctor    1           1
+63              Mars        Earthshaker   NA           1
+64              Mars             Rubick   NA           1
+65              Mars      Shadow_Shaman   NA           1
+66         Morphling      Dragon_Knight   NA           1
+67         Necrophos           Snapfire    1           1
+68     Night_Stalker Ancient_Apparition   NA           1
+69     Night_Stalker        Earthshaker   NA           1
+70     Night_Stalker               Lion   NA           1
+71      Nyx_Assassin       Witch_Doctor    1           1
+72         Ogre_Magi         Grimstroke    1           1
+73         Ogre_Magi      Shadow_Shaman    1           1
+74      Primal_Beast Ancient_Apparition   NA           1
+75      Primal_Beast              Pudge   NA           1
+76             Pudge         Grimstroke   NA           1
+77             Pudge               Lich   NA           1
+78             Pudge    Natures_Prophet   NA           1
+79             Pudge              Pugna    1           1
+80             Pudge      Shadow_Shaman   NA           1
+81             Pudge           Silencer   NA           1
+82             Pudge            Undying    1           1
+83     Queen_of_Pain       Witch_Doctor    1           1
+84             Razor      Bounty_Hunter   NA           1
+85             Razor      Shadow_Shaman    1           1
+86             Razor     Spirit_Breaker    2           2
+87             Razor       Witch_Doctor   NA           1
+88         Sand_King        Earthshaker   NA           1
+89         Sand_King             Jakiro    1           2
+90         Sand_King     Spirit_Breaker   NA           1
+91           Slardar            Abbadon    1           1
+92           Slardar     Crystal_Maiden    1           1
+93           Slardar        Earthshaker    1           1
+94           Slardar             Jakiro   NA           1
+95           Slardar             Mirana    1           1
+96           Slardar    Natures_Prophet    1           1
+97           Slardar           Silencer    1           1
+98           Slardar     Spirit_Breaker    1           1
+99           Slardar               Tusk    1           2
+100          Slardar         Venomancer    1           1
+101   Spirit_Breaker         Grimstroke   NA           1
+102   Spirit_Breaker       Witch_Doctor   NA           1
+103       Tidehunter             Enigma   NA           1
+104       Tidehunter             Jakiro   NA           1
+105       Tidehunter    Natures_Prophet   NA           1
+106       Tidehunter         Omniknight   NA           1
+107        Timbersaw Ancient_Apparition    1           1
+108        Timbersaw             Jakiro    1           2
+109        Timbersaw    Vengeful_Spirit    1           1
+110 Treant_Protector             Enigma   NA           1
+111 Treant_Protector               Lich    1           1
+112             Tusk             Jakiro   NA           1
+113             Tusk          Ogre_Magi    1           1
+114             Tusk     Spirit_Breaker   NA           1
+115        Underlord             Jakiro   NA           1
+116        Underlord       Witch_Doctor    1           1
+117        Underlord               Zeus   NA           1
+118          Undying         Omniknight    1           1
+119          Undying    Vengeful_Spirit    1           1
+120          Undying         Venomancer   NA           1
+121             Ursa              Pudge   NA           1
+122            Viper            Abbadon    1           1
+123       Windranger               Lion    1           1
+124      Wraith_King     Crystal_Maiden   NA           1
+125      Wraith_King       Nyx_Assassin   NA           1
+126      Wraith_King      Shadow_Shaman   NA           1
+127             Zeus          Ogre_Magi   NA           1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>Off_Lane_Combos_Win_Percentages <span class="ot">&lt;-</span> Off_Lane_Combos <span class="sc">%&gt;%</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Win_Percentage =</span> Wins <span class="sc">/</span> Total_Games)</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>Off_Lane_Combos_Win_Percentages_Arranged <span class="ot">&lt;-</span> <span class="fu">arrange</span>(Off_Lane_Combos_Win_Percentages,<span class="fu">desc</span>(Win_Percentage), <span class="fu">desc</span>(Total_Games))</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>Off_Lane_Combos_Win_Percentages_Arranged</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Off_Lane            Support Wins Total_Games Win_Percentage
+1            Abbadon Ancient_Apparition    2           2      1.0000000
+2   Centaur_Warruner             Dazzle    2           2      1.0000000
+3              Razor     Spirit_Breaker    2           2      1.0000000
+4            Abbadon             Jakiro    1           1      1.0000000
+5            Abbadon               Lion    1           1      1.0000000
+6            Abbadon      Skywrath_Mage    1           1      1.0000000
+7            Abbadon       Witch_Doctor    1           1      1.0000000
+8                Axe        Dark_Willow    1           1      1.0000000
+9        Beastmaster Ancient_Apparition    1           1      1.0000000
+10        Brewmaster          Sand_King    1           1      1.0000000
+11       Bristleback               Lion    1           1      1.0000000
+12       Bristleback            Techies    1           1      1.0000000
+13  Centaur_Warruner Ancient_Apparition    1           1      1.0000000
+14  Centaur_Warruner          Ogre_Magi    1           1      1.0000000
+15  Centaur_Warruner      Skywrath_Mage    1           1      1.0000000
+16     Death_Prophet Ancient_Apparition    1           1      1.0000000
+17     Dragon_Knight             Dazzle    1           1      1.0000000
+18     Dragon_Knight        Earthshaker    1           1      1.0000000
+19     Dragon_Knight         Grimstroke    1           1      1.0000000
+20     Dragon_Knight             Rubick    1           1      1.0000000
+21     Dragon_Knight         Venomancer    1           1      1.0000000
+22       Elder_Titan      Winter_Wyvern    1           1      1.0000000
+23        Gyrocopter    Natures_Prophet    1           1      1.0000000
+24           Invoker             Jakiro    1           1      1.0000000
+25            Kunkka             Dazzle    1           1      1.0000000
+26            Kunkka               Lion    1           1      1.0000000
+27  Legion_Commander             Magnus    1           1      1.0000000
+28  Legion_Commander              Pudge    1           1      1.0000000
+29  Legion_Commander      Shadow_Shaman    1           1      1.0000000
+30  Legion_Commander               Tusk    1           1      1.0000000
+31  Legion_Commander    Vengeful_Spirit    1           1      1.0000000
+32             Lycan       Witch_Doctor    1           1      1.0000000
+33            Magnus       Witch_Doctor    1           1      1.0000000
+34         Necrophos           Snapfire    1           1      1.0000000
+35      Nyx_Assassin       Witch_Doctor    1           1      1.0000000
+36         Ogre_Magi         Grimstroke    1           1      1.0000000
+37         Ogre_Magi      Shadow_Shaman    1           1      1.0000000
+38             Pudge              Pugna    1           1      1.0000000
+39             Pudge            Undying    1           1      1.0000000
+40     Queen_of_Pain       Witch_Doctor    1           1      1.0000000
+41             Razor      Shadow_Shaman    1           1      1.0000000
+42           Slardar            Abbadon    1           1      1.0000000
+43           Slardar     Crystal_Maiden    1           1      1.0000000
+44           Slardar        Earthshaker    1           1      1.0000000
+45           Slardar             Mirana    1           1      1.0000000
+46           Slardar    Natures_Prophet    1           1      1.0000000
+47           Slardar           Silencer    1           1      1.0000000
+48           Slardar     Spirit_Breaker    1           1      1.0000000
+49           Slardar         Venomancer    1           1      1.0000000
+50         Timbersaw Ancient_Apparition    1           1      1.0000000
+51         Timbersaw    Vengeful_Spirit    1           1      1.0000000
+52  Treant_Protector               Lich    1           1      1.0000000
+53              Tusk          Ogre_Magi    1           1      1.0000000
+54         Underlord       Witch_Doctor    1           1      1.0000000
+55           Undying         Omniknight    1           1      1.0000000
+56           Undying    Vengeful_Spirit    1           1      1.0000000
+57             Viper            Abbadon    1           1      1.0000000
+58        Windranger               Lion    1           1      1.0000000
+59     Death_Prophet          Ogre_Magi    2           3      0.6666667
+60           Abbadon          Ogre_Magi    1           2      0.5000000
+61               Axe       Witch_Doctor    1           2      0.5000000
+62     Dragon_Knight Ancient_Apparition    1           2      0.5000000
+63  Legion_Commander           Silencer    1           2      0.5000000
+64         Sand_King             Jakiro    1           2      0.5000000
+65           Slardar               Tusk    1           2      0.5000000
+66         Timbersaw             Jakiro    1           2      0.5000000
+67  Legion_Commander   Treant_Protector   NA           2             NA
+68           Abbadon               Lich   NA           1             NA
+69           Abbadon      Shadow_Shaman   NA           1             NA
+70               Axe Ancient_Apparition   NA           1             NA
+71               Axe     Crystal_Maiden   NA           1             NA
+72               Axe           Hoodwink   NA           1             NA
+73               Axe             Oracle   NA           1             NA
+74       Beastmaster   Treant_Protector   NA           1             NA
+75     Bounty_Hunter Ancient_Apparition   NA           1             NA
+76        Brewmaster          Ogre_Magi   NA           1             NA
+77  Centaur_Warruner               Lich   NA           1             NA
+78      Chaos_Knight        Dark_Willow   NA           1             NA
+79      Chaos_Knight   Treant_Protector   NA           1             NA
+80         Clockwerk Ancient_Apparition   NA           1             NA
+81     Death_Prophet             Dazzle   NA           1             NA
+82              Doom               Lion   NA           1             NA
+83              Doom            Undying   NA           1             NA
+84     Dragon_Knight            Invoker   NA           1             NA
+85     Dragon_Knight             Jakiro   NA           1             NA
+86     Dragon_Knight       Witch_Doctor   NA           1             NA
+87       Earthshaker            Invoker   NA           1             NA
+88       Earthshaker       Witch_Doctor   NA           1             NA
+89            Kunkka      Bounty_Hunter   NA           1             NA
+90            Kunkka             Mirana   NA           1             NA
+91            Magnus         Gyrocopter   NA           1             NA
+92              Mars        Earthshaker   NA           1             NA
+93              Mars             Rubick   NA           1             NA
+94              Mars      Shadow_Shaman   NA           1             NA
+95         Morphling      Dragon_Knight   NA           1             NA
+96     Night_Stalker Ancient_Apparition   NA           1             NA
+97     Night_Stalker        Earthshaker   NA           1             NA
+98     Night_Stalker               Lion   NA           1             NA
+99      Primal_Beast Ancient_Apparition   NA           1             NA
+100     Primal_Beast              Pudge   NA           1             NA
+101            Pudge         Grimstroke   NA           1             NA
+102            Pudge               Lich   NA           1             NA
+103            Pudge    Natures_Prophet   NA           1             NA
+104            Pudge      Shadow_Shaman   NA           1             NA
+105            Pudge           Silencer   NA           1             NA
+106            Razor      Bounty_Hunter   NA           1             NA
+107            Razor       Witch_Doctor   NA           1             NA
+108        Sand_King        Earthshaker   NA           1             NA
+109        Sand_King     Spirit_Breaker   NA           1             NA
+110          Slardar             Jakiro   NA           1             NA
+111   Spirit_Breaker         Grimstroke   NA           1             NA
+112   Spirit_Breaker       Witch_Doctor   NA           1             NA
+113       Tidehunter             Enigma   NA           1             NA
+114       Tidehunter             Jakiro   NA           1             NA
+115       Tidehunter    Natures_Prophet   NA           1             NA
+116       Tidehunter         Omniknight   NA           1             NA
+117 Treant_Protector             Enigma   NA           1             NA
+118             Tusk             Jakiro   NA           1             NA
+119             Tusk     Spirit_Breaker   NA           1             NA
+120        Underlord             Jakiro   NA           1             NA
+121        Underlord               Zeus   NA           1             NA
+122          Undying         Venomancer   NA           1             NA
+123             Ursa              Pudge   NA           1             NA
+124      Wraith_King     Crystal_Maiden   NA           1             NA
+125      Wraith_King       Nyx_Assassin   NA           1             NA
+126      Wraith_King      Shadow_Shaman   NA           1             NA
+127             Zeus          Ogre_Magi   NA           1             NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>Off_Lane_Combos_Win_Percentages_Ranked_2 <span class="ot">&lt;-</span> Off_Lane_Combos_Win_Percentages <span class="sc">%&gt;%</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ranking_2 =</span> Wins <span class="sc">*</span> Wins <span class="sc">/</span> Total_Games) <span class="sc">%&gt;%</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Ranking_2))</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>Off_Lane_Combos_Win_Percentages_Ranked_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Off_Lane            Support Wins Total_Games Win_Percentage
+1            Abbadon Ancient_Apparition    2           2      1.0000000
+2   Centaur_Warruner             Dazzle    2           2      1.0000000
+3              Razor     Spirit_Breaker    2           2      1.0000000
+4      Death_Prophet          Ogre_Magi    2           3      0.6666667
+5            Abbadon             Jakiro    1           1      1.0000000
+6            Abbadon               Lion    1           1      1.0000000
+7            Abbadon      Skywrath_Mage    1           1      1.0000000
+8            Abbadon       Witch_Doctor    1           1      1.0000000
+9                Axe        Dark_Willow    1           1      1.0000000
+10       Beastmaster Ancient_Apparition    1           1      1.0000000
+11        Brewmaster          Sand_King    1           1      1.0000000
+12       Bristleback               Lion    1           1      1.0000000
+13       Bristleback            Techies    1           1      1.0000000
+14  Centaur_Warruner Ancient_Apparition    1           1      1.0000000
+15  Centaur_Warruner          Ogre_Magi    1           1      1.0000000
+16  Centaur_Warruner      Skywrath_Mage    1           1      1.0000000
+17     Death_Prophet Ancient_Apparition    1           1      1.0000000
+18     Dragon_Knight             Dazzle    1           1      1.0000000
+19     Dragon_Knight        Earthshaker    1           1      1.0000000
+20     Dragon_Knight         Grimstroke    1           1      1.0000000
+21     Dragon_Knight             Rubick    1           1      1.0000000
+22     Dragon_Knight         Venomancer    1           1      1.0000000
+23       Elder_Titan      Winter_Wyvern    1           1      1.0000000
+24        Gyrocopter    Natures_Prophet    1           1      1.0000000
+25           Invoker             Jakiro    1           1      1.0000000
+26            Kunkka             Dazzle    1           1      1.0000000
+27            Kunkka               Lion    1           1      1.0000000
+28  Legion_Commander             Magnus    1           1      1.0000000
+29  Legion_Commander              Pudge    1           1      1.0000000
+30  Legion_Commander      Shadow_Shaman    1           1      1.0000000
+31  Legion_Commander               Tusk    1           1      1.0000000
+32  Legion_Commander    Vengeful_Spirit    1           1      1.0000000
+33             Lycan       Witch_Doctor    1           1      1.0000000
+34            Magnus       Witch_Doctor    1           1      1.0000000
+35         Necrophos           Snapfire    1           1      1.0000000
+36      Nyx_Assassin       Witch_Doctor    1           1      1.0000000
+37         Ogre_Magi         Grimstroke    1           1      1.0000000
+38         Ogre_Magi      Shadow_Shaman    1           1      1.0000000
+39             Pudge              Pugna    1           1      1.0000000
+40             Pudge            Undying    1           1      1.0000000
+41     Queen_of_Pain       Witch_Doctor    1           1      1.0000000
+42             Razor      Shadow_Shaman    1           1      1.0000000
+43           Slardar            Abbadon    1           1      1.0000000
+44           Slardar     Crystal_Maiden    1           1      1.0000000
+45           Slardar        Earthshaker    1           1      1.0000000
+46           Slardar             Mirana    1           1      1.0000000
+47           Slardar    Natures_Prophet    1           1      1.0000000
+48           Slardar           Silencer    1           1      1.0000000
+49           Slardar     Spirit_Breaker    1           1      1.0000000
+50           Slardar         Venomancer    1           1      1.0000000
+51         Timbersaw Ancient_Apparition    1           1      1.0000000
+52         Timbersaw    Vengeful_Spirit    1           1      1.0000000
+53  Treant_Protector               Lich    1           1      1.0000000
+54              Tusk          Ogre_Magi    1           1      1.0000000
+55         Underlord       Witch_Doctor    1           1      1.0000000
+56           Undying         Omniknight    1           1      1.0000000
+57           Undying    Vengeful_Spirit    1           1      1.0000000
+58             Viper            Abbadon    1           1      1.0000000
+59        Windranger               Lion    1           1      1.0000000
+60           Abbadon          Ogre_Magi    1           2      0.5000000
+61               Axe       Witch_Doctor    1           2      0.5000000
+62     Dragon_Knight Ancient_Apparition    1           2      0.5000000
+63  Legion_Commander           Silencer    1           2      0.5000000
+64         Sand_King             Jakiro    1           2      0.5000000
+65           Slardar               Tusk    1           2      0.5000000
+66         Timbersaw             Jakiro    1           2      0.5000000
+67           Abbadon               Lich   NA           1             NA
+68           Abbadon      Shadow_Shaman   NA           1             NA
+69               Axe Ancient_Apparition   NA           1             NA
+70               Axe     Crystal_Maiden   NA           1             NA
+71               Axe           Hoodwink   NA           1             NA
+72               Axe             Oracle   NA           1             NA
+73       Beastmaster   Treant_Protector   NA           1             NA
+74     Bounty_Hunter Ancient_Apparition   NA           1             NA
+75        Brewmaster          Ogre_Magi   NA           1             NA
+76  Centaur_Warruner               Lich   NA           1             NA
+77      Chaos_Knight        Dark_Willow   NA           1             NA
+78      Chaos_Knight   Treant_Protector   NA           1             NA
+79         Clockwerk Ancient_Apparition   NA           1             NA
+80     Death_Prophet             Dazzle   NA           1             NA
+81              Doom               Lion   NA           1             NA
+82              Doom            Undying   NA           1             NA
+83     Dragon_Knight            Invoker   NA           1             NA
+84     Dragon_Knight             Jakiro   NA           1             NA
+85     Dragon_Knight       Witch_Doctor   NA           1             NA
+86       Earthshaker            Invoker   NA           1             NA
+87       Earthshaker       Witch_Doctor   NA           1             NA
+88            Kunkka      Bounty_Hunter   NA           1             NA
+89            Kunkka             Mirana   NA           1             NA
+90  Legion_Commander   Treant_Protector   NA           2             NA
+91            Magnus         Gyrocopter   NA           1             NA
+92              Mars        Earthshaker   NA           1             NA
+93              Mars             Rubick   NA           1             NA
+94              Mars      Shadow_Shaman   NA           1             NA
+95         Morphling      Dragon_Knight   NA           1             NA
+96     Night_Stalker Ancient_Apparition   NA           1             NA
+97     Night_Stalker        Earthshaker   NA           1             NA
+98     Night_Stalker               Lion   NA           1             NA
+99      Primal_Beast Ancient_Apparition   NA           1             NA
+100     Primal_Beast              Pudge   NA           1             NA
+101            Pudge         Grimstroke   NA           1             NA
+102            Pudge               Lich   NA           1             NA
+103            Pudge    Natures_Prophet   NA           1             NA
+104            Pudge      Shadow_Shaman   NA           1             NA
+105            Pudge           Silencer   NA           1             NA
+106            Razor      Bounty_Hunter   NA           1             NA
+107            Razor       Witch_Doctor   NA           1             NA
+108        Sand_King        Earthshaker   NA           1             NA
+109        Sand_King     Spirit_Breaker   NA           1             NA
+110          Slardar             Jakiro   NA           1             NA
+111   Spirit_Breaker         Grimstroke   NA           1             NA
+112   Spirit_Breaker       Witch_Doctor   NA           1             NA
+113       Tidehunter             Enigma   NA           1             NA
+114       Tidehunter             Jakiro   NA           1             NA
+115       Tidehunter    Natures_Prophet   NA           1             NA
+116       Tidehunter         Omniknight   NA           1             NA
+117 Treant_Protector             Enigma   NA           1             NA
+118             Tusk             Jakiro   NA           1             NA
+119             Tusk     Spirit_Breaker   NA           1             NA
+120        Underlord             Jakiro   NA           1             NA
+121        Underlord               Zeus   NA           1             NA
+122          Undying         Venomancer   NA           1             NA
+123             Ursa              Pudge   NA           1             NA
+124      Wraith_King     Crystal_Maiden   NA           1             NA
+125      Wraith_King       Nyx_Assassin   NA           1             NA
+126      Wraith_King      Shadow_Shaman   NA           1             NA
+127             Zeus          Ogre_Magi   NA           1             NA
+    Ranking_2
+1    2.000000
+2    2.000000
+3    2.000000
+4    1.333333
+5    1.000000
+6    1.000000
+7    1.000000
+8    1.000000
+9    1.000000
+10   1.000000
+11   1.000000
+12   1.000000
+13   1.000000
+14   1.000000
+15   1.000000
+16   1.000000
+17   1.000000
+18   1.000000
+19   1.000000
+20   1.000000
+21   1.000000
+22   1.000000
+23   1.000000
+24   1.000000
+25   1.000000
+26   1.000000
+27   1.000000
+28   1.000000
+29   1.000000
+30   1.000000
+31   1.000000
+32   1.000000
+33   1.000000
+34   1.000000
+35   1.000000
+36   1.000000
+37   1.000000
+38   1.000000
+39   1.000000
+40   1.000000
+41   1.000000
+42   1.000000
+43   1.000000
+44   1.000000
+45   1.000000
+46   1.000000
+47   1.000000
+48   1.000000
+49   1.000000
+50   1.000000
+51   1.000000
+52   1.000000
+53   1.000000
+54   1.000000
+55   1.000000
+56   1.000000
+57   1.000000
+58   1.000000
+59   1.000000
+60   0.500000
+61   0.500000
+62   0.500000
+63   0.500000
+64   0.500000
+65   0.500000
+66   0.500000
+67         NA
+68         NA
+69         NA
+70         NA
+71         NA
+72         NA
+73         NA
+74         NA
+75         NA
+76         NA
+77         NA
+78         NA
+79         NA
+80         NA
+81         NA
+82         NA
+83         NA
+84         NA
+85         NA
+86         NA
+87         NA
+88         NA
+89         NA
+90         NA
+91         NA
+92         NA
+93         NA
+94         NA
+95         NA
+96         NA
+97         NA
+98         NA
+99         NA
+100        NA
+101        NA
+102        NA
+103        NA
+104        NA
+105        NA
+106        NA
+107        NA
+108        NA
+109        NA
+110        NA
+111        NA
+112        NA
+113        NA
+114        NA
+115        NA
+116        NA
+117        NA
+118        NA
+119        NA
+120        NA
+121        NA
+122        NA
+123        NA
+124        NA
+125        NA
+126        NA
+127        NA</code></pre>
+</div>
+</div>
+</section>
+<section id="mid-winners" class="level2">
+<h2 class="anchored" data-anchor-id="mid-winners">Mid Winners</h2>
+<p>Radiant_Mid_Lane_Winners &lt;- Dota_2_Stats_ALT %&gt;% filter(Radiant_Win_TF == TRUE) %&gt;% select(Radiant_Mid_Lane)</p>
+<p>Renamed_Radiant_Mid_Lane_Winners &lt;- rename(Radiant_Mid_Lane_Winners, Mid_Lane = “Radiant_Mid_Lane”)</p>
+<p>Dire_Mid_Lane_Winners &lt;- Dota_2_Stats_ALT %&gt;% filter(Radiant_Win_TF == FALSE) %&gt;% select(Dire_Mid_Lane)</p>
+<p>Renamed_Dire_Mid_Lane_Winners &lt;- rename(Dire_Mid_Lane_Winners, Mid_Lane = “Dire_Mid_Lane”)</p>
+<p>Mid_Lane_Winners_Combined &lt;- rbind(Renamed_Radiant_Mid_Lane_Winners, Renamed_Dire_Mid_Lane_Winners) Mid_Lane_Winners_Combined_Counted &lt;- Mid_Lane_Winners_Combined %&gt;% count(Mid_Lane, name = “Wins”, sort = TRUE)</p>
+<p>Radiant_Mid_Lane_Total &lt;- Dota_2_Stats_ALT %&gt;% select(Radiant_Mid_Lane) Radiant_Mid_Lane_Total</p>
+<p>Renamed_Radiant_Mid_Lane_Total &lt;- rename(Radiant_Mid_Lane_Total, Mid_Lane = “Radiant_Mid_Lane”)</p>
+<p>Dire_Mid_Lane_Total &lt;- Dota_2_Stats_ALT %&gt;% select(Dire_Mid_Lane)</p>
+<p>Renamed_Dire_Mid_Lane_Total &lt;- rename(Dire_Mid_Lane_Total, Mid_Lane = “Dire_Mid_Lane”)</p>
+<p>Mid_Lane_Total_Combined &lt;- rbind(Renamed_Radiant_Mid_Lane_Total, Renamed_Dire_Mid_Lane_Total)</p>
+<p>Mid_Lane_Total_Combined_Counted &lt;- Mid_Lane_Total_Combined %&gt;% count(Mid_Lane, name = “Total_Games”, sort = TRUE)</p>
+<p>Mid_Lane_Merged &lt;- merge(x = Mid_Lane_Winners_Combined_Counted, y = Mid_Lane_Total_Combined_Counted, all.y = TRUE)</p>
+<p>Mid_Lane_Win_Percentages &lt;- Mid_Lane_Merged %&gt;% mutate(Win_Percentage = Wins / Total_Games)</p>
+<p>Mid_Lane_Win_Percentages_Arranged &lt;- arrange(Mid_Lane_Win_Percentages,desc(Win_Percentage), desc(Total_Games))</p>
+<p>Mid_Lane_Win_Percentages_Arranged</p>
+<p>Mid_Lane_Win_Percentages_Ranked_2 &lt;- Mid_Lane_Win_Percentages %&gt;% mutate(Ranking_2 = Wins * Wins / Total_Games) %&gt;% arrange(desc(Ranking_2)) Mid_Lane_Win_Percentages_Ranked_2</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
