@@ -176,48 +176,160 @@ result <- POST(stratz_url,
                            Authorization = header))
 
 game1 <- content(result)
+
+game1_json <-toJSON(
+  rapply(game1, 
+         function(z) 
+          if (length(z) == 1L) {
+            unbox(z) }
+          else z,
+            how = "replace"),
+  null = "null",
+  pretty = TRUE) 
+
+write(game1_json, "test3.json")
+
+new_game_1 <- fromJSON("D:/RFiles/Mikesdota2directory/test3.json")
+str(new_game_1, max.level = 3, list.len = 10)
 ```
 
-## Structure of `game1`
 ```{r}
-str(game1, max.level = 3, list.len = 10)
+game_data_df <- new_game_1$data$match$players %>%
+  unnest_wider(stats, names_sep = "_") %>%
+  select(-playbackData, -stats_itemPurchases, -stats_towerDamageReport, -stats_wards, -stats_runes)
+game_data_df
 ```
 
-## Converting to data frame
-##### This sort of works, but the `players` column is still a nested list.
-```{r}
-df <- bind_rows(lapply(game1, 
-                       bind_rows))  
-df %>%
-  relocate(players,
-           .after = analysisOutcome)  ## Moved the players column so it is visible here.
+```{r kda events}
+game1killEvents <- new_game_1$data$match$players$playbackData$killEvents
+game1sdeathEvents <- new_game_1$data$match$players$playbackData$deathEvents
+game1assistEvents <- new_game_1$data$match$players$playbackData$assistEvents
+
+Bot_lane_Result <- rep(new_game_1$data$match$bottomLaneOutcome, length = 10)
+Top_lane_Result <- rep(new_game_1$data$match$topLaneOutcome, length = 10)
+Mid_lane_Result <- rep(new_game_1$data$match$midLaneOutcome, length = 10)
 ```
 
-##### And `players` contains more lists.  
-```{r}
-df %>%
-  unnest_wider(players) %>%
-  relocate(stats, playbackData, .after = durationSeconds)
+
+```{r kills 10 min}
+kills_10Minutes <- rep(0, length(game1killEvents))
+
+for (i in 1:length(game1killEvents)) {
+for (j in 1:length(game1killEvents[[i]]$time)) { 
+    if (game1killEvents[[i]]$time[j] <= 600) {
+      kills_10Minutes[i] <- kills_10Minutes[i] + 1
+    }
+  kills_10Minutes <- kills_10Minutes
+}
+}
+kills_10Minutes
 ```
 
-## Nicer format
-##### As an alternative approach, I manually copied and pasted the output of the query from the website, and saved it as a .json file in notepad++.  Then I used the `fromJSON` function to get the following output.  
+```{r deaths 10 min}
+deaths_10Minutes <- rep(0, length(game1sdeathEvents))
 
-##### This is nicer to work with because the `players` element is in the form of a data frame. 
 
-##### However, I want the data pulled from graphql to be in this format.  
-
-##### Is there a way I can convert the lists in `game1` to data frames, so that it looks like this?  
-
-```{r}
-alt_game1 <- fromJSON("D:/RFiles/Mikesdota2directory/Single_match.json")
-
-str(alt_game1, max.level = 3)
+for (i in 1:length(game1sdeathEvents)) {
+for (j in 1:length(game1sdeathEvents[[i]]$time)) { 
+    if (game1sdeathEvents[[i]]$time[j] <= 600) {
+      deaths_10Minutes[i] <- deaths_10Minutes[i] + 1
+    }
+  deaths_10Minutes <- deaths_10Minutes
+}
+}
+deaths_10Minutes
 ```
 
-##### Notice within `players`: the columns `stats` and `playbackData` are also dataframes.  This is very nice to work with.
+```{r assists 10 min}
+assists_10Minutes <- rep(0, length(game1assistEvents))
+
+
+for (i in 1:length(game1assistEvents)) {
+for (j in 1:length(game1assistEvents[[i]]$time)) { 
+    if (game1assistEvents[[i]]$time[j] <= 600) {
+      assists_10Minutes[i] <- assists_10Minutes[i] + 1
+    }
+  assists_10Minutes <- assists_10Minutes
+}
+}
+assists_10Minutes
+```
+
+```{r time to lvl 6}
+lvl6_Time <- c()
+for (i in 1:length(game_data_df$stats_level)) {
+  lvl6_Time[i] <- game_data_df$stats_level[[i]][[1]][6]
+}
+lvl6_Time
+```
+
+```{r networth 10 min}
+networth_10Min <- c()
+for (i in 1:length(game_data_df$stats_networthPerMinute)) {
+  networth_10Min[i] <- game_data_df$stats_networthPerMinute[[i]][[1]][11]
+}
+networth_10Min
+```
+
+```{r exp 10 min}
+exp_10Min <- c()
+for (i in 1:length(game_data_df$stats_experiencePerMinute)) {
+  exp_10Min[i] <- sum(game_data_df$stats_experiencePerMinute[[i]][[1]][1:10])
+}
+exp_10Min
+```
+
+```{r last hits 10 min}
+last_hits_10Min <- c()
+for (i in 1:length(game_data_df$stats_lastHitsPerMinute)) {
+  last_hits_10Min[i] <- sum(game_data_df$stats_lastHitsPerMinute[[i]][[1]][1:10])
+}
+last_hits_10Min
+```
+
+```{r denies 10 min}
+denies_10Min <- c()
+for (i in 1:length(game_data_df$stats_deniesPerMinute)) {
+  denies_10Min[i] <- sum(game_data_df$stats_deniesPerMinute[[i]][[1]][1:10])
+}
+denies_10Min
+```
+
+```{r wrangled df}
+game_data_df$kills_10_Minutes <- kills_10Minutes
+game_data_df$deaths_10_Minutes <-deaths_10Minutes
+game_data_df$assists_10_Minutes <-assists_10Minutes
+
+game_data_df_10Min <- game_data_df %>%
+  mutate(top_lane_outcome = Top_lane_Result,
+         mid_lane_outcome = Mid_lane_Result,
+         bot_lane_outcome = Bot_lane_Result,
+         networth_10min = networth_10Min,
+         exp_10min = exp_10Min,
+         netexp_10min = networth_10Min + exp_10Min,
+         last_hits_10min = last_hits_10Min,
+         denies_10min = denies_10Min,
+         time_lvl_6 = lvl6_Time,
+         .after = matchId) %>%
+  relocate(heroId, 
+           isRadiant,
+           position,
+           top_lane_outcome,
+           mid_lane_outcome,
+           bot_lane_outcome,
+           netexp_10min,
+           kills_10_Minutes,
+           deaths_10_Minutes,
+           assists_10_Minutes,
+           
+           .after = matchId)
+
+
+# THIS IS MY LATEST RESULT DATAFRAME
+game_data_df_10Min %>%
+  select(-intentionalFeeding, -stats_matchId, -stats_gameVersionId, -stats_steamAccountId, -stats_level, -stats_networthPerMinute, -stats_experiencePerMinute, -stats_lastHitsPerMinute, -stats_deniesPerMinute, -stats_goldPerMinute, -stats_impPerMinute)
+```
+
 ```{r}
-alt_game1_players <- alt_game1$data$match$players
-str(alt_game1_players, max.level = 1)
 
 ```

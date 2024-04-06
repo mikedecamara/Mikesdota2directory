@@ -288,106 +288,22 @@ The following object is masked from 'package:purrr':
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>               <span class="fu">add_headers</span>(<span class="st">'Content-Type'</span><span class="ot">=</span><span class="st">'application/json'</span>, </span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                           <span class="at">Authorization =</span> header))</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>game1 <span class="ot">&lt;-</span> <span class="fu">content</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="structure-of-game1" class="level2">
-<h2 class="anchored" data-anchor-id="structure-of-game1">Structure of <code>game1</code></h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(game1, <span class="at">max.level =</span> <span class="dv">3</span>, <span class="at">list.len =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>List of 1
- $ data:List of 1
-  ..$ match:List of 9
-  .. ..$ id               : num 7.59e+09
-  .. ..$ didRadiantWin    : logi FALSE
-  .. ..$ durationSeconds  : int 2748
-  .. ..$ analysisOutcome  : chr "NONE"
-  .. ..$ firstBloodTime   : int 235
-  .. ..$ players          :List of 10
-  .. ..$ bottomLaneOutcome: chr "DIRE_VICTORY"
-  .. ..$ midLaneOutcome   : chr "TIE"
-  .. ..$ topLaneOutcome   : chr "TIE"</code></pre>
-</div>
-</div>
-</section>
-<section id="converting-to-data-frame" class="level2">
-<h2 class="anchored" data-anchor-id="converting-to-data-frame">Converting to data frame</h2>
-<section id="this-sort-of-works-but-the-players-column-is-still-a-nested-list." class="level5">
-<h5 class="anchored" data-anchor-id="this-sort-of-works-but-the-players-column-is-still-a-nested-list.">This sort of works, but the <code>players</code> column is still a nested list.</h5>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">lapply</span>(game1, </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                       bind_rows))  </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(players,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">.after =</span> analysisOutcome)  <span class="do">## Moved the players column so it is visible here.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 9
-           id didRadiantWin durationSeconds analysisOutcome players          
-        &lt;dbl&gt; &lt;lgl&gt;                   &lt;int&gt; &lt;chr&gt;           &lt;list&gt;           
- 1 7594658036 FALSE                    2748 NONE            &lt;named list [44]&gt;
- 2 7594658036 FALSE                    2748 NONE            &lt;named list [44]&gt;
- 3 7594658036 FALSE                    2748 NONE            &lt;named list [44]&gt;
- 4 7594658036 FALSE                    2748 NONE            &lt;named list [44]&gt;
- 5 7594658036 FALSE                    2748 NONE            &lt;named list [44]&gt;
- 6 7594658036 FALSE                    2748 NONE            &lt;named list [44]&gt;
- 7 7594658036 FALSE                    2748 NONE            &lt;named list [44]&gt;
- 8 7594658036 FALSE                    2748 NONE            &lt;named list [44]&gt;
- 9 7594658036 FALSE                    2748 NONE            &lt;named list [44]&gt;
-10 7594658036 FALSE                    2748 NONE            &lt;named list [44]&gt;
-# ℹ 4 more variables: firstBloodTime &lt;int&gt;, bottomLaneOutcome &lt;chr&gt;,
-#   midLaneOutcome &lt;chr&gt;, topLaneOutcome &lt;chr&gt;</code></pre>
-</div>
-</div>
-</section>
-<section id="and-players-contains-more-lists." class="level5">
-<h5 class="anchored" data-anchor-id="and-players-contains-more-lists.">And <code>players</code> contains more lists.</h5>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(players) <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(stats, playbackData, <span class="at">.after =</span> durationSeconds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 52
-           id didRadiantWin durationSeconds stats             playbackData    
-        &lt;dbl&gt; &lt;lgl&gt;                   &lt;int&gt; &lt;list&gt;            &lt;list&gt;          
- 1 7594658036 FALSE                    2748 &lt;named list [14]&gt; &lt;named list [3]&gt;
- 2 7594658036 FALSE                    2748 &lt;named list [14]&gt; &lt;named list [3]&gt;
- 3 7594658036 FALSE                    2748 &lt;named list [14]&gt; &lt;named list [3]&gt;
- 4 7594658036 FALSE                    2748 &lt;named list [14]&gt; &lt;named list [3]&gt;
- 5 7594658036 FALSE                    2748 &lt;named list [14]&gt; &lt;named list [3]&gt;
- 6 7594658036 FALSE                    2748 &lt;named list [14]&gt; &lt;named list [3]&gt;
- 7 7594658036 FALSE                    2748 &lt;named list [14]&gt; &lt;named list [3]&gt;
- 8 7594658036 FALSE                    2748 &lt;named list [14]&gt; &lt;named list [3]&gt;
- 9 7594658036 FALSE                    2748 &lt;named list [14]&gt; &lt;named list [3]&gt;
-10 7594658036 FALSE                    2748 &lt;named list [14]&gt; &lt;named list [3]&gt;
-# ℹ 47 more variables: analysisOutcome &lt;chr&gt;, firstBloodTime &lt;int&gt;,
-#   matchId &lt;dbl&gt;, kills &lt;int&gt;, playerSlot &lt;int&gt;, steamAccountId &lt;int&gt;,
-#   isRadiant &lt;lgl&gt;, isVictory &lt;lgl&gt;, heroId &lt;int&gt;, gameVersionId &lt;int&gt;,
-#   deaths &lt;int&gt;, assists &lt;int&gt;, leaverStatus &lt;chr&gt;, numLastHits &lt;int&gt;,
-#   numDenies &lt;int&gt;, goldPerMinute &lt;int&gt;, networth &lt;int&gt;,
-#   experiencePerMinute &lt;int&gt;, level &lt;int&gt;, gold &lt;int&gt;, goldSpent &lt;int&gt;,
-#   heroDamage &lt;int&gt;, towerDamage &lt;int&gt;, heroHealing &lt;int&gt;, partyId &lt;lgl&gt;, …</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="nicer-format" class="level2">
-<h2 class="anchored" data-anchor-id="nicer-format">Nicer format</h2>
-<section id="as-an-alternative-approach-i-manually-copied-and-pasted-the-output-of-the-query-from-the-website-and-saved-it-as-a-.json-file-in-notepad.-then-i-used-the-fromjson-function-to-get-the-following-output." class="level5">
-<h5 class="anchored" data-anchor-id="as-an-alternative-approach-i-manually-copied-and-pasted-the-output-of-the-query-from-the-website-and-saved-it-as-a-.json-file-in-notepad.-then-i-used-the-fromjson-function-to-get-the-following-output.">As an alternative approach, I manually copied and pasted the output of the query from the website, and saved it as a .json file in notepad++. Then I used the <code>fromJSON</code> function to get the following output.</h5>
-</section>
-<section id="this-is-nicer-to-work-with-because-the-players-element-is-in-the-form-of-a-data-frame." class="level5">
-<h5 class="anchored" data-anchor-id="this-is-nicer-to-work-with-because-the-players-element-is-in-the-form-of-a-data-frame.">This is nicer to work with because the <code>players</code> element is in the form of a data frame.</h5>
-</section>
-<section id="however-i-want-the-data-pulled-from-graphql-to-be-in-this-format." class="level5">
-<h5 class="anchored" data-anchor-id="however-i-want-the-data-pulled-from-graphql-to-be-in-this-format.">However, I want the data pulled from graphql to be in this format.</h5>
-</section>
-<section id="is-there-a-way-i-can-convert-the-lists-in-game1-to-data-frames-so-that-it-looks-like-this" class="level5">
-<h5 class="anchored" data-anchor-id="is-there-a-way-i-can-convert-the-lists-in-game1-to-data-frames-so-that-it-looks-like-this">Is there a way I can convert the lists in <code>game1</code> to data frames, so that it looks like this?</h5>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>alt_game1 <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"D:/RFiles/Mikesdota2directory/Single_match.json"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(alt_game1, <span class="at">max.level =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>game1 <span class="ot">&lt;-</span> <span class="fu">content</span>(result)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>game1_json <span class="ot">&lt;-</span><span class="fu">toJSON</span>(</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rapply</span>(game1, </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>         <span class="cf">function</span>(z) </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span> (<span class="fu">length</span>(z) <span class="sc">==</span> 1L) {</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">unbox</span>(z) }</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>          <span class="cf">else</span> z,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">how =</span> <span class="st">"replace"</span>),</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">null =</span> <span class="st">"null"</span>,</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">pretty =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(game1_json, <span class="st">"test3.json"</span>)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>new_game_1 <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"D:/RFiles/Mikesdota2directory/test3.json"</span>)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(new_game_1, <span class="at">max.level =</span> <span class="dv">3</span>, <span class="at">list.len =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 1
  $ data:List of 1
@@ -403,61 +319,199 @@ The following object is masked from 'package:purrr':
   .. ..$ topLaneOutcome   : chr "TIE"</code></pre>
 </div>
 </div>
-</section>
-<section id="notice-within-players-the-columns-stats-and-playbackdata-are-also-dataframes.-this-is-very-nice-to-work-with." class="level5">
-<h5 class="anchored" data-anchor-id="notice-within-players-the-columns-stats-and-playbackdata-are-also-dataframes.-this-is-very-nice-to-work-with.">Notice within <code>players</code>: the columns <code>stats</code> and <code>playbackData</code> are also dataframes. This is very nice to work with.</h5>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>alt_game1_players <span class="ot">&lt;-</span> alt_game1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(alt_game1_players, <span class="at">max.level =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>game_data_df <span class="ot">&lt;-</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(stats, <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>playbackData, <span class="sc">-</span>stats_itemPurchases, <span class="sc">-</span>stats_towerDamageReport, <span class="sc">-</span>stats_wards, <span class="sc">-</span>stats_runes)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>game_data_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   10 obs. of  44 variables:
- $ matchId            : num  7.59e+09 7.59e+09 7.59e+09 7.59e+09 7.59e+09 ...
- $ kills              : int  7 8 6 4 4 9 4 8 3 10
- $ playerSlot         : int  0 1 2 3 4 128 129 130 131 132
- $ steamAccountId     : int  1000828555 188399407 255699605 1621336279 287066138 912958915 148683397 92936679 418884878 53798610
- $ isRadiant          : logi  TRUE TRUE TRUE TRUE TRUE FALSE ...
- $ isVictory          : logi  FALSE FALSE FALSE FALSE FALSE TRUE ...
- $ heroId             : int  10 74 27 99 121 101 84 68 64 44
- $ gameVersionId      : int  170 170 170 170 170 170 170 170 170 170
- $ deaths             : int  7 6 9 10 5 5 6 3 9 6
- $ assists            : int  7 9 12 15 13 12 20 18 20 14
- $ leaverStatus       : chr  "NONE" "NONE" "NONE" "NONE" ...
- $ numLastHits        : int  245 208 238 175 119 181 235 56 78 410
- $ numDenies          : int  9 14 3 4 2 8 19 6 0 4
- $ goldPerMinute      : int  404 416 418 376 315 477 654 369 345 715
- $ networth           : int  16963 17959 17399 14805 14008 22016 28712 14989 15232 31217
- $ experiencePerMinute: int  533 551 674 571 468 622 938 529 509 1062
- $ level              : int  21 21 23 22 20 22 26 21 20 27
- $ gold               : int  563 479 2799 1340 783 2186 3712 589 3107 3017
- $ goldSpent          : int  17285 19030 15440 14550 13145 19525 25760 17105 12240 31245
- $ heroDamage         : int  17599 36182 21799 28689 16782 23649 25930 18280 14134 27016
- $ towerDamage        : int  481 863 296 800 88 1519 9374 2745 6652 16751
- $ heroHealing        : int  0 0 125 0 1397 0 0 0 721 0
- $ partyId            : logi  NA NA NA NA NA NA ...
- $ isRandom           : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
- $ lane               : chr  "SAFE_LANE" "MID_LANE" "OFF_LANE" "OFF_LANE" ...
- $ position           : chr  "POSITION_1" "POSITION_2" "POSITION_4" "POSITION_3" ...
- $ streakPrediction   : int  NA NA NA NA NA NA NA 0 NA 0
- $ intentionalFeeding : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
- $ role               : chr  "CORE" "CORE" "LIGHT_SUPPORT" "CORE" ...
- $ roleBasic          : chr  "CORE" "CORE" "LIGHT_SUPPORT" "CORE" ...
- $ imp                : int  -9 -15 5 -1 4 -5 -1 15 -9 -10
- $ award              : chr  "NONE" "NONE" "TOP_SUPPORT" "TOP_CORE" ...
- $ item0Id            : int  36 92 1 127 231 176 114 8 79 55
- $ item1Id            : int  116 102 180 119 206 108 119 102 NA 145
- $ item2Id            : int  63 116 100 50 218 4205 235 254 223 208
- $ item3Id            : int  135 1 232 125 NA 77 29 108 244 48
- $ item4Id            : int  147 48 108 22 254 235 232 25 180 168
- $ item5Id            : int  26 108 36 21 232 206 114 180 108 116
- $ backpack0Id        : int  NA 42 NA 13 NA 180 65 NA NA NA
- $ backpack1Id        : int  NA NA NA 11 NA 4204 NA NA NA NA
- $ backpack2Id        : int  NA NA NA 23 NA NA NA NA NA NA
- $ neutral0Id         : int  362 336 574 298 2190 2190 571 309 309 309
- $ stats              :'data.frame':    10 obs. of  14 variables:
- $ playbackData       :'data.frame':    10 obs. of  3 variables:</code></pre>
+<pre><code># A tibble: 10 × 52
+      matchId kills playerSlot steamAccountId isRadiant isVictory heroId
+        &lt;dbl&gt; &lt;int&gt;      &lt;int&gt;          &lt;int&gt; &lt;lgl&gt;     &lt;lgl&gt;      &lt;int&gt;
+ 1 7594658036     7          0     1000828555 TRUE      FALSE         10
+ 2 7594658036     8          1      188399407 TRUE      FALSE         74
+ 3 7594658036     6          2      255699605 TRUE      FALSE         27
+ 4 7594658036     4          3     1621336279 TRUE      FALSE         99
+ 5 7594658036     4          4      287066138 TRUE      FALSE        121
+ 6 7594658036     9        128      912958915 FALSE     TRUE         101
+ 7 7594658036     4        129      148683397 FALSE     TRUE          84
+ 8 7594658036     8        130       92936679 FALSE     TRUE          68
+ 9 7594658036     3        131      418884878 FALSE     TRUE          64
+10 7594658036    10        132       53798610 FALSE     TRUE          44
+# ℹ 45 more variables: gameVersionId &lt;int&gt;, deaths &lt;int&gt;, assists &lt;int&gt;,
+#   leaverStatus &lt;chr&gt;, numLastHits &lt;int&gt;, numDenies &lt;int&gt;,
+#   goldPerMinute &lt;int&gt;, networth &lt;int&gt;, experiencePerMinute &lt;int&gt;,
+#   level &lt;int&gt;, gold &lt;int&gt;, goldSpent &lt;int&gt;, heroDamage &lt;int&gt;,
+#   towerDamage &lt;int&gt;, heroHealing &lt;int&gt;, partyId &lt;lgl&gt;, isRandom &lt;lgl&gt;,
+#   lane &lt;chr&gt;, position &lt;chr&gt;, streakPrediction &lt;int&gt;,
+#   intentionalFeeding &lt;lgl&gt;, role &lt;chr&gt;, roleBasic &lt;chr&gt;, imp &lt;int&gt;, …</code></pre>
 </div>
 </div>
-</section>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>game1killEvents <span class="ot">&lt;-</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players<span class="sc">$</span>playbackData<span class="sc">$</span>killEvents</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>game1sdeathEvents <span class="ot">&lt;-</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players<span class="sc">$</span>playbackData<span class="sc">$</span>deathEvents</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>game1assistEvents <span class="ot">&lt;-</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players<span class="sc">$</span>playbackData<span class="sc">$</span>assistEvents</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>Bot_lane_Result <span class="ot">&lt;-</span> <span class="fu">rep</span>(new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>bottomLaneOutcome, <span class="at">length =</span> <span class="dv">10</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>Top_lane_Result <span class="ot">&lt;-</span> <span class="fu">rep</span>(new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>topLaneOutcome, <span class="at">length =</span> <span class="dv">10</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>Mid_lane_Result <span class="ot">&lt;-</span> <span class="fu">rep</span>(new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>midLaneOutcome, <span class="at">length =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>kills_10Minutes <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(game1killEvents))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game1killEvents)) {</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game1killEvents[[i]]<span class="sc">$</span>time)) { </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (game1killEvents[[i]]<span class="sc">$</span>time[j] <span class="sc">&lt;=</span> <span class="dv">600</span>) {</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      kills_10Minutes[i] <span class="ot">&lt;-</span> kills_10Minutes[i] <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  kills_10Minutes <span class="ot">&lt;-</span> kills_10Minutes</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>kills_10Minutes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 2 0 1 0 0 2 0 0 0 0</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>deaths_10Minutes <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(game1sdeathEvents))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game1sdeathEvents)) {</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game1sdeathEvents[[i]]<span class="sc">$</span>time)) { </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (game1sdeathEvents[[i]]<span class="sc">$</span>time[j] <span class="sc">&lt;=</span> <span class="dv">600</span>) {</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>      deaths_10Minutes[i] <span class="ot">&lt;-</span> deaths_10Minutes[i] <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  deaths_10Minutes <span class="ot">&lt;-</span> deaths_10Minutes</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>deaths_10Minutes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0 0 1 1 0 0 0 0 2 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>assists_10Minutes <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(game1assistEvents))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game1assistEvents)) {</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game1assistEvents[[i]]<span class="sc">$</span>time)) { </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (game1assistEvents[[i]]<span class="sc">$</span>time[j] <span class="sc">&lt;=</span> <span class="dv">600</span>) {</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>      assists_10Minutes[i] <span class="ot">&lt;-</span> assists_10Minutes[i] <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  assists_10Minutes <span class="ot">&lt;-</span> assists_10Minutes</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>assists_10Minutes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0 0 0 0 2 0 0 1 0 2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lvl6_Time <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game_data_df<span class="sc">$</span>stats_level)) {</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  lvl6_Time[i] <span class="ot">&lt;-</span> game_data_df<span class="sc">$</span>stats_level[[i]][[<span class="dv">1</span>]][<span class="dv">6</span>]</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>lvl6_Time</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 576 340 664 510 671 385 462 562 619 580</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>networth_10Min <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game_data_df<span class="sc">$</span>stats_networthPerMinute)) {</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  networth_10Min[i] <span class="ot">&lt;-</span> game_data_df<span class="sc">$</span>stats_networthPerMinute[[i]][[<span class="dv">1</span>]][<span class="dv">11</span>]</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>networth_10Min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 3030 3483 2224 3395 1865 3617 4190 1657 1685 3436</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>exp_10Min <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game_data_df<span class="sc">$</span>stats_experiencePerMinute)) {</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  exp_10Min[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(game_data_df<span class="sc">$</span>stats_experiencePerMinute[[i]][[<span class="dv">1</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>exp_10Min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 2619 4743 2085 2879 1883 4332 3251 2784 2332 2687</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>last_hits_10Min <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game_data_df<span class="sc">$</span>stats_lastHitsPerMinute)) {</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  last_hits_10Min[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(game_data_df<span class="sc">$</span>stats_lastHitsPerMinute[[i]][[<span class="dv">1</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>last_hits_10Min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 22 41 10 38  9 32 51  7 17 37</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>denies_10Min <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game_data_df<span class="sc">$</span>stats_deniesPerMinute)) {</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  denies_10Min[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(game_data_df<span class="sc">$</span>stats_deniesPerMinute[[i]][[<span class="dv">1</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>denies_10Min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  4 11  2  4  2  4 18  3  0  3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>game_data_df<span class="sc">$</span>kills_10_Minutes <span class="ot">&lt;-</span> kills_10Minutes</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>game_data_df<span class="sc">$</span>deaths_10_Minutes <span class="ot">&lt;-</span>deaths_10Minutes</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>game_data_df<span class="sc">$</span>assists_10_Minutes <span class="ot">&lt;-</span>assists_10Minutes</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>game_data_df_10Min <span class="ot">&lt;-</span> game_data_df <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">top_lane_outcome =</span> Top_lane_Result,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">mid_lane_outcome =</span> Mid_lane_Result,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">bot_lane_outcome =</span> Bot_lane_Result,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">networth_10min =</span> networth_10Min,</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">exp_10min =</span> exp_10Min,</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">netexp_10min =</span> networth_10Min <span class="sc">+</span> exp_10Min,</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">last_hits_10min =</span> last_hits_10Min,</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">denies_10min =</span> denies_10Min,</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">time_lvl_6 =</span> lvl6_Time,</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">.after =</span> matchId) <span class="sc">%&gt;%</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(heroId, </span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>           isRadiant,</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>           position,</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>           top_lane_outcome,</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>           mid_lane_outcome,</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>           bot_lane_outcome,</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>           netexp_10min,</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>           kills_10_Minutes,</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>           deaths_10_Minutes,</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>           assists_10_Minutes,</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>           </span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>           <span class="at">.after =</span> matchId)</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a><span class="co"># THIS IS MY LATEST RESULT DATAFRAME</span></span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>game_data_df_10Min <span class="sc">%&gt;%</span></span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>intentionalFeeding, <span class="sc">-</span>stats_matchId, <span class="sc">-</span>stats_gameVersionId, <span class="sc">-</span>stats_steamAccountId, <span class="sc">-</span>stats_level, <span class="sc">-</span>stats_networthPerMinute, <span class="sc">-</span>stats_experiencePerMinute, <span class="sc">-</span>stats_lastHitsPerMinute, <span class="sc">-</span>stats_deniesPerMinute, <span class="sc">-</span>stats_goldPerMinute, <span class="sc">-</span>stats_impPerMinute)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 53
+      matchId heroId isRadiant position   top_lane_outcome mid_lane_outcome
+        &lt;dbl&gt;  &lt;int&gt; &lt;lgl&gt;     &lt;chr&gt;      &lt;chr&gt;            &lt;chr&gt;           
+ 1 7594658036     10 TRUE      POSITION_1 TIE              TIE             
+ 2 7594658036     74 TRUE      POSITION_2 TIE              TIE             
+ 3 7594658036     27 TRUE      POSITION_4 TIE              TIE             
+ 4 7594658036     99 TRUE      POSITION_3 TIE              TIE             
+ 5 7594658036    121 TRUE      POSITION_5 TIE              TIE             
+ 6 7594658036    101 FALSE     POSITION_2 TIE              TIE             
+ 7 7594658036     84 FALSE     POSITION_3 TIE              TIE             
+ 8 7594658036     68 FALSE     POSITION_5 TIE              TIE             
+ 9 7594658036     64 FALSE     POSITION_4 TIE              TIE             
+10 7594658036     44 FALSE     POSITION_1 TIE              TIE             
+# ℹ 47 more variables: bot_lane_outcome &lt;chr&gt;, netexp_10min &lt;int&gt;,
+#   kills_10_Minutes &lt;dbl&gt;, deaths_10_Minutes &lt;dbl&gt;, assists_10_Minutes &lt;dbl&gt;,
+#   networth_10min &lt;int&gt;, exp_10min &lt;int&gt;, last_hits_10min &lt;int&gt;,
+#   denies_10min &lt;int&gt;, time_lvl_6 &lt;int&gt;, kills &lt;int&gt;, playerSlot &lt;int&gt;,
+#   steamAccountId &lt;int&gt;, isVictory &lt;lgl&gt;, gameVersionId &lt;int&gt;, deaths &lt;int&gt;,
+#   assists &lt;int&gt;, leaverStatus &lt;chr&gt;, numLastHits &lt;int&gt;, numDenies &lt;int&gt;,
+#   goldPerMinute &lt;int&gt;, networth &lt;int&gt;, experiencePerMinute &lt;int&gt;, …</code></pre>
+</div>
+</div>
 </section>
 
 </main>
