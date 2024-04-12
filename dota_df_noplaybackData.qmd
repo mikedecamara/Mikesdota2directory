@@ -1,0 +1,275 @@
+---
+title: "noplaybackData"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+
+
+
+## Packages Used
+
+```{r}
+library(tidyverse)
+library(httr)
+library(jsonlite)
+```
+
+## HEROES LIST (will use later)
+
+```{r}
+Hero_df <- fromJSON("D:/RFiles/dota2matches/heroesList.json")
+Hero_df
+```
+
+## My Query
+
+```{r}
+my_query <- 'query myMatchQuery {
+  match(id: 7678678912) {
+    id
+    didRadiantWin
+    durationSeconds
+    analysisOutcome
+    firstBloodTime
+    players {
+      matchId
+      kills
+      playerSlot
+      steamAccountId
+      isRadiant
+      isVictory
+      heroId
+      gameVersionId
+      kills
+      deaths
+      assists
+      leaverStatus
+      numLastHits
+      numDenies
+      goldPerMinute
+      networth
+      experiencePerMinute
+      level
+      gold
+      goldSpent
+      heroDamage
+      towerDamage
+      heroHealing
+      partyId
+      isRandom
+      lane
+      position
+      streakPrediction
+      intentionalFeeding
+      role
+      roleBasic
+      imp
+      award
+      item0Id
+      item1Id
+      item2Id
+      item3Id
+      item4Id
+      item5Id
+      backpack0Id
+      backpack1Id
+      backpack2Id
+      neutral0Id
+      stats {
+        matchId
+        steamAccountId
+        gameVersionId
+        level
+        networthPerMinute
+        experiencePerMinute
+        lastHitsPerMinute
+        deniesPerMinute
+        towerDamageReport {
+          npcId
+          damage
+          damageCreeps
+          damageFromAbility
+        }
+        goldPerMinute
+        impPerMinute
+        itemPurchases {
+          time
+          itemId
+        }
+        wards {
+          time
+          type
+          positionX
+          positionY
+        }
+        runes {
+          time
+          rune
+        }
+      }
+    } 
+    bottomLaneOutcome
+    midLaneOutcome
+    topLaneOutcome
+    }
+}'
+```
+
+## POST Call (fixed the empty "null" fields)
+```{r}
+stratz_url <- "https://api.stratz.com/graphql"
+
+token <- "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTdWJqZWN0IjoiMzBmYmIyNzMtNzQ0MC00ZGUyLTg3OGYtODJiNjY3NDkwYzlkIiwiU3RlYW1JZCI6IjkyOTM2Njc5IiwibmJmIjoxNzEwMjk4MTIyLCJleHAiOjE3NDE4MzQxMjIsImlhdCI6MTcxMDI5ODEyMiwiaXNzIjoiaHR0cHM6Ly9hcGkuc3RyYXR6LmNvbSJ9.MavtjFKjLm4T_KCicntXmxBhDdGUU_bc7zanFZG3xWU"
+
+header <- paste("Bearer", 
+                token, 
+                sep = " ")
+
+result <- POST(stratz_url, 
+               body = list(query = my_query), 
+               encode = "json", 
+               add_headers('Content-Type'='application/json', 
+                           Authorization = header))
+
+game1 <- content(result)
+
+game1_json <-toJSON(
+  rapply(game1, 
+         function(z) 
+          if (length(z) == 1L) {
+            unbox(z) }
+          else z,
+            how = "replace"),
+  null = "null",
+  pretty = TRUE) 
+
+write(game1_json, "g7678678912.json")
+new_game_test <- fromJSON(game1_json)
+new_game_1 <- fromJSON("D:/RFiles/Mikesdota2directory/g7678678912.json")
+str(new_game_1, max.level = 3, list.len = 10)
+```
+
+```{r}
+game_data_df <- new_game_1$data$match$players %>%
+  unnest_wider(stats, names_sep = "_") %>%
+  select(-stats_itemPurchases, -stats_towerDamageReport, -stats_wards, -stats_runes)
+game_data_df
+```
+
+```{r}
+Lane_Result <- rep("", length = 10)
+
+for (i in 1:length(new_game_1$data$match$players$position)) {
+  if (new_game_1$data$match$players$lane[i] == "SAFE_LANE" & new_game_1$data$match$players$isRadiant[i] == TRUE) {
+    Lane_Result[i] <- new_game_1$data$match$bottomLaneOutcome
+  }
+  if (new_game_1$data$match$players$lane[i] == "MID_LANE") {
+    Lane_Result[i] <- new_game_1$data$match$midLaneOutcome
+  }
+  if (new_game_1$data$match$players$lane[i] == "OFF_LANE" & new_game_1$data$match$players$isRadiant[i] == TRUE) {
+    Lane_Result[i] <- new_game_1$data$match$topLaneOutcome
+  }
+  if (new_game_1$data$match$players$lane[i] == "SAFE_LANE" & new_game_1$data$match$players$isRadiant[i] == FALSE) {
+    Lane_Result[i] <- new_game_1$data$match$topLaneOutcome
+  }
+  if (new_game_1$data$match$players$lane[i] == "OFF_LANE" & new_game_1$data$match$players$isRadiant[i] == FALSE) {
+    Lane_Result[i] <- new_game_1$data$match$bottomLaneOutcome
+  }
+}
+  
+Lane_Result
+```
+
+##### Time taken to reach lvl 6
+```{r}
+lvl6_Time <- c()
+for (i in 1:length(game_data_df$stats_level)) {
+  lvl6_Time[i] <- game_data_df$stats_level[[i]][[1]][6]
+}
+lvl6_Time
+```
+###### Networth 10 min
+```{r}
+networth_10Min <- c()
+for (i in 1:length(game_data_df$stats_networthPerMinute)) {
+  networth_10Min[i] <- game_data_df$stats_networthPerMinute[[i]][[1]][11]
+}
+networth_10Min
+```
+##### Exp 10 Min
+```{r}
+exp_10Min <- c()
+for (i in 1:length(game_data_df$stats_experiencePerMinute)) {
+  exp_10Min[i] <- sum(game_data_df$stats_experiencePerMinute[[i]][[1]][1:10])
+}
+exp_10Min
+```
+##### Last Hits 10 Min
+```{r}
+last_hits_10Min <- c()
+for (i in 1:length(game_data_df$stats_lastHitsPerMinute)) {
+  last_hits_10Min[i] <- sum(game_data_df$stats_lastHitsPerMinute[[i]][[1]][1:10])
+}
+last_hits_10Min
+```
+##### Denies 10 Min
+```{r}
+denies_10Min <- c()
+for (i in 1:length(game_data_df$stats_deniesPerMinute)) {
+  denies_10Min[i] <- sum(game_data_df$stats_deniesPerMinute[[i]][[1]][1:10])
+}
+denies_10Min
+```
+## Wrangled Df
+```{r}
+game_data_df_10Min <- game_data_df %>%
+  mutate(lane_outcome = Lane_Result,
+         networth_10min = networth_10Min,
+         exp_10min = exp_10Min,
+         netexp_10min = networth_10Min + exp_10Min,
+         last_hits_10min = last_hits_10Min,
+         denies_10min = denies_10Min,
+         time_lvl_6 = lvl6_Time,
+         .after = matchId) %>%
+  relocate(heroId, 
+           isRadiant,
+           position,
+           lane,
+           lane_outcome,
+           netexp_10min, 
+           .after = matchId)
+
+
+# THIS IS MY LATEST RESULT DATAFRAME
+game_data_df_10Min %>%
+  select(-intentionalFeeding, -stats_matchId, -stats_gameVersionId, -stats_steamAccountId, -stats_level, -stats_networthPerMinute, -stats_experiencePerMinute, -stats_lastHitsPerMinute, -stats_deniesPerMinute, -stats_goldPerMinute, -stats_impPerMinute)
+```
+## Attempting to replace heroId  with the hero names for my own sanity.
+```{r}
+game_data_df_10Min[["heroId"]] <- Hero_df[ match(game_data_df_10Min[['heroId']], Hero_df[['id']] ) , 'localized_name']
+df7678678912 <- game_data_df_10Min
+df7678678912
+```
+

@@ -1,0 +1,199 @@
+---
+title: "multiple_match_data"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+```{r}
+library(tidyverse)
+library(httr)
+library(jsonlite)
+Match_ID <- c(7520462907, 7520488996, 7522003567, 7522030423, 7522055031, 7523745337, 7523790773, 7523842305, 7523879924, 7523952083, 7524883502, 7524965364, 7525034182, 7525116921, 7525184949, 7528824929, 7528850710, 7528911024, 7530202683, 7530255597, 7530293064, 7530317966, 7531696715, 7531772220, 7531809136, 7533224731)
+```
+
+```{r}
+my_query_start <- 'query
+{
+  match(id: '
+  
+my_query_end <- ') {
+    id
+    didRadiantWin
+    durationSeconds
+    analysisOutcome
+    firstBloodTime
+    players {
+      matchId
+      kills
+      playerSlot
+      steamAccountId
+      isRadiant
+      isVictory
+      heroId
+      gameVersionId
+      kills
+      deaths
+      assists
+      leaverStatus
+      numLastHits
+      numDenies
+      goldPerMinute
+      networth
+      experiencePerMinute
+      level
+      gold
+      goldSpent
+      heroDamage
+      towerDamage
+      heroHealing
+      partyId
+      isRandom
+      lane
+      position
+      streakPrediction
+      intentionalFeeding
+      role
+      roleBasic
+      imp
+      award
+      item0Id
+      item1Id
+      item2Id
+      item3Id
+      item4Id
+      item5Id
+      backpack0Id
+      backpack1Id
+      backpack2Id
+      neutral0Id
+      stats {
+        matchId
+        steamAccountId
+        gameVersionId
+        level
+        networthPerMinute
+        experiencePerMinute
+        lastHitsPerMinute
+        deniesPerMinute
+        towerDamageReport {
+          npcId
+          damage
+          damageCreeps
+          damageFromAbility
+        }
+        goldPerMinute
+        impPerMinute
+        itemPurchases {
+          time
+          itemId
+        }
+        wards {
+          time
+          type
+          positionX
+          positionY
+        }
+        runes {
+          time
+          rune
+        }
+      }
+    } 
+    bottomLaneOutcome
+    midLaneOutcome
+    topLaneOutcome
+    }
+}'
+
+
+stratz_url <- "https://api.stratz.com/graphql"
+
+
+token <- "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTdWJqZWN0IjoiMzBmYmIyNzMtNzQ0MC00ZGUyLTg3OGYtODJiNjY3NDkwYzlkIiwiU3RlYW1JZCI6IjkyOTM2Njc5IiwibmJmIjoxNzEwMjk4MTIyLCJleHAiOjE3NDE4MzQxMjIsImlhdCI6MTcxMDI5ODEyMiwiaXNzIjoiaHR0cHM6Ly9hcGkuc3RyYXR6LmNvbSJ9.MavtjFKjLm4T_KCicntXmxBhDdGUU_bc7zanFZG3xWU"
+
+
+header <- paste("Bearer", token, sep = " ")
+
+
+my_game_data <- vector("list", length(Match_ID))
+
+
+for (id in 1:length(Match_ID)) {
+  id_query <- paste0(my_query_start, as.character(Match_ID[id]), my_query_end)
+  
+  
+  result <- POST(stratz_url, body = list(query = id_query), encode = "json", add_headers('Content-Type'='application/json', Authorization = header))
+my_game_data[id] <- content(result)
+}
+
+
+for (i in 1:length(my_game_data)) {
+  my_game_data[i] <- toJSON(
+    rapply(my_game_data[i],
+           function(z)
+             if (length(z) == 1L) {
+               unbox(z) }
+             else z,
+                how = "replace"),
+    null = "null",
+    pretty = TRUE
+  )
+}
+str(my_game_data, max.level = 3, list.len = 5)
+
+```
+
+##### Interesting idea for writing each game data to a separate json file.
+```{r}
+game_number <- seq(1:length(Match_ID))
+
+game_number_json <- paste(game_number, ".json", sep = "")
+
+game_names <- paste("game",game_number_json,sep = "_")
+
+for (i in 1:length(my_game_data)) { 
+     write(my_game_data[[i]], game_names[i])
+}
+
+game_names_fromJSON <- vector("list", length(Match_ID))
+
+for (i in 1:length(my_game_data)) {
+game_names_fromJSON[[i]] <- fromJSON(paste("D:/RFiles/Mikesdota2directory/game_", i, ".json", sep = ""))
+}
+
+players_dfs <- vector("list", length(Match_ID))
+
+for (i in 1:length(game_names_fromJSON)) {
+  players_dfs[[i]] <- game_names_fromJSON[[i]]$match$players[[1]] %>% 
+    unnest_wider(stats, names_sep = "_") %>%
+    select(-stats_itemPurchases, -stats_towerDamageReport, -stats_wards, -stats_runes)
+}
+players_dfs
+```
+
+```{r}
+combined_df <- do.call(rbind, players_dfs)
+combined_df
+```
+

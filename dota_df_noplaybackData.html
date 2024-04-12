@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>noplaybackData</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="dota_df_noplaybackData_files/libs/clipboard/clipboard.min.js"></script>
+<script src="dota_df_noplaybackData_files/libs/quarto-html/quarto.js"></script>
+<script src="dota_df_noplaybackData_files/libs/quarto-html/popper.min.js"></script>
+<script src="dota_df_noplaybackData_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="dota_df_noplaybackData_files/libs/quarto-html/anchor.min.js"></script>
+<link href="dota_df_noplaybackData_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="dota_df_noplaybackData_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="dota_df_noplaybackData_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="dota_df_noplaybackData_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="dota_df_noplaybackData_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">noplaybackData</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="quarto" class="level2">
+<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
+<p>Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
+</section>
+<section id="running-code" class="level2">
+<h2 class="anchored" data-anchor-id="running-code">Running Code</h2>
+<p>When you click the <strong>Render</strong> button a document will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>You can add options to executable code like this</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>The <code>echo: false</code> option disables the printing of code (only output is displayed).</p>
+</section>
+<section id="packages-used" class="level2">
+<h2 class="anchored" data-anchor-id="packages-used">Packages Used</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'jsonlite'
+
+The following object is masked from 'package:purrr':
+
+    flatten</code></pre>
+</div>
+</div>
+</section>
+<section id="heroes-list-will-use-later" class="level2">
+<h2 class="anchored" data-anchor-id="heroes-list-will-use-later">HEROES LIST (will use later)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Hero_df <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"D:/RFiles/dota2matches/heroesList.json"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Hero_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     id                              name      localized_name primary_attr
+1     1            npc_dota_hero_antimage           Anti-Mage          agi
+2     2                 npc_dota_hero_axe                 Axe          str
+3     3                npc_dota_hero_bane                Bane          all
+4     4         npc_dota_hero_bloodseeker         Bloodseeker          agi
+5     5      npc_dota_hero_crystal_maiden      Crystal Maiden          int
+6     6         npc_dota_hero_drow_ranger         Drow Ranger          agi
+7     7         npc_dota_hero_earthshaker         Earthshaker          str
+8     8          npc_dota_hero_juggernaut          Juggernaut          agi
+9     9              npc_dota_hero_mirana              Mirana          all
+10   10           npc_dota_hero_morphling           Morphling          agi
+11   11           npc_dota_hero_nevermore        Shadow Fiend          agi
+12   12      npc_dota_hero_phantom_lancer      Phantom Lancer          agi
+13   13                npc_dota_hero_puck                Puck          int
+14   14               npc_dota_hero_pudge               Pudge          str
+15   15               npc_dota_hero_razor               Razor          agi
+16   16           npc_dota_hero_sand_king           Sand King          all
+17   17        npc_dota_hero_storm_spirit        Storm Spirit          int
+18   18                npc_dota_hero_sven                Sven          str
+19   19                npc_dota_hero_tiny                Tiny          str
+20   20      npc_dota_hero_vengefulspirit     Vengeful Spirit          all
+21   21          npc_dota_hero_windrunner          Windranger          all
+22   22                npc_dota_hero_zuus                Zeus          int
+23   23              npc_dota_hero_kunkka              Kunkka          str
+24   25                npc_dota_hero_lina                Lina          int
+25   26                npc_dota_hero_lion                Lion          int
+26   27       npc_dota_hero_shadow_shaman       Shadow Shaman          int
+27   28             npc_dota_hero_slardar             Slardar          str
+28   29          npc_dota_hero_tidehunter          Tidehunter          str
+29   30        npc_dota_hero_witch_doctor        Witch Doctor          int
+30   31                npc_dota_hero_lich                Lich          int
+31   32                npc_dota_hero_riki                Riki          agi
+32   33              npc_dota_hero_enigma              Enigma          all
+33   34              npc_dota_hero_tinker              Tinker          int
+34   35              npc_dota_hero_sniper              Sniper          agi
+35   36           npc_dota_hero_necrolyte           Necrophos          int
+36   37             npc_dota_hero_warlock             Warlock          int
+37   38         npc_dota_hero_beastmaster         Beastmaster          all
+38   39         npc_dota_hero_queenofpain       Queen of Pain          int
+39   40          npc_dota_hero_venomancer          Venomancer          all
+40   41       npc_dota_hero_faceless_void       Faceless Void          agi
+41   42       npc_dota_hero_skeleton_king         Wraith King          str
+42   43       npc_dota_hero_death_prophet       Death Prophet          int
+43   44    npc_dota_hero_phantom_assassin    Phantom Assassin          agi
+44   45               npc_dota_hero_pugna               Pugna          int
+45   46    npc_dota_hero_templar_assassin    Templar Assassin          agi
+46   47               npc_dota_hero_viper               Viper          agi
+47   48                npc_dota_hero_luna                Luna          agi
+48   49       npc_dota_hero_dragon_knight       Dragon Knight          str
+49   50              npc_dota_hero_dazzle              Dazzle          all
+50   51          npc_dota_hero_rattletrap           Clockwerk          all
+51   52             npc_dota_hero_leshrac             Leshrac          int
+52   53              npc_dota_hero_furion    Nature's Prophet          int
+53   54        npc_dota_hero_life_stealer         Lifestealer          str
+54   55           npc_dota_hero_dark_seer           Dark Seer          all
+55   56              npc_dota_hero_clinkz              Clinkz          agi
+56   57          npc_dota_hero_omniknight          Omniknight          str
+57   58         npc_dota_hero_enchantress         Enchantress          int
+58   59              npc_dota_hero_huskar              Huskar          str
+59   60       npc_dota_hero_night_stalker       Night Stalker          str
+60   61         npc_dota_hero_broodmother         Broodmother          all
+61   62       npc_dota_hero_bounty_hunter       Bounty Hunter          agi
+62   63              npc_dota_hero_weaver              Weaver          agi
+63   64              npc_dota_hero_jakiro              Jakiro          int
+64   65            npc_dota_hero_batrider            Batrider          all
+65   66                npc_dota_hero_chen                Chen          all
+66   67             npc_dota_hero_spectre             Spectre          agi
+67   68  npc_dota_hero_ancient_apparition  Ancient Apparition          int
+68   69        npc_dota_hero_doom_bringer                Doom          str
+69   70                npc_dota_hero_ursa                Ursa          agi
+70   71      npc_dota_hero_spirit_breaker      Spirit Breaker          str
+71   72          npc_dota_hero_gyrocopter          Gyrocopter          agi
+72   73           npc_dota_hero_alchemist           Alchemist          str
+73   74             npc_dota_hero_invoker             Invoker          all
+74   75            npc_dota_hero_silencer            Silencer          int
+75   76  npc_dota_hero_obsidian_destroyer  Outworld Destroyer          int
+76   77               npc_dota_hero_lycan               Lycan          all
+77   78          npc_dota_hero_brewmaster          Brewmaster          all
+78   79        npc_dota_hero_shadow_demon        Shadow Demon          int
+79   80          npc_dota_hero_lone_druid          Lone Druid          all
+80   81        npc_dota_hero_chaos_knight        Chaos Knight          str
+81   82               npc_dota_hero_meepo               Meepo          agi
+82   83              npc_dota_hero_treant    Treant Protector          str
+83   84           npc_dota_hero_ogre_magi           Ogre Magi          str
+84   85             npc_dota_hero_undying             Undying          str
+85   86              npc_dota_hero_rubick              Rubick          int
+86   87           npc_dota_hero_disruptor           Disruptor          int
+87   88        npc_dota_hero_nyx_assassin        Nyx Assassin          all
+88   89          npc_dota_hero_naga_siren          Naga Siren          agi
+89   90 npc_dota_hero_keeper_of_the_light Keeper of the Light          int
+90   91                npc_dota_hero_wisp                  Io          all
+91   92              npc_dota_hero_visage              Visage          all
+92   93               npc_dota_hero_slark               Slark          agi
+93   94              npc_dota_hero_medusa              Medusa          agi
+94   95       npc_dota_hero_troll_warlord       Troll Warlord          agi
+95   96             npc_dota_hero_centaur   Centaur Warrunner          str
+96   97           npc_dota_hero_magnataur              Magnus          all
+97   98            npc_dota_hero_shredder           Timbersaw          all
+98   99         npc_dota_hero_bristleback         Bristleback          str
+99  100                npc_dota_hero_tusk                Tusk          str
+100 101       npc_dota_hero_skywrath_mage       Skywrath Mage          int
+101 102             npc_dota_hero_abaddon             Abaddon          all
+102 103         npc_dota_hero_elder_titan         Elder Titan          str
+103 104    npc_dota_hero_legion_commander    Legion Commander          str
+104 105             npc_dota_hero_techies             Techies          all
+105 106        npc_dota_hero_ember_spirit        Ember Spirit          agi
+106 107        npc_dota_hero_earth_spirit        Earth Spirit          str
+107 108   npc_dota_hero_abyssal_underlord           Underlord          str
+108 109         npc_dota_hero_terrorblade         Terrorblade          agi
+109 110             npc_dota_hero_phoenix             Phoenix          all
+110 111              npc_dota_hero_oracle              Oracle          int
+111 112       npc_dota_hero_winter_wyvern       Winter Wyvern          all
+112 113          npc_dota_hero_arc_warden          Arc Warden          agi
+113 114         npc_dota_hero_monkey_king         Monkey King          agi
+114 119         npc_dota_hero_dark_willow         Dark Willow          all
+115 120           npc_dota_hero_pangolier           Pangolier          all
+116 121          npc_dota_hero_grimstroke          Grimstroke          int
+117 123            npc_dota_hero_hoodwink            Hoodwink          agi
+118 126         npc_dota_hero_void_spirit         Void Spirit          all
+119 128            npc_dota_hero_snapfire            Snapfire          all
+120 129                npc_dota_hero_mars                Mars          str
+121 135         npc_dota_hero_dawnbreaker         Dawnbreaker          str
+122 136               npc_dota_hero_marci               Marci          all
+123 137        npc_dota_hero_primal_beast        Primal Beast          str
+124 138              npc_dota_hero_muerta              Muerta          int
+    attack_type                                               roles legs
+1         Melee                                Carry, Escape, Nuker    2
+2         Melee                 Initiator, Durable, Disabler, Carry    2
+3        Ranged                   Support, Disabler, Nuker, Durable    4
+4         Melee                   Carry, Disabler, Nuker, Initiator    2
+5        Ranged                            Support, Disabler, Nuker    2
+6        Ranged                             Carry, Disabler, Pusher    2
+7         Melee                 Support, Initiator, Disabler, Nuker    2
+8         Melee                               Carry, Pusher, Escape    2
+9        Ranged             Carry, Support, Escape, Nuker, Disabler    2
+10       Ranged             Carry, Escape, Durable, Nuker, Disabler    0
+11       Ranged                                        Carry, Nuker    0
+12        Melee                        Carry, Escape, Pusher, Nuker    2
+13       Ranged                  Initiator, Disabler, Escape, Nuker    2
+14        Melee                 Disabler, Initiator, Durable, Nuker    2
+15       Ranged                       Carry, Durable, Nuker, Pusher    0
+16        Melee         Initiator, Disabler, Support, Nuker, Escape    6
+17       Ranged           Carry, Escape, Nuker, Initiator, Disabler    2
+18        Melee          Carry, Disabler, Initiator, Durable, Nuker    2
+19        Melee  Carry, Nuker, Pusher, Initiator, Durable, Disabler    2
+20       Ranged         Support, Initiator, Disabler, Nuker, Escape    2
+21       Ranged             Carry, Support, Disabler, Escape, Nuker    2
+22       Ranged                                        Nuker, Carry    2
+23        Melee Carry, Support, Disabler, Initiator, Durable, Nuker    2
+24       Ranged                     Support, Carry, Nuker, Disabler    2
+25       Ranged                 Support, Disabler, Nuker, Initiator    2
+26       Ranged         Support, Pusher, Disabler, Nuker, Initiator    2
+27        Melee         Carry, Durable, Initiator, Disabler, Escape    0
+28        Melee          Initiator, Durable, Disabler, Nuker, Carry    2
+29       Ranged                            Support, Nuker, Disabler    2
+30       Ranged                                      Support, Nuker    2
+31        Melee                             Carry, Escape, Disabler    2
+32       Ranged                         Disabler, Initiator, Pusher    0
+33       Ranged                                Carry, Nuker, Pusher    2
+34       Ranged                                        Carry, Nuker    2
+35       Ranged                     Carry, Nuker, Durable, Disabler    2
+36       Ranged                        Support, Initiator, Disabler    2
+37        Melee                 Initiator, Disabler, Durable, Nuker    2
+38       Ranged                                Carry, Nuker, Escape    2
+39       Ranged         Support, Nuker, Initiator, Pusher, Disabler    0
+40        Melee         Carry, Initiator, Disabler, Escape, Durable    2
+41        Melee        Carry, Support, Durable, Disabler, Initiator    2
+42       Ranged                      Carry, Pusher, Nuker, Disabler    2
+43        Melee                                       Carry, Escape    2
+44       Ranged                                       Nuker, Pusher    2
+45       Ranged                                       Carry, Escape    2
+46       Ranged                 Carry, Durable, Initiator, Disabler    0
+47       Ranged                                Carry, Nuker, Pusher    2
+48        Melee  Carry, Pusher, Durable, Disabler, Initiator, Nuker    2
+49       Ranged                            Support, Nuker, Disabler    2
+50        Melee                 Initiator, Disabler, Durable, Nuker    2
+51       Ranged             Carry, Support, Nuker, Pusher, Disabler    4
+52       Ranged                        Carry, Pusher, Escape, Nuker    2
+53        Melee                    Carry, Durable, Escape, Disabler    2
+54        Melee                         Initiator, Escape, Disabler    2
+55       Ranged                               Carry, Escape, Pusher    2
+56        Melee                             Support, Durable, Nuker    2
+57       Ranged                  Support, Pusher, Durable, Disabler    4
+58       Ranged                           Carry, Durable, Initiator    2
+59        Melee          Carry, Initiator, Durable, Disabler, Nuker    2
+60        Melee                        Carry, Pusher, Escape, Nuker    8
+61        Melee                                       Escape, Nuker    2
+62       Ranged                                       Carry, Escape    4
+63       Ranged                    Support, Nuker, Pusher, Disabler    2
+64       Ranged                         Initiator, Disabler, Escape    2
+65       Ranged                                     Support, Pusher    2
+66        Melee                              Carry, Durable, Escape    0
+67       Ranged                            Support, Disabler, Nuker    0
+68        Melee          Carry, Disabler, Initiator, Durable, Nuker    2
+69        Melee                            Carry, Durable, Disabler    2
+70        Melee         Carry, Initiator, Disabler, Durable, Escape    2
+71       Ranged                              Carry, Nuker, Disabler    2
+72        Melee Carry, Support, Durable, Disabler, Initiator, Nuker    2
+73       Ranged              Carry, Nuker, Disabler, Escape, Pusher    2
+74       Ranged          Carry, Support, Disabler, Initiator, Nuker    2
+75       Ranged                              Carry, Nuker, Disabler    4
+76        Melee                      Carry, Pusher, Durable, Escape    2
+77        Melee          Carry, Initiator, Durable, Disabler, Nuker    2
+78       Ranged                 Support, Disabler, Initiator, Nuker    2
+79       Ranged                              Carry, Pusher, Durable    2
+80        Melee         Carry, Disabler, Durable, Pusher, Initiator    2
+81        Melee   Carry, Escape, Nuker, Disabler, Initiator, Pusher    2
+82        Melee       Support, Initiator, Durable, Disabler, Escape    2
+83        Melee        Support, Nuker, Disabler, Durable, Initiator    2
+84        Melee                   Support, Durable, Disabler, Nuker    2
+85       Ranged                            Support, Disabler, Nuker    2
+86       Ranged                 Support, Disabler, Nuker, Initiator    2
+87        Melee                  Disabler, Nuker, Initiator, Escape    6
+88        Melee Carry, Support, Pusher, Disabler, Initiator, Escape    0
+89       Ranged                            Support, Nuker, Disabler    2
+90       Ranged                              Support, Escape, Nuker    0
+91       Ranged           Support, Nuker, Durable, Disabler, Pusher    2
+92        Melee                      Carry, Escape, Disabler, Nuker    2
+93       Ranged                            Carry, Disabler, Durable    0
+94       Ranged                    Carry, Pusher, Disabler, Durable    2
+95        Melee         Durable, Initiator, Disabler, Nuker, Escape    4
+96        Melee                  Initiator, Disabler, Nuker, Escape    4
+97        Melee                              Nuker, Durable, Escape    2
+98        Melee                    Carry, Durable, Initiator, Nuker    2
+99        Melee                          Initiator, Disabler, Nuker    2
+100      Ranged                            Support, Nuker, Disabler    2
+101       Melee                             Support, Carry, Durable    2
+102       Melee                 Initiator, Disabler, Nuker, Durable    2
+103       Melee          Carry, Disabler, Initiator, Durable, Nuker    2
+104      Ranged                                     Nuker, Disabler    6
+105       Melee           Carry, Escape, Nuker, Disabler, Initiator    2
+106       Melee         Nuker, Escape, Disabler, Initiator, Durable    2
+107       Melee           Support, Nuker, Disabler, Durable, Escape    2
+108       Melee                                Carry, Pusher, Nuker    2
+109      Ranged         Support, Nuker, Initiator, Escape, Disabler    2
+110      Ranged                    Support, Nuker, Disabler, Escape    2
+111      Ranged                            Support, Disabler, Nuker    2
+112      Ranged                                Carry, Escape, Nuker    2
+113       Melee                  Carry, Escape, Disabler, Initiator    2
+114      Ranged                    Support, Nuker, Disabler, Escape    2
+115       Melee  Carry, Nuker, Disabler, Durable, Escape, Initiator    2
+116      Ranged                    Support, Nuker, Disabler, Escape    0
+117      Ranged                    Support, Nuker, Escape, Disabler    4
+118       Melee                      Carry, Escape, Nuker, Disabler    2
+119      Ranged                    Support, Nuker, Disabler, Escape    2
+120       Melee                 Carry, Initiator, Disabler, Durable    2
+121       Melee                                      Carry, Durable    2
+122       Melee         Support, Carry, Initiator, Disabler, Escape    2
+123       Melee                        Initiator, Durable, Disabler    2
+124      Ranged                              Carry, Nuker, Disabler    2</code></pre>
+</div>
+</div>
+</section>
+<section id="my-query" class="level2">
+<h2 class="anchored" data-anchor-id="my-query">My Query</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>my_query <span class="ot">&lt;-</span> <span class="st">'query myMatchQuery {</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">  match(id: 7678678912) {</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="st">    id</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="st">    didRadiantWin</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="st">    durationSeconds</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="st">    analysisOutcome</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="st">    firstBloodTime</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="st">    players {</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="st">      matchId</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="st">      kills</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="st">      playerSlot</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="st">      steamAccountId</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="st">      isRadiant</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="st">      isVictory</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="st">      heroId</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="st">      gameVersionId</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="st">      kills</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="st">      deaths</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="st">      assists</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="st">      leaverStatus</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="st">      numLastHits</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="st">      numDenies</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="st">      goldPerMinute</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="st">      networth</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="st">      experiencePerMinute</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="st">      level</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="st">      gold</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="st">      goldSpent</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="st">      heroDamage</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="st">      towerDamage</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="st">      heroHealing</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="st">      partyId</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="st">      isRandom</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="st">      lane</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="st">      position</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="st">      streakPrediction</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="st">      intentionalFeeding</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="st">      role</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="st">      roleBasic</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="st">      imp</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="st">      award</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="st">      item0Id</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="st">      item1Id</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="st">      item2Id</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="st">      item3Id</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="st">      item4Id</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="st">      item5Id</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="st">      backpack0Id</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a><span class="st">      backpack1Id</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="st">      backpack2Id</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="st">      neutral0Id</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a><span class="st">      stats {</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a><span class="st">        matchId</span></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a><span class="st">        steamAccountId</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="st">        gameVersionId</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="st">        level</span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a><span class="st">        networthPerMinute</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a><span class="st">        experiencePerMinute</span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a><span class="st">        lastHitsPerMinute</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a><span class="st">        deniesPerMinute</span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a><span class="st">        towerDamageReport {</span></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a><span class="st">          npcId</span></span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a><span class="st">          damage</span></span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a><span class="st">          damageCreeps</span></span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a><span class="st">          damageFromAbility</span></span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a><span class="st">        }</span></span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a><span class="st">        goldPerMinute</span></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="st">        impPerMinute</span></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a><span class="st">        itemPurchases {</span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a><span class="st">          time</span></span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a><span class="st">          itemId</span></span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a><span class="st">        }</span></span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a><span class="st">        wards {</span></span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a><span class="st">          time</span></span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a><span class="st">          type</span></span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a><span class="st">          positionX</span></span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a><span class="st">          positionY</span></span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a><span class="st">        }</span></span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a><span class="st">        runes {</span></span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a><span class="st">          time</span></span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a><span class="st">          rune</span></span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a><span class="st">        }</span></span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a><span class="st">      }</span></span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a><span class="st">    } </span></span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a><span class="st">    bottomLaneOutcome</span></span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a><span class="st">    midLaneOutcome</span></span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a><span class="st">    topLaneOutcome</span></span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="post-call-fixed-the-empty-null-fields" class="level2">
+<h2 class="anchored" data-anchor-id="post-call-fixed-the-empty-null-fields">POST Call (fixed the empty “null” fields)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>stratz_url <span class="ot">&lt;-</span> <span class="st">"https://api.stratz.com/graphql"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>token <span class="ot">&lt;-</span> <span class="st">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJTdWJqZWN0IjoiMzBmYmIyNzMtNzQ0MC00ZGUyLTg3OGYtODJiNjY3NDkwYzlkIiwiU3RlYW1JZCI6IjkyOTM2Njc5IiwibmJmIjoxNzEwMjk4MTIyLCJleHAiOjE3NDE4MzQxMjIsImlhdCI6MTcxMDI5ODEyMiwiaXNzIjoiaHR0cHM6Ly9hcGkuc3RyYXR6LmNvbSJ9.MavtjFKjLm4T_KCicntXmxBhDdGUU_bc7zanFZG3xWU"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>header <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Bearer"</span>, </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                token, </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">sep =</span> <span class="st">" "</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">POST</span>(stratz_url, </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">body =</span> <span class="fu">list</span>(<span class="at">query =</span> my_query), </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">encode =</span> <span class="st">"json"</span>, </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>               <span class="fu">add_headers</span>(<span class="st">'Content-Type'</span><span class="ot">=</span><span class="st">'application/json'</span>, </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                           <span class="at">Authorization =</span> header))</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>game1 <span class="ot">&lt;-</span> <span class="fu">content</span>(result)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>game1_json <span class="ot">&lt;-</span><span class="fu">toJSON</span>(</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rapply</span>(game1, </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>         <span class="cf">function</span>(z) </span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span> (<span class="fu">length</span>(z) <span class="sc">==</span> 1L) {</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">unbox</span>(z) }</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>          <span class="cf">else</span> z,</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">how =</span> <span class="st">"replace"</span>),</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">null =</span> <span class="st">"null"</span>,</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">pretty =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(game1_json, <span class="st">"g7678678912.json"</span>)</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>new_game_test <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(game1_json)</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>new_game_1 <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"D:/RFiles/Mikesdota2directory/g7678678912.json"</span>)</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(new_game_1, <span class="at">max.level =</span> <span class="dv">3</span>, <span class="at">list.len =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 1
+ $ data:List of 1
+  ..$ match:List of 9
+  .. ..$ id               : num 7.68e+09
+  .. ..$ didRadiantWin    : logi FALSE
+  .. ..$ durationSeconds  : int 2351
+  .. ..$ analysisOutcome  : chr "NONE"
+  .. ..$ firstBloodTime   : int 104
+  .. ..$ players          :'data.frame':    10 obs. of  43 variables:
+  .. ..$ bottomLaneOutcome: chr "DIRE_VICTORY"
+  .. ..$ midLaneOutcome   : chr "DIRE_STOMP"
+  .. ..$ topLaneOutcome   : chr "TIE"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>game_data_df <span class="ot">&lt;-</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(stats, <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>stats_itemPurchases, <span class="sc">-</span>stats_towerDamageReport, <span class="sc">-</span>stats_wards, <span class="sc">-</span>stats_runes)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>game_data_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 52
+      matchId kills playerSlot steamAccountId isRadiant isVictory heroId
+        &lt;dbl&gt; &lt;int&gt;      &lt;int&gt;          &lt;int&gt; &lt;lgl&gt;     &lt;lgl&gt;      &lt;int&gt;
+ 1 7678678912     6          0        9251473 TRUE      FALSE          6
+ 2 7678678912     0          1       92936679 TRUE      FALSE         68
+ 3 7678678912     2          2      326830996 TRUE      FALSE         46
+ 4 7678678912     4          3      992391327 TRUE      FALSE         30
+ 5 7678678912     7          4       29434697 TRUE      FALSE        104
+ 6 7678678912     9        128      103194533 FALSE     TRUE          47
+ 7 7678678912     3        129      107235192 FALSE     TRUE          26
+ 8 7678678912    25        130      144259764 FALSE     TRUE          44
+ 9 7678678912     4        131      365125875 FALSE     TRUE         101
+10 7678678912     2        132      124224971 FALSE     TRUE          99
+# ℹ 45 more variables: gameVersionId &lt;int&gt;, deaths &lt;int&gt;, assists &lt;int&gt;,
+#   leaverStatus &lt;chr&gt;, numLastHits &lt;int&gt;, numDenies &lt;int&gt;,
+#   goldPerMinute &lt;int&gt;, networth &lt;int&gt;, experiencePerMinute &lt;int&gt;,
+#   level &lt;int&gt;, gold &lt;int&gt;, goldSpent &lt;int&gt;, heroDamage &lt;int&gt;,
+#   towerDamage &lt;int&gt;, heroHealing &lt;int&gt;, partyId &lt;int&gt;, isRandom &lt;lgl&gt;,
+#   lane &lt;chr&gt;, position &lt;chr&gt;, streakPrediction &lt;int&gt;,
+#   intentionalFeeding &lt;lgl&gt;, role &lt;chr&gt;, roleBasic &lt;chr&gt;, imp &lt;int&gt;, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Lane_Result <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">""</span>, <span class="at">length =</span> <span class="dv">10</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players<span class="sc">$</span>position)) {</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players<span class="sc">$</span>lane[i] <span class="sc">==</span> <span class="st">"SAFE_LANE"</span> <span class="sc">&amp;</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players<span class="sc">$</span>isRadiant[i] <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    Lane_Result[i] <span class="ot">&lt;-</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>bottomLaneOutcome</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players<span class="sc">$</span>lane[i] <span class="sc">==</span> <span class="st">"MID_LANE"</span>) {</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    Lane_Result[i] <span class="ot">&lt;-</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>midLaneOutcome</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players<span class="sc">$</span>lane[i] <span class="sc">==</span> <span class="st">"OFF_LANE"</span> <span class="sc">&amp;</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players<span class="sc">$</span>isRadiant[i] <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    Lane_Result[i] <span class="ot">&lt;-</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>topLaneOutcome</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players<span class="sc">$</span>lane[i] <span class="sc">==</span> <span class="st">"SAFE_LANE"</span> <span class="sc">&amp;</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players<span class="sc">$</span>isRadiant[i] <span class="sc">==</span> <span class="cn">FALSE</span>) {</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    Lane_Result[i] <span class="ot">&lt;-</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>topLaneOutcome</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players<span class="sc">$</span>lane[i] <span class="sc">==</span> <span class="st">"OFF_LANE"</span> <span class="sc">&amp;</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>players<span class="sc">$</span>isRadiant[i] <span class="sc">==</span> <span class="cn">FALSE</span>) {</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    Lane_Result[i] <span class="ot">&lt;-</span> new_game_1<span class="sc">$</span>data<span class="sc">$</span>match<span class="sc">$</span>bottomLaneOutcome</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>Lane_Result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "DIRE_VICTORY" "DIRE_VICTORY" "DIRE_STOMP"   "TIE"          "TIE"         
+ [6] "DIRE_STOMP"   "TIE"          "TIE"          "DIRE_VICTORY" "DIRE_VICTORY"</code></pre>
+</div>
+</div>
+<section id="time-taken-to-reach-lvl-6" class="level5">
+<h5 class="anchored" data-anchor-id="time-taken-to-reach-lvl-6">Time taken to reach lvl 6</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lvl6_Time <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game_data_df<span class="sc">$</span>stats_level)) {</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  lvl6_Time[i] <span class="ot">&lt;-</span> game_data_df<span class="sc">$</span>stats_level[[i]][[<span class="dv">1</span>]][<span class="dv">6</span>]</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>lvl6_Time</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 667 775 429 605 481 364 617 547 862 471</code></pre>
+</div>
+</div>
+<section id="networth-10-min" class="level6">
+<h6 class="anchored" data-anchor-id="networth-10-min">Networth 10 min</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>networth_10Min <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game_data_df<span class="sc">$</span>stats_networthPerMinute)) {</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  networth_10Min[i] <span class="ot">&lt;-</span> game_data_df<span class="sc">$</span>stats_networthPerMinute[[i]][[<span class="dv">1</span>]][<span class="dv">11</span>]</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>networth_10Min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 2959 1762 2262 2257 4023 3890 2208 4060 1854 3809</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exp-10-min" class="level5">
+<h5 class="anchored" data-anchor-id="exp-10-min">Exp 10 Min</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>exp_10Min <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game_data_df<span class="sc">$</span>stats_experiencePerMinute)) {</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  exp_10Min[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(game_data_df<span class="sc">$</span>stats_experiencePerMinute[[i]][[<span class="dv">1</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>exp_10Min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 2186 1911 3146 2399 3337 4721 2403 2752 1738 3363</code></pre>
+</div>
+</div>
+</section>
+<section id="last-hits-10-min" class="level5">
+<h5 class="anchored" data-anchor-id="last-hits-10-min">Last Hits 10 Min</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>last_hits_10Min <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game_data_df<span class="sc">$</span>stats_lastHitsPerMinute)) {</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  last_hits_10Min[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(game_data_df<span class="sc">$</span>stats_lastHitsPerMinute[[i]][[<span class="dv">1</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>last_hits_10Min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 29  3 18 11 47 35  2 35  1 47</code></pre>
+</div>
+</div>
+</section>
+<section id="denies-10-min" class="level5">
+<h5 class="anchored" data-anchor-id="denies-10-min">Denies 10 Min</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>denies_10Min <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(game_data_df<span class="sc">$</span>stats_deniesPerMinute)) {</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  denies_10Min[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(game_data_df<span class="sc">$</span>stats_deniesPerMinute[[i]][[<span class="dv">1</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>denies_10Min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  4  5 11  0  4 13  3  4  4  8</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="wrangled-df" class="level2">
+<h2 class="anchored" data-anchor-id="wrangled-df">Wrangled Df</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>game_data_df_10Min <span class="ot">&lt;-</span> game_data_df <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lane_outcome =</span> Lane_Result,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">networth_10min =</span> networth_10Min,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">exp_10min =</span> exp_10Min,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">netexp_10min =</span> networth_10Min <span class="sc">+</span> exp_10Min,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">last_hits_10min =</span> last_hits_10Min,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">denies_10min =</span> denies_10Min,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">time_lvl_6 =</span> lvl6_Time,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">.after =</span> matchId) <span class="sc">%&gt;%</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(heroId, </span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>           isRadiant,</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>           position,</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>           lane,</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>           lane_outcome,</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>           netexp_10min, </span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>           <span class="at">.after =</span> matchId)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="co"># THIS IS MY LATEST RESULT DATAFRAME</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>game_data_df_10Min <span class="sc">%&gt;%</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>intentionalFeeding, <span class="sc">-</span>stats_matchId, <span class="sc">-</span>stats_gameVersionId, <span class="sc">-</span>stats_steamAccountId, <span class="sc">-</span>stats_level, <span class="sc">-</span>stats_networthPerMinute, <span class="sc">-</span>stats_experiencePerMinute, <span class="sc">-</span>stats_lastHitsPerMinute, <span class="sc">-</span>stats_deniesPerMinute, <span class="sc">-</span>stats_goldPerMinute, <span class="sc">-</span>stats_impPerMinute)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 48
+      matchId heroId isRadiant position   lane      lane_outcome netexp_10min
+        &lt;dbl&gt;  &lt;int&gt; &lt;lgl&gt;     &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;               &lt;int&gt;
+ 1 7678678912      6 TRUE      POSITION_1 SAFE_LANE DIRE_VICTORY         5145
+ 2 7678678912     68 TRUE      POSITION_5 SAFE_LANE DIRE_VICTORY         3673
+ 3 7678678912     46 TRUE      POSITION_2 MID_LANE  DIRE_STOMP           5408
+ 4 7678678912     30 TRUE      POSITION_4 OFF_LANE  TIE                  4656
+ 5 7678678912    104 TRUE      POSITION_3 OFF_LANE  TIE                  7360
+ 6 7678678912     47 FALSE     POSITION_2 MID_LANE  DIRE_STOMP           8611
+ 7 7678678912     26 FALSE     POSITION_5 SAFE_LANE TIE                  4611
+ 8 7678678912     44 FALSE     POSITION_1 SAFE_LANE TIE                  6812
+ 9 7678678912    101 FALSE     POSITION_4 OFF_LANE  DIRE_VICTORY         3592
+10 7678678912     99 FALSE     POSITION_3 OFF_LANE  DIRE_VICTORY         7172
+# ℹ 41 more variables: networth_10min &lt;int&gt;, exp_10min &lt;int&gt;,
+#   last_hits_10min &lt;int&gt;, denies_10min &lt;int&gt;, time_lvl_6 &lt;int&gt;, kills &lt;int&gt;,
+#   playerSlot &lt;int&gt;, steamAccountId &lt;int&gt;, isVictory &lt;lgl&gt;,
+#   gameVersionId &lt;int&gt;, deaths &lt;int&gt;, assists &lt;int&gt;, leaverStatus &lt;chr&gt;,
+#   numLastHits &lt;int&gt;, numDenies &lt;int&gt;, goldPerMinute &lt;int&gt;, networth &lt;int&gt;,
+#   experiencePerMinute &lt;int&gt;, level &lt;int&gt;, gold &lt;int&gt;, goldSpent &lt;int&gt;,
+#   heroDamage &lt;int&gt;, towerDamage &lt;int&gt;, heroHealing &lt;int&gt;, partyId &lt;int&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="attempting-to-replace-heroid-with-the-hero-names-for-my-own-sanity." class="level2">
+<h2 class="anchored" data-anchor-id="attempting-to-replace-heroid-with-the-hero-names-for-my-own-sanity.">Attempting to replace heroId with the hero names for my own sanity.</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>game_data_df_10Min[[<span class="st">"heroId"</span>]] <span class="ot">&lt;-</span> Hero_df[ <span class="fu">match</span>(game_data_df_10Min[[<span class="st">'heroId'</span>]], Hero_df[[<span class="st">'id'</span>]] ) , <span class="st">'localized_name'</span>]</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>df7678678912 <span class="ot">&lt;-</span> game_data_df_10Min</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>df7678678912</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 59
+      matchId heroId          isRadiant position lane  lane_outcome netexp_10min
+        &lt;dbl&gt; &lt;chr&gt;           &lt;lgl&gt;     &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;               &lt;int&gt;
+ 1 7678678912 Drow Ranger     TRUE      POSITIO… SAFE… DIRE_VICTORY         5145
+ 2 7678678912 Ancient Appari… TRUE      POSITIO… SAFE… DIRE_VICTORY         3673
+ 3 7678678912 Templar Assass… TRUE      POSITIO… MID_… DIRE_STOMP           5408
+ 4 7678678912 Witch Doctor    TRUE      POSITIO… OFF_… TIE                  4656
+ 5 7678678912 Legion Command… TRUE      POSITIO… OFF_… TIE                  7360
+ 6 7678678912 Viper           FALSE     POSITIO… MID_… DIRE_STOMP           8611
+ 7 7678678912 Lion            FALSE     POSITIO… SAFE… TIE                  4611
+ 8 7678678912 Phantom Assass… FALSE     POSITIO… SAFE… TIE                  6812
+ 9 7678678912 Skywrath Mage   FALSE     POSITIO… OFF_… DIRE_VICTORY         3592
+10 7678678912 Bristleback     FALSE     POSITIO… OFF_… DIRE_VICTORY         7172
+# ℹ 52 more variables: networth_10min &lt;int&gt;, exp_10min &lt;int&gt;,
+#   last_hits_10min &lt;int&gt;, denies_10min &lt;int&gt;, time_lvl_6 &lt;int&gt;, kills &lt;int&gt;,
+#   playerSlot &lt;int&gt;, steamAccountId &lt;int&gt;, isVictory &lt;lgl&gt;,
+#   gameVersionId &lt;int&gt;, deaths &lt;int&gt;, assists &lt;int&gt;, leaverStatus &lt;chr&gt;,
+#   numLastHits &lt;int&gt;, numDenies &lt;int&gt;, goldPerMinute &lt;int&gt;, networth &lt;int&gt;,
+#   experiencePerMinute &lt;int&gt;, level &lt;int&gt;, gold &lt;int&gt;, goldSpent &lt;int&gt;,
+#   heroDamage &lt;int&gt;, towerDamage &lt;int&gt;, heroHealing &lt;int&gt;, partyId &lt;int&gt;, …</code></pre>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
